@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # IELTS PrepLab
 
 IELTS PrepLab is a frontend practice platform designed to help students improve their IELTS Speaking, Reading, Listening, and Writing skills through interactive exercises and focused practice sessions.
@@ -22,3 +23,7 @@ IELTS PrepLab is a frontend practice platform designed to help students improve 
 ## Status
 
 🚧 Currently in development.
+=======
+# IELTS-PrepLab
+A frontend IELTS practice platform designed to help students improve their Speaking, Reading, Listening, and Writing skills through interactive exercises, progress tracking, and focused practice sessions.
+>>>>>>> f7e40128ebb9ec3e0ff3e4456f9faec030945fbe
