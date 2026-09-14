@@ -1,0 +1,148 @@
+.speaking-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 97px 0 89px;
+    background:
+        linear-gradient(rgba(35, 66, 56, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(35, 66, 56, 0.018) 1px, transparent 1px),
+        var(--background);
+    background-size: 38px 38px;
+    border-bottom: 1px solid var(--border);
+}
+
+.speaking-hero .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    text-align: center;
+}
+
+.speaking-eyebrow {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+}
+
+.speaking-hero h1 {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    font-family: "Cormorant Garamond", serif;
+    color: var(--heading);
+    font-size: clamp(3.1rem, 5vw, 4.7rem);
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -1.1px;
+}
+
+.speaking-hero p {
+    max-width: 610px;
+    margin: 0 auto;
+    color: var(--text);
+    font-size: 0.97rem;
+    line-height: 1.8;
+}
+
+.speaking-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 650px;
+    margin: 50px auto 0;
+    border-top: 1px solid var(--border);
+}
+
+.speaking-meta-item {
+    position: relative;
+    padding-top: 18px;
+}
+
+.speaking-meta-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 18px;
+    right: 0;
+    width: 1px;
+    height: 38px;
+    background: var(--border);
+}
+
+.speaking-meta-item strong {
+    display: block;
+    margin-bottom: 4px;
+    font-family: "Cormorant Garamond", serif;
+    color: var(--heading);
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.speaking-meta-item span {
+    display: block;
+    color: var(--text-light);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+    .speaking-hero {
+        padding: 120px 0 130px;
+    }
+
+    .speaking-hero h1 {
+        font-size: clamp(2.8rem, 9vw, 4rem);
+    }
+
+    .speaking-meta {
+        max-width: 560px;
+        margin-top: 42px;
+    }
+}
+
+@media (max-width: 420px) {
+    .speaking-hero {
+        padding: 52px 0 58px;
+    }
+
+    .speaking-eyebrow {
+        margin-bottom: 14px;
+        font-size: 0.63rem;
+    }
+
+    .speaking-hero h1 {
+        margin-bottom: 17px;
+        font-size: 2.65rem;
+        line-height: 1;
+        letter-spacing: -0.8px;
+    }
+
+    .speaking-hero p {
+        font-size: 0.88rem;
+        line-height: 1.7;
+    }
+
+    .speaking-meta {
+        grid-template-columns: 1fr;
+        margin-top: 34px;
+    }
+
+    .speaking-meta-item {
+        padding: 14px 0;
+    }
+
+    .speaking-meta-item:not(:last-child) {
+        border-bottom: 1px solid var(--border);
+    }
+
+    .speaking-meta-item:not(:last-child)::after {
+        display: none;
+    }
+
+    .speaking-meta-item strong {
+        font-size: 1.4rem;
+    }
+}
