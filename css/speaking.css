@@ -146,3 +146,481 @@
         font-size: 1.4rem;
     }
 }
+.part-selector {
+    padding: 95px 0 105px;
+    background: var(--background-secondary);
+    border-bottom: 1px solid var(--border);
+}
+
+.part-selector-header {
+    max-width: 700px;
+    margin: 0 auto 52px;
+    text-align: center;
+}
+
+.part-selector-eyebrow {
+    display: inline-block;
+    margin-bottom: 11px;
+    color: var(--accent);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+}
+
+.part-selector-header h2 {
+    margin-bottom: 13px;
+    font-size: clamp(2.8rem, 4.4vw, 4.15rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.95px;
+}
+
+.part-selector-header p {
+    max-width: 540px;
+    margin: 0 auto;
+    color: var(--text);
+    font-size: 0.93rem;
+    line-height: 1.72;
+}
+
+.part-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.part-card {
+    position: relative;
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 25px 26px 23px;
+    background: rgba(255, 252, 245, 0.75);
+    border: 1px solid var(--border);
+    color: var(--heading);
+    text-align: left;
+    cursor: pointer;
+    transition:
+        background var(--transition),
+        border-color var(--transition),
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+.part-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--border);
+}
+
+.part-card.active {
+    background: var(--surface);
+    border-color: var(--accent);
+}
+
+.part-card.active::before {
+    background: var(--accent);
+}
+
+.part-number {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.part-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: auto;
+}
+
+.part-card-content strong {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--heading);
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.part-card-content small {
+    color: var(--text-light);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+}
+
+.part-card > i {
+    position: absolute;
+    right: 22px;
+    bottom: 23px;
+    color: var(--text-light);
+    font-size: 0.68rem;
+    transition: var(--transition);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .part-card:hover {
+        background: var(--surface);
+        border-color: #CFC4B3;
+        transform: translateY(-4px);
+        box-shadow: 0 15px 30px rgba(33, 31, 27, 0.07);
+    }
+
+    .part-card:hover > i {
+        color: var(--accent);
+        transform: translateX(4px);
+    }
+}
+
+@media (max-width: 1024px) {
+    .part-selector {
+        padding: 82px 0 92px;
+    }
+
+    .part-grid {
+        gap: 16px;
+        max-width: 880px;
+    }
+
+    .part-card {
+        min-height: 180px;
+        padding: 23px 24px 21px;
+    }
+}
+
+@media (max-width: 768px) {
+    .part-selector {
+        padding: 74px 0 84px;
+    }
+
+    .part-selector-header {
+        margin-bottom: 44px;
+    }
+
+    .part-grid {
+        grid-template-columns: 1fr;
+        max-width: 580px;
+    }
+
+    .part-card {
+        min-height: 150px;
+    }
+}
+
+@media (max-width: 420px) {
+    .part-selector {
+        padding: 62px 0 70px;
+    }
+
+    .part-selector-header h2 {
+        font-size: 2.8rem;
+        letter-spacing: -0.7px;
+    }
+
+    .part-selector-header p {
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+
+    .part-grid {
+        gap: 14px;
+    }
+
+    .part-card {
+        min-height: 140px;
+        padding: 20px 19px 19px;
+    }
+
+    .part-card-content strong {
+        font-size: 1.85rem;
+    }
+
+    .part-card > i {
+        right: 18px;
+        bottom: 19px;
+    }
+}
+.speaking-practice {
+    padding: 100px 0 110px;
+    background: var(--background);
+    border-bottom: 1px solid var(--border);
+}
+
+.practice-header {
+    max-width: 700px;
+    margin: 0 auto 52px;
+    text-align: center;
+}
+
+.practice-eyebrow {
+    display: inline-block;
+    margin-bottom: 11px;
+    color: var(--accent);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+}
+
+.practice-header h2 {
+    margin-bottom: 13px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.8rem, 4.4vw, 4.15rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.95px;
+}
+
+.practice-header p {
+    max-width: 540px;
+    margin: 0 auto;
+    color: var(--text);
+    font-size: 0.93rem;
+    line-height: 1.72;
+}
+
+.practice-card {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 27px 30px 30px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: 0 17px 40px rgba(33, 31, 27, 0.07);
+}
+
+.practice-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.practice-label,
+.practice-status {
+    font-size: 0.61rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.practice-label {
+    color: var(--accent);
+}
+
+.practice-status {
+    color: var(--text-light);
+}
+
+.practice-card-main {
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 30px;
+    padding-top: 30px;
+}
+
+.practice-number {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--accent);
+    font-size: 3.2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.practice-info {
+    min-width: 0;
+}
+
+.practice-info h3 {
+    margin-bottom: 9px;
+    font-family: "Cormorant Garamond", serif;
+    color: var(--heading);
+    font-size: clamp(1.9rem, 3vw, 2.7rem);
+    font-weight: 600;
+    line-height: 1;
+}
+
+.practice-info p {
+    max-width: 520px;
+    margin: 0 0 20px;
+    color: var(--text);
+    font-size: 0.86rem;
+    line-height: 1.7;
+}
+
+.practice-details {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+}
+
+.practice-details span {
+    color: var(--text-light);
+    font-size: 0.61rem;
+    font-weight: 700;
+    letter-spacing: 0.95px;
+    text-transform: uppercase;
+}
+
+.practice-details span:not(:last-child)::after {
+    content: "/";
+    margin-left: 17px;
+    color: var(--border);
+}
+
+.practice-start {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 45px;
+    padding: 0 18px;
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 7px;
+    color: var(--surface);
+    font-size: 0.82rem;
+    font-weight: 650;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.practice-start i {
+    font-size: 0.7rem;
+    transition: var(--transition);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .practice-start:hover {
+        background: var(--primary-dark);
+        border-color: var(--primary-dark);
+    }
+
+    .practice-start:hover i {
+        transform: translateX(3px);
+    }
+}
+
+@media (max-width: 1024px) {
+    .speaking-practice {
+        padding: 84px 0 92px;
+    }
+
+    .practice-card {
+        max-width: 880px;
+        padding: 25px 27px 28px;
+    }
+
+    .practice-card-main {
+        grid-template-columns: 65px minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .practice-start {
+        grid-column: 2;
+        justify-self: start;
+    }
+}
+
+@media (max-width: 768px) {
+    .speaking-practice {
+        padding: 74px 0 84px;
+    }
+
+    .practice-header {
+        margin-bottom: 44px;
+    }
+
+    .practice-card {
+        max-width: 580px;
+        padding: 24px 23px 25px;
+    }
+
+    .practice-card-main {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding-top: 27px;
+    }
+
+    .practice-number {
+        font-size: 2.8rem;
+    }
+
+    .practice-start {
+        grid-column: auto;
+        width: fit-content;
+    }
+}
+
+@media (max-width: 420px) {
+    .speaking-practice {
+        padding: 62px 0 70px;
+    }
+
+    .practice-header h2 {
+        font-size: 2.8rem;
+        letter-spacing: -0.7px;
+    }
+
+    .practice-header p {
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+
+    .practice-card {
+        padding: 22px 19px 21px;
+    }
+
+    .practice-card-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .practice-card-main {
+        gap: 17px;
+        padding-top: 24px;
+    }
+
+    .practice-number {
+        font-size: 2.6rem;
+    }
+
+    .practice-info h3 {
+        font-size: 2rem;
+        line-height: 1.05;
+    }
+
+    .practice-info p {
+        font-size: 0.83rem;
+    }
+
+    .practice-details {
+        flex-wrap: wrap;
+        gap: 10px 15px;
+    }
+
+    .practice-details span:not(:last-child)::after {
+        margin-left: 15px;
+    }
+
+    .practice-start {
+        width: 100%;
+    }
+}
