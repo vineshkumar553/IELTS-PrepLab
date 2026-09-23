@@ -170,3 +170,226 @@ const part1questions = {
         "What would your ideal weekend look like?"
     ]
 };
+
+
+const part2questions = [
+    {
+        intro: "Describe a place",
+        title: "Describe a place you would like to visit.",
+        prompts: [
+            "where the place is",
+            "what you would do there",
+            "who you would go with",
+            "and explain why you would like to visit it"
+        ]
+    },
+
+    {
+        intro: "Describe a person",
+        title: "Describe a person who has influenced you.",
+        prompts: [
+            "who the person is",
+            "how you know them",
+            "what they have taught you",
+            "and explain how they influenced you"
+        ]
+    },
+
+    {
+        intro: "Describe an experience",
+        title: "Describe an experience that made you feel proud.",
+        prompts: [
+            "what the experience was",
+            "when it happened",
+            "who was involved",
+            "and explain why you felt proud"
+        ]
+    },
+
+    {
+        intro: "Describe an object",
+        title: "Describe something you use every day.",
+        prompts: [
+            "what it is",
+            "how long you have used it",
+            "how you use it",
+            "and explain why it is useful to you"
+        ]
+    },
+
+    {
+        intro: "Describe an activity",
+        title: "Describe an activity you enjoy doing in your free time.",
+        prompts: [
+            "what the activity is",
+            "when you usually do it",
+            "who you do it with",
+            "and explain why you enjoy it"
+        ]
+    },
+
+    {
+        intro: "Describe a journey",
+        title: "Describe a memorable journey you have taken.",
+        prompts: [
+            "where you went",
+            "how you travelled",
+            "who you travelled with",
+            "and explain why you remember the journey"
+        ]
+    },
+
+    {
+        intro: "Describe a skill",
+        title: "Describe a skill you would like to learn.",
+        prompts: [
+            "what the skill is",
+            "why you want to learn it",
+            "how you would learn it",
+            "and explain how it could help you"
+        ]
+    },
+
+    {
+        intro: "Describe an event",
+        title: "Describe an event that you enjoyed attending.",
+        prompts: [
+            "what the event was",
+            "where and when it happened",
+            "who you went with",
+            "and explain why you enjoyed it"
+        ]
+    },
+
+    {
+        intro: "Describe a book",
+        title: "Describe a book that you found interesting.",
+        prompts: [
+            "what the book is",
+            "when you read it",
+            "what it was about",
+            "and explain why you found it interesting"
+        ]
+    },
+
+    {
+        intro: "Describe a piece of advice",
+        title: "Describe a piece of advice that was useful to you.",
+        prompts: [
+            "what the advice was",
+            "who gave it to you",
+            "when you received it",
+            "and explain why it was useful"
+        ]
+    },
+
+    {
+        intro: "Describe a change",
+        title: "Describe a change that improved your daily life.",
+        prompts: [
+            "what the change was",
+            "when you made it",
+            "why you decided to make it",
+            "and explain how it improved your life"
+        ]
+    },
+
+    {
+        intro: "Describe a meal",
+        title: "Describe a meal that you really enjoyed.",
+        prompts: [
+            "what you ate",
+            "where you had the meal",
+            "who you were with",
+            "and explain why you enjoyed it"
+        ]
+    },
+
+    {
+        intro: "Describe a goal",
+        title: "Describe a goal you would like to achieve.",
+        prompts: [
+            "what the goal is",
+            "why it is important to you",
+            "what you are doing to achieve it",
+            "and explain how you will feel after achieving it"
+        ]
+    },
+
+    {
+        intro: "Describe a useful place",
+        title: "Describe a place near your home that you often visit.",
+        prompts: [
+            "where it is",
+            "how often you visit it",
+            "what you do there",
+            "and explain why you like going there"
+        ]
+    },
+
+    {
+        intro: "Describe a difficult decision",
+        title: "Describe a difficult decision you had to make.",
+        prompts: [
+            "what the decision was",
+            "when you made it",
+            "what choices you had",
+            "and explain why the decision was difficult"
+        ]
+    },
+
+    {
+        intro: "Describe a memorable conversation",
+        title: "Describe a conversation that you remember well.",
+        prompts: [
+            "who you spoke with",
+            "when and where the conversation happened",
+            "what you talked about",
+            "and explain why you remember it"
+        ]
+    },
+
+    {
+        intro: "Describe a hobby",
+        title: "Describe a hobby you would like to spend more time doing.",
+        prompts: [
+            "what the hobby is",
+            "how you became interested in it",
+            "how often you do it now",
+            "and explain why you want to spend more time on it"
+        ]
+    },
+
+    {
+        intro: "Describe a helpful person",
+        title: "Describe someone who helped you when you needed it.",
+        prompts: [
+            "who the person is",
+            "what problem you had",
+            "how they helped you",
+            "and explain why you appreciated their help"
+        ]
+    },
+
+    {
+        intro: "Describe a memorable day",
+        title: "Describe a day that you remember clearly.",
+        prompts: [
+            "when it was",
+            "what happened that day",
+            "who you spent the day with",
+            "and explain why you remember it"
+        ]
+    },
+
+    {
+        intro: "Describe something you want to improve",
+        title: "Describe something about yourself that you would like to improve.",
+        prompts: [
+            "what you would like to improve",
+            "why you want to improve it",
+            "what you are doing about it",
+            "and explain how the improvement could help you"
+        ]
+    }
+];
