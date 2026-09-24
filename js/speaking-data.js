@@ -393,3 +393,126 @@ const part2questions = [
         ]
     }
 ];
+
+
+const part3questions = [
+    {
+        topic: "Technology & Everyday Life",
+        category: "Society & Technology",
+        questions: [
+            "How has technology changed the way people communicate with each other?",
+            "Why do some people prefer communicating online rather than face to face?",
+            "Do you think technology has made people's lives easier in every way?",
+            "What problems can people face when they depend too much on technology?",
+            "How do you think communication technology will change in the future?"
+        ]
+    },
+
+    {
+        topic: "Education & Learning",
+        category: "Education",
+        questions: [
+            "What makes a learning environment effective for students?",
+            "Why do some students learn better through practical activities?",
+            "Do you think students should have more freedom to choose what they study?",
+            "How has technology changed the way students learn?",
+            "What skills do you think schools should focus on more in the future?"
+        ]
+    },
+
+    {
+        topic: "Work & Career",
+        category: "Work & Society",
+        questions: [
+            "What factors are important when people choose a career?",
+            "Why do some people change careers several times during their lives?",
+            "Do you think job satisfaction is more important than a high salary?",
+            "How is technology changing the workplace?",
+            "What kinds of jobs might become more important in the future?"
+        ]
+    },
+
+    {
+        topic: "Travel & Tourism",
+        category: "Travel & Society",
+        questions: [
+            "Why do people enjoy travelling to places they have never visited before?",
+            "How can tourism benefit local communities?",
+            "What problems can large numbers of tourists create?",
+            "Do you think people are travelling differently compared with the past?",
+            "How might tourism change in the future?"
+        ]
+    },
+
+    {
+        topic: "Environment & Daily Life",
+        category: "Environment",
+        questions: [
+            "What environmental problems affect people's daily lives?",
+            "Why is it sometimes difficult for people to change their environmentally harmful habits?",
+            "Should governments or individuals take more responsibility for protecting the environment?",
+            "How can cities become more environmentally friendly?",
+            "What environmental changes do you expect to see in the future?"
+        ]
+    },
+
+    {
+        topic: "Health & Lifestyle",
+        category: "Health & Society",
+        questions: [
+            "Why do some people find it difficult to maintain healthy habits?",
+            "How does modern life affect people's health?",
+            "Should schools teach students more about healthy lifestyles?",
+            "What role can technology play in helping people stay healthy?",
+            "How might people's lifestyles change in the future?"
+        ]
+    },
+
+    {
+        topic: "Cities & Communities",
+        category: "Cities & Society",
+        questions: [
+            "What makes a city a comfortable place to live?",
+            "Why do many people move from smaller communities to large cities?",
+            "What problems can rapid urban growth create?",
+            "How can communities encourage people to interact with each other?",
+            "What do you think cities will be like in the future?"
+        ]
+    },
+
+    {
+        topic: "Media & Information",
+        category: "Media & Society",
+        questions: [
+            "How does the media influence people's opinions?",
+            "Why do people choose some sources of information over others?",
+            "What problems can happen when people receive inaccurate information?",
+            "Do you think people are becoming better at checking information?",
+            "How might the way people receive news change in the future?"
+        ]
+    },
+
+    {
+        topic: "Culture & Traditions",
+        category: "Culture & Society",
+        questions: [
+            "Why are traditions important to many communities?",
+            "Why do some traditions become less common over time?",
+            "Should younger generations be encouraged to preserve traditional practices?",
+            "How does globalisation affect local cultures?",
+            "How do you think cultural traditions will change in the future?"
+        ]
+    },
+
+    {
+        topic: "Free Time & Modern Life",
+        category: "Lifestyle",
+        questions: [
+            "Why is it important for people to have free time?",
+            "How have people's leisure activities changed over the years?",
+            "Why do some people find it difficult to relax?",
+            "Do modern entertainment options always improve people's quality of life?",
+            "How might people's use of free time change in the future?"
+        ]
+    }
+];

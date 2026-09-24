@@ -446,3 +446,121 @@ document.querySelector(".part2-back-parts").addEventListener("click", () => {
 if (selectedpart === "part2") {
     startpart2session();
 }
+
+
+const part3session = document.querySelector(".part3-session");
+
+let currentpart3topic = null;
+let currentpart3question = 0;
+let lastpart3index = -1;
+
+function createpart3session() {
+
+    let randomindex;
+
+    do {
+        randomindex = Math.floor(
+            Math.random() * part3questions.length
+        );
+    } while (
+        part3questions.length > 1 &&
+        randomindex === lastpart3index
+    );
+
+    lastpart3index = randomindex;
+    currentpart3topic = part3questions[randomindex];
+    currentpart3question = 0;
+
+    showpart3question();
+}
+
+function showpart3question() {
+
+    const topiccategory = document.querySelector(".topic-category");
+    const topictitle = document.querySelector(".topic-title");
+    const part3progress = document.querySelector(".part3-progress");
+    const papernumber = document.querySelector(".paper-number");
+    const questiontext = document.querySelector(".part3-question-text");
+
+    topiccategory.textContent = currentpart3topic.category;
+
+    topictitle.textContent = currentpart3topic.topic;
+
+    part3progress.textContent =
+        `Question ${String(currentpart3question + 1).padStart(2, "0")} of 05`;
+
+    papernumber.textContent =
+        String(currentpart3question + 1).padStart(2, "0");
+
+    questiontext.textContent =
+        currentpart3topic.questions[currentpart3question];
+}
+
+function completepart3() {
+
+    document.querySelector(".part3-paper").style.display = "none";
+    document.querySelector(".part3-complete").style.display = "block";
+
+    const completedsession = {
+        part: "part3",
+        questions: 5,
+        completed: true,
+        date: new Date().toISOString()
+    };
+
+    practicehistory.push(completedsession);
+
+    localStorage.setItem(
+        "practicehistory",
+        JSON.stringify(practicehistory)
+    );
+}
+
+function resetpart3session() {
+
+    document.querySelector(".part3-paper").style.display = "block";
+    document.querySelector(".part3-complete").style.display = "none";
+
+    part3session.classList.remove("active");
+
+    createpart3session();
+
+    requestAnimationFrame(() => {
+        part3session.classList.add("active");
+    });
+}
+
+document.querySelector(".part3-next").addEventListener("click", () => {
+
+    if (currentpart3question < 4) {
+        currentpart3question++;
+        showpart3question();
+    } else {
+        completepart3();
+    }
+
+});
+
+document.querySelector(".part3-back").addEventListener("click", () => {
+    window.location.href = "speaking.html#part-selector";
+});
+
+document.querySelector(".part3-again").addEventListener("click", () => {
+    resetpart3session();
+});
+
+document.querySelector(".part3-back-parts").addEventListener("click", () => {
+    window.location.href = "speaking.html#part-selector";
+});
+
+if (selectedpart === "part3") {
+
+    part3session.style.display = "block";
+
+    createpart3session();
+
+    requestAnimationFrame(() => {
+        part3session.classList.add("active");
+    });
+}
+
