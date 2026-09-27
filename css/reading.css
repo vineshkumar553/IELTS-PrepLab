@@ -311,3 +311,196 @@
         gap: 14px;
     }
 }
+.reading-modes {
+    padding: 90px 0 100px;
+    background: var(--background-secondary);
+}
+
+.reading-modes-heading {
+    max-width: 680px;
+    margin: 0 auto 48px;
+    text-align: center;
+}
+
+.reading-modes-heading > span {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.reading-modes-heading h2 {
+    margin: 0;
+    color: var(--heading);
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.7rem, 4vw, 3.8rem);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+}
+
+.reading-modes-heading p {
+    max-width: 540px;
+    margin: 18px auto 0;
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.reading-mode-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.reading-mode-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 340px;
+    padding: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(33, 31, 27, 0.045);
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.reading-mode-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 32px;
+    width: 42px;
+    height: 3px;
+    background: var(--primary);
+}
+
+.reading-mode-card:nth-child(2)::after {
+    background: var(--accent);
+}
+
+.reading-mode-card:nth-child(3)::after {
+    background: var(--primary-dark);
+}
+
+.mode-number {
+    color: var(--accent);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.reading-mode-card h3 {
+    margin: 52px 0 14px;
+    color: var(--heading);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.15rem;
+    font-weight: 600;
+    line-height: 0.98;
+}
+
+.reading-mode-card p {
+    max-width: 310px;
+    margin: 0;
+    color: var(--text);
+    font-size: 0.82rem;
+    line-height: 1.8;
+}
+
+.reading-mode-card button {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    width: fit-content;
+    margin-top: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--primary);
+    font: inherit;
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.reading-mode-card button i {
+    font-size: 0.64rem;
+    transition: transform 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+    .reading-mode-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 38px rgba(33, 31, 27, 0.09);
+    }
+
+    .reading-mode-card:hover button i {
+        transform: translateX(4px);
+    }
+}
+
+@media (max-width: 900px) {
+
+    .reading-mode-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .reading-mode-card {
+        min-height: 290px;
+    }
+
+    .reading-mode-card p {
+        max-width: 520px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .reading-modes {
+        padding: 70px 0 80px;
+    }
+
+    .reading-modes-heading {
+        margin-bottom: 35px;
+    }
+
+    .reading-mode-card {
+        padding: 28px;
+    }
+
+    .reading-mode-card h3 {
+        margin-top: 42px;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .reading-modes {
+        padding: 58px 0 68px;
+    }
+
+    .reading-modes-heading h2 {
+        font-size: 2.55rem;
+    }
+
+    .reading-modes-heading p {
+        font-size: 0.85rem;
+    }
+
+    .reading-mode-card {
+        min-height: 270px;
+        padding: 24px;
+    }
+
+    .reading-mode-card h3 {
+        font-size: 1.9rem;
+    }
+}
