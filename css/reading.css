@@ -504,3 +504,260 @@
         font-size: 1.9rem;
     }
 }
+.reading-progress {
+    padding: 90px 0 100px;
+    background: var(--background);
+}
+
+.reading-progress-heading {
+    max-width: 680px;
+    margin: 0 auto 48px;
+    text-align: center;
+}
+
+.reading-progress-heading > span {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.reading-progress-heading h2 {
+    margin: 0;
+    color: var(--heading);
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.7rem, 4vw, 3.7rem);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+}
+
+.reading-progress-heading p {
+    max-width: 540px;
+    margin: 18px auto 0;
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.reading-progress-card {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    align-items: stretch;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 16px 35px rgba(33, 31, 27, 0.06);
+}
+
+.reading-progress-overview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 42px 45px;
+    text-align: center;
+    background: var(--background-secondary);
+    border-right: 1px solid var(--border);
+}
+
+.progress-overview-label {
+    margin-bottom: 22px;
+    color: var(--accent);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+}
+
+.progress-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background:
+        conic-gradient(
+            var(--primary) 0 68%,
+            var(--border) 68% 100%
+        );
+}
+
+.progress-circle-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    background: var(--surface);
+}
+
+.progress-circle-inner strong {
+    color: var(--primary);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.progress-circle-inner span {
+    margin-top: 5px;
+    color: var(--text);
+    font-size: 0.65rem;
+    font-weight: 600;
+}
+
+.reading-progress-overview p {
+    max-width: 280px;
+    margin: 24px 0 0;
+    color: var(--text);
+    font-size: 0.78rem;
+    line-height: 1.75;
+}
+
+.reading-progress-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.progress-stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 185px;
+    padding: 32px 34px;
+    border-bottom: 1px solid var(--border);
+}
+
+.progress-stat:nth-child(odd) {
+    border-right: 1px solid var(--border);
+}
+
+.progress-stat:nth-child(3),
+.progress-stat:nth-child(4) {
+    border-bottom: 0;
+}
+
+.progress-stat span {
+    color: var(--accent);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+}
+
+.progress-stat strong {
+    margin-top: 13px;
+    color: var(--primary);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.6rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.progress-stat p {
+    margin: 7px 0 0;
+    color: var(--text);
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+    .reading-progress-card {
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .reading-progress-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 42px rgba(33, 31, 27, 0.09);
+    }
+}
+
+@media (max-width: 900px) {
+
+    .reading-progress-card {
+        grid-template-columns: 1fr;
+    }
+
+    .reading-progress-overview {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .reading-progress {
+        padding: 70px 0 80px;
+    }
+
+    .reading-progress-heading {
+        margin-bottom: 35px;
+    }
+
+    .reading-progress-card {
+        border-radius: 16px;
+    }
+
+    .reading-progress-overview {
+        padding: 36px 24px;
+    }
+
+    .progress-circle {
+        width: 150px;
+        height: 150px;
+    }
+
+    .progress-circle-inner {
+        width: 116px;
+        height: 116px;
+    }
+
+    .progress-circle-inner strong {
+        font-size: 2.2rem;
+    }
+
+    .progress-stat {
+        min-height: 150px;
+        padding: 26px 22px;
+    }
+
+    .progress-stat strong {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .reading-progress-heading h2 {
+        font-size: 2.5rem;
+    }
+
+    .reading-progress-heading p {
+        font-size: 0.85rem;
+    }
+
+    .progress-stat {
+        min-height: 135px;
+        padding: 22px 18px;
+    }
+
+    .progress-stat strong {
+        font-size: 2rem;
+    }
+
+    .progress-stat span {
+        font-size: 0.56rem;
+    }
+
+    .progress-stat p {
+        font-size: 0.64rem;
+    }
+}
