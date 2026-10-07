@@ -504,3 +504,129 @@
         font-size: 1.9rem;
     }
 }
+
+.reading-how {
+    padding: 80px 0 100px;
+    background: var(--background);
+}
+
+.reading-how-heading {
+    max-width: 680px;
+    margin: 0 auto 48px;
+    text-align: center;
+}
+
+.reading-how-heading > span {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.reading-how-heading h2 {
+    margin: 0;
+    color: var(--heading);
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.7rem, 4vw, 3.8rem);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+}
+
+.reading-how-heading p {
+    max-width: 540px;
+    margin: 18px auto 0;
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.reading-how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.reading-how-item {
+    padding: 30px 28px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.how-number {
+    display: block;
+    margin-bottom: 24px;
+    color: var(--accent);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.reading-how-item h3 {
+    margin: 0 0 12px;
+    color: var(--heading);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.reading-how-item p {
+    max-width: 290px;
+    margin: 0 auto;
+    color: var(--text);
+    font-size: 0.82rem;
+    line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+
+    .reading-how-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .reading-how-item {
+        padding: 28px 20px;
+    }
+
+    .reading-how-item p {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .reading-how {
+        padding: 70px 0 80px;
+    }
+
+    .reading-how-heading {
+        margin-bottom: 35px;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .reading-how {
+        padding: 58px 0 68px;
+    }
+
+    .reading-how-heading h2 {
+        font-size: 2.55rem;
+    }
+
+    .reading-how-heading p {
+        font-size: 0.85rem;
+    }
+
+    .reading-how-item {
+        padding: 24px 16px;
+    }
+
+    .reading-how-item h3 {
+        font-size: 1.9rem;
+    }
+}

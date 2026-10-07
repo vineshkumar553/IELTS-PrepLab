@@ -211,9 +211,7 @@
 }
 
 .paper-bottom {
-    margin-top: 25px;
-    padding-top: 14px;
-    border-top: 1px solid var(--border);
+   display: none;
 }
 
 /* Question */
@@ -740,6 +738,60 @@
     color: #fff;
 }
 
+.passage-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 34px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.passage-prev,
+.passage-next {
+    min-height: 46px;
+    padding: 0 19px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border-radius: 11px;
+    font-family: "Inter", sans-serif;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    cursor: pointer;
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        color .25s ease,
+        transform .25s ease;
+}
+
+.passage-prev {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.passage-next {
+    background: var(--primary);
+    color: var(--surface);
+    border: 1px solid var(--primary);
+}
+
+.passage-prev i,
+.passage-next i {
+    font-size: .68rem;
+}
+
+.passage-prev:disabled,
+.passage-next:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
 /* Hover */
 
 @media (hover: hover) and (pointer: fine) {
@@ -765,6 +817,19 @@
         border-color: var(--primary);
         color: var(--primary);
     }
+     .passage-prev:not(:disabled):hover {
+        background: var(--surface);
+        border-color: var(--primary);
+        color: var(--primary);
+        transform: translateX(-2px);
+    }
+
+    .passage-next:not(:disabled):hover {
+        background: var(--primary-dark);
+        border-color: var(--primary-dark);
+        transform: translateX(2px);
+    }
+
 }
 
 /* Responsive */
@@ -890,5 +955,16 @@
     .result-back,
     .practice-again {
         width: 100%;
+    }
+    .passage-actions {
+        gap: 12px;
+    }
+
+    .passage-prev,
+    .passage-next {
+        flex: 1;
+        min-height: 44px;
+        padding: 0 12px;
+        font-size: .67rem;
     }
 }

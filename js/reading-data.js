@@ -611,5 +611,641 @@ const readingdata = [
                 explanation: "Paragraph F concludes that good waiting-room design gives people some control over the time they have."
             }
         ]
-    }
+    },
+    {
+        id: "passage4",
+        title: "The New Life of Old Railway Stations",
+        topic: "History & Cities",
+        difficulty: "medium",
+        estimatedtime: 20,
+
+        paragraphs: [
+            {
+                id: "A",
+                text: "Railway stations were once designed mainly as places of movement. Passengers arrived, bought tickets and left as quickly as possible. In many cities, however, older stations have gradually acquired a second life. As rail routes changed and passenger numbers shifted, some buildings became too large for their original purpose. Instead of demolishing them, city authorities and private organisations have experimented with new uses. Former waiting halls have become libraries, restaurants, studios and exhibition spaces. The buildings survive not because their original function remains unchanged, but because people have found new reasons to use them."
+            },
+            {
+                id: "B",
+                text: "Reusing a station is not as simple as placing new furniture inside an old building. Many historic stations contain large open halls, high ceilings and complicated circulation routes. These features can make some modern uses attractive but can also create practical difficulties. A library, for example, may benefit from the open floor area while needing quieter rooms for study. Designers therefore have to balance the character of the original structure with the requirements of its new users. In successful projects, the building's past remains visible rather than being completely covered by the new design."
+            },
+            {
+                id: "C",
+                text: "One of the strongest arguments for reuse is that transport buildings are often located in places that are already connected to the rest of the city. A station that has lost its railway function may still stand beside major roads, bus routes or busy pedestrian areas. This can make it easier for a new public facility to attract visitors. Reuse can also reduce the environmental cost of replacing a large existing structure with a completely new building. The advantage is not automatic, however. An empty station can remain unused if its new purpose does not match the needs of the surrounding neighbourhood."
+            },
+            {
+                id: "D",
+                text: "Community involvement can influence whether a reused station becomes genuinely useful. Residents often know how a building has been used in the past and what services are missing in the area now. In one neighbourhood, a former station might be most useful as a cultural venue; in another, affordable workspaces may be more valuable. Public meetings and local surveys can help reveal these differences. Consultation does not guarantee agreement, and large projects still involve difficult financial decisions, but it can prevent planners from assuming that every empty station needs the same solution."
+            },
+            {
+                id: "E",
+                text: "There is also a question of memory. Railway stations are often connected with personal experiences: journeys to school, visits to relatives, departures for university or the arrival of someone returning home. When a station is converted into another kind of public space, some people worry that its history will disappear. For this reason, successful projects often preserve signs, platforms, ticket windows or other visible features. These details may have little practical value, but they allow visitors to understand that the building once served a different purpose."
+            },
+            {
+                id: "F",
+                text: "The future of reused railway stations will depend partly on whether cities can treat them as flexible public assets rather than frozen historical objects. A building may need to change again as neighbourhood needs change. A former station that becomes a market today could become an educational centre years later. The aim is not to preserve every part exactly as it was, nor to erase its history in the name of convenience. The most successful approach may be to keep enough of the old structure and identity while allowing the building to remain useful."
+            }
+        ],
+
+        headings: [
+            { id: "I", text: "Keeping memories visible" },
+            { id: "II", text: "A building can continue to change" },
+            { id: "III", text: "Why location still matters" },
+            { id: "IV", text: "Finding a balance between old and new" },
+            { id: "V", text: "Different communities need different uses" },
+            { id: "VI", text: "From transport space to public space" }
+        ],
+
+        questions: [
+            {
+                id: 41,
+                type: "mcq",
+                question: "What is the main idea of the passage?",
+                options: [
+                    "Old railway stations should always remain transport buildings.",
+                    "Historic stations can remain useful when cities adapt them to new purposes.",
+                    "Modern railway stations are cheaper to build than older ones.",
+                    "Communities usually oppose changes to historic buildings."
+                ],
+                answer: "B",
+                explanation: "The passage explains how old stations can gain new functions while retaining parts of their history and identity."
+            },
+            {
+                id: 42,
+                type: "mcq",
+                question: "Why can the design of an old station create difficulties for a new user?",
+                options: [
+                    "Historic buildings are always too small.",
+                    "Their original layout may not fit modern needs perfectly.",
+                    "They are usually located outside cities.",
+                    "Their original materials cannot be repaired."
+                ],
+                answer: "B",
+                explanation: "Paragraph B explains that large halls and complex layouts can be useful but may also create practical challenges."
+            },
+            {
+                id: 43,
+                type: "mcq",
+                question: "What advantage can a former station's location provide?",
+                options: [
+                    "It guarantees that the building will be profitable.",
+                    "It can make the new facility easier for people to reach.",
+                    "It prevents residents from using private cars.",
+                    "It removes the need for community consultation."
+                ],
+                answer: "B",
+                explanation: "Former stations are often still connected to roads, buses and pedestrian routes."
+            },
+            {
+                id: 44,
+                type: "mcq",
+                question: "What does paragraph D suggest about community consultation?",
+                options: [
+                    "It removes all financial difficulties.",
+                    "It can help planners understand local needs.",
+                    "It should replace professional design work.",
+                    "It guarantees that residents will agree."
+                ],
+                answer: "B",
+                explanation: "Consultation can reveal differences between neighbourhood needs, although it cannot eliminate disagreement."
+            },
+            {
+                id: 45,
+                type: "tfng",
+                question: "All old railway stations are now being converted into libraries.",
+                options: ["TRUE", "FALSE", "NOT GIVEN"],
+                answer: "FALSE",
+                explanation: "The passage lists many possible uses, including libraries, restaurants, studios and exhibition spaces."
+            },
+            {
+                id: 46,
+                type: "tfng",
+                question: "Some reused stations retain visible features from their railway past.",
+                options: ["TRUE", "FALSE", "NOT GIVEN"],
+                answer: "TRUE",
+                explanation: "Paragraph E mentions signs, platforms and ticket windows being preserved."
+            },
+            {
+                id: 47,
+                type: "tfng",
+                question: "Community surveys always produce complete agreement about the future of a station.",
+                options: ["TRUE", "FALSE", "NOT GIVEN"],
+                answer: "FALSE",
+                explanation: "The passage says consultation does not guarantee agreement."
+            },
+            {
+                id: 48,
+                type: "tfng",
+                question: "A reused station may need another new purpose in the future.",
+                options: ["TRUE", "FALSE", "NOT GIVEN"],
+                answer: "TRUE",
+                explanation: "Paragraph F says a building may need to change again as neighbourhood needs change."
+            },
+            {
+                id: 49,
+                type: "matching-headings",
+                question: "Which heading best matches paragraph B?",
+                paragraph: "B",
+                options: [
+                    "I",
+                    "II",
+                    "III",
+                    "IV",
+                    "V",
+                    "VI"
+                ],
+                answer: "IV",
+                explanation: "Paragraph B focuses on balancing historic character with the requirements of new users."
+            },
+            {
+                id: 50,
+                type: "matching-headings",
+                question: "Which heading best matches paragraph D?",
+                paragraph: "D",
+                options: [
+                    "I",
+                    "II",
+                    "III",
+                    "IV",
+                    "V",
+                    "VI"
+                ],
+                answer: "V",
+                explanation: "Paragraph D explains that different neighbourhoods may need different uses."
+            },
+            {
+                id: 51,
+                type: "matching-headings",
+                question: "Which heading best matches paragraph E?",
+                paragraph: "E",
+                options: [
+                    "I",
+                    "II",
+                    "III",
+                    "IV",
+                    "V",
+                    "VI"
+                ],
+                answer: "I",
+                explanation: "Paragraph E focuses on preserving visible reminders of the building's past."
+            },
+            {
+                id: 52,
+                type: "sentence-completion",
+                instruction: "Complete the sentence using NO MORE THAN TWO WORDS.",
+                question: "Former stations can attract visitors because they may already be connected to major roads, bus routes and busy __________ areas.",
+                answer: "pedestrian",
+                acceptedanswers: [
+                    "pedestrian"
+                ],
+                explanation: "Paragraph C mentions busy pedestrian areas as part of the existing connections."
+            },
+            {
+                id: 53,
+                type: "sentence-completion",
+                instruction: "Complete the sentence using NO MORE THAN TWO WORDS.",
+                question: "Some people worry that converting a station could make its __________ disappear.",
+                answer: "history",
+                acceptedanswers: [
+                    "history"
+                ],
+                explanation: "Paragraph E discusses concerns that the station's history may disappear."
+            },
+            {
+                id: 54,
+                type: "sentence-completion",
+                instruction: "Complete the sentence using NO MORE THAN TWO WORDS.",
+                question: "The writer suggests that reused stations should remain useful rather than becoming __________ historical objects.",
+                answer: "frozen",
+                acceptedanswers: [
+                    "frozen"
+                ],
+                explanation: "Paragraph F contrasts flexible public assets with frozen historical objects."
+            }
+        ]
+    },
+
+    {
+        id: "passage5",
+        title: "Why We Notice Certain Sounds",
+        topic: "Psychology & Science",
+        difficulty: "hard",
+        estimatedtime: 20,
+
+        paragraphs: [
+            {
+                id: "A",
+                text: "A busy street can contain hundreds of sounds at once, yet people rarely notice all of them equally. A conversation nearby may suddenly attract attention while a distant engine becomes part of the background. Researchers studying attention have found that hearing is not simply a matter of receiving every sound with equal importance. The brain constantly selects information that may be relevant to the current situation. This selection helps people function in noisy environments, but it also means that the same sound can seem either highly noticeable or almost invisible depending on what a person is doing."
+            },
+            {
+                id: "B",
+                text: "One important factor is expectation. When people are waiting for a particular signal, they become more sensitive to sounds that match what they are looking for. A train passenger listening for an announcement may notice a speaker turning on before noticing nearby conversations. The expected sound effectively receives a larger share of attention. However, expectation is not always helpful. People can become so focused on one type of signal that they fail to notice an unexpected but important change elsewhere. Attention therefore involves both selection and risk."
+            },
+            {
+                id: "C",
+                text: "Emotional meaning also changes how sounds are experienced. A familiar voice can be recognised quickly even in a crowded room because the listener has learned its pattern over time. In contrast, an unfamiliar alarm may attract attention precisely because it has not yet been linked to a predictable source. Emotional associations can strengthen this effect. A sound connected with a pleasant memory may feel comforting, while one associated with a stressful experience can produce tension before the listener has identified its exact cause. The reaction is not necessarily conscious."
+            },
+            {
+                id: "D",
+                text: "Background noise provides another challenge. Some environments contain constant low-level sound that people gradually learn to ignore. This process is useful because it prevents attention from being exhausted by information that does not change. Yet the same adaptation can create problems when the background signal contains something meaningful. A person working beside an air-conditioning system may stop noticing its steady hum but become distracted if the machine changes pitch. A small difference stands out because the listener has already learned the normal pattern."
+            },
+            {
+                id: "E",
+                text: "The design of public spaces can take advantage of these principles. Transport systems often use repeated tones or carefully chosen announcements to attract attention at the right moment. Museums may deliberately reduce background noise around a particular exhibit. Workplaces sometimes use sound zones so that conversation is separated from areas requiring concentration. These choices are not simply about making places quieter. In many cases, the aim is to make important sounds easier to distinguish without eliminating every other source of information."
+            },
+            {
+                id: "F",
+                text: "There is no single ideal amount of sound for every task. Complete silence can help with some forms of concentration, but it can also make small interruptions more noticeable. Moderate background sound may help some people maintain focus because it masks unpredictable noises. Individual differences matter as well. Someone who is accustomed to working in a busy office may find a quiet room uncomfortable, while another person may regard the same room as ideal. Effective sound design therefore depends on context rather than a universal rule."
+            }
+        ],
+
+        headings: [
+            { id: "I", text: "People do not react equally to all noise" },
+            { id: "II", text: "The danger of focusing too narrowly" },
+            { id: "III", text: "Familiar and unfamiliar sounds" },
+            { id: "IV", text: "Why changes in regular noise attract attention" },
+            { id: "V", text: "Using sound deliberately in shared spaces" },
+            { id: "VI", text: "Different people need different sound environments" }
+        ],
+
+        questions: [
+            {
+                id: 55,
+                type: "mcq",
+                question: "What is the main point of the passage?",
+                options: [
+                    "People should avoid noisy public places.",
+                    "The brain constantly treats sounds as equally important.",
+                    "Attention influences which sounds people notice and how they respond to them.",
+                    "Modern buildings are usually too quiet."
+                ],
+                answer: "C",
+                explanation: "The passage explains how expectation, emotion, background noise and context influence auditory attention."
+            },
+            {
+                id: 56,
+                type: "mcq",
+                question: "Why might a passenger notice an announcement system more than nearby conversations?",
+                options: [
+                    "The announcement is always louder.",
+                    "The passenger expects useful information from it.",
+                    "Conversations are impossible to understand.",
+                    "The passenger has trained as a station employee."
+                ],
+                answer: "B",
+                explanation: "Expectation makes people more sensitive to sounds relevant to what they are waiting for."
+            },
+            {
+                id: 57,
+                type: "mcq",
+                question: "What can happen when people concentrate too heavily on one expected signal?",
+                options: [
+                    "They may miss an unexpected change.",
+                    "They automatically hear every background noise.",
+                    "They become unable to recognise familiar voices.",
+                    "They stop reacting emotionally to sounds."
+                ],
+                answer: "A",
+                explanation: "Paragraph B explains that narrow attention can cause people to miss unexpected but important changes."
+            },
+            {
+                id: 58,
+                type: "mcq",
+                question: "Why can a change in a familiar background noise be noticeable?",
+                options: [
+                    "The listener has learned what the normal pattern sounds like.",
+                    "The new sound is always louder than the old one.",
+                    "Background noises are normally impossible to ignore.",
+                    "The listener is expecting an alarm."
+                ],
+                answer: "A",
+                explanation: "Paragraph D says that once people learn a normal sound pattern, changes to it can stand out."
+            },
+            {
+                id: 59,
+                type: "tfng",
+                question: "People hear every sound around them with exactly the same level of attention.",
+                options: ["TRUE", "FALSE", "NOT GIVEN"],
+                answer: "FALSE",
+                explanation: "Paragraph A says people rarely notice all sounds equally."
+            },
+            {
+                id: 60,
+                type: "tfng",
+                question: "Emotional reactions to sounds are always fully conscious.",
+                options: ["TRUE", "FALSE", "NOT GIVEN"],
+                answer: "FALSE",
+                explanation: "Paragraph C says the reaction is not necessarily conscious."
+            },
+            {
+                id: 61,
+                type: "tfng",
+                question: "Museums sometimes reduce background noise around particular exhibits.",
+                options: ["TRUE", "FALSE", "NOT GIVEN"],
+                answer: "TRUE",
+                explanation: "Paragraph E gives this as an example of deliberate sound design."
+            },
+            {
+                id: 62,
+                type: "tfng",
+                question: "The passage identifies complete silence as the best environment for everyone.",
+                options: ["TRUE", "FALSE", "NOT GIVEN"],
+                answer: "FALSE",
+                explanation: "Paragraph F says different people and tasks may require different sound environments."
+            },
+            {
+                id: 63,
+                type: "matching-headings",
+                question: "Which heading best matches paragraph B?",
+                paragraph: "B",
+                options: [
+                    "I",
+                    "II",
+                    "III",
+                    "IV",
+                    "V",
+                    "VI"
+                ],
+                answer: "II",
+                explanation: "Paragraph B focuses on the risk of becoming so focused on one expected signal that another important sound is missed."
+            },
+            {
+                id: 64,
+                type: "matching-headings",
+                question: "Which heading best matches paragraph D?",
+                paragraph: "D",
+                options: [
+                    "I",
+                    "II",
+                    "III",
+                    "IV",
+                    "V",
+                    "VI"
+                ],
+                answer: "IV",
+                explanation: "Paragraph D explains why changes to a familiar background pattern attract attention."
+            },
+            {
+                id: 65,
+                type: "matching-headings",
+                question: "Which heading best matches paragraph E?",
+                paragraph: "E",
+                options: [
+                    "I",
+                    "II",
+                    "III",
+                    "IV",
+                    "V",
+                    "VI"
+                ],
+                answer: "V",
+                explanation: "Paragraph E discusses how public spaces deliberately use sound to guide attention."
+            },
+            {
+                id: 66,
+                type: "sentence-completion",
+                instruction: "Complete the sentence using NO MORE THAN TWO WORDS.",
+                question: "People waiting for a train may pay particular attention to an expected __________.",
+                answer: "announcement",
+                acceptedanswers: [
+                    "announcement"
+                ],
+                explanation: "Paragraph B uses a train announcement as an example of an expected signal."
+            },
+            {
+                id: 67,
+                type: "sentence-completion",
+                instruction: "Complete the sentence using NO MORE THAN TWO WORDS.",
+                question: "People gradually learn to ignore some constant __________ noise.",
+                answer: "background",
+                acceptedanswers: [
+                    "background"
+                ],
+                explanation: "Paragraph D describes constant low-level background sound becoming less noticeable."
+            },
+            {
+                id: 68,
+                type: "sentence-completion",
+                instruction: "Complete the sentence using NO MORE THAN TWO WORDS.",
+                question: "Effective sound design does not always try to make a place completely __________.",
+                answer: "quiet",
+                acceptedanswers: [
+                    "quiet"
+                ],
+                explanation: "Paragraph E explains that the aim can be to make important sounds clearer rather than remove all sound."
+            }
+        ]
+    },
+
+    {
+        id: "passage6",
+        title: "Growing Food Above the Street",
+        topic: "Environment & Food",
+        difficulty: "medium",
+        estimatedtime: 20,
+
+        paragraphs: [
+            {
+                id: "A",
+                text: "Rooftop gardens have moved from being a novelty to becoming a practical experiment in some cities. Flat roofs that once held only air-conditioning equipment can now support vegetables, herbs and even small fruit trees. The appeal is obvious: food is grown close to consumers, unused space gains a purpose and plants can make hard urban surfaces less severe. Yet rooftop farming is not simply ordinary agriculture moved several floors higher. Weight, water access, wind exposure and maintenance all create different conditions. The success of a rooftop garden depends on whether these constraints are understood before planting begins."
+            },
+            {
+                id: "B",
+                text: "The first challenge is structural. Soil and water are heavy, and a roof designed to support people and equipment may not automatically be suitable for a deep growing bed. For this reason, some rooftop projects use lightweight growing media made partly from materials that hold water without adding as much weight as traditional soil. Structural engineers may also inspect the building before the garden is installed. These precautions are less visible than the plants themselves, but they determine whether the project is safe enough to operate over several years."
+            },
+            {
+                id: "C",
+                text: "Water presents another problem. Rooftops can become extremely hot, particularly during clear summer days, so plants may lose moisture quickly. Carrying large quantities of water upstairs is expensive and inefficient. Some gardens collect rainwater, while others use drip systems that deliver small amounts directly to plant roots. These systems can reduce waste, but they require monitoring. A garden that depends on automated irrigation is not automatically low-maintenance; blocked pipes or a broken pump can cause serious damage if no one notices the problem quickly."
+            },
+            {
+                id: "D",
+                text: "Wind changes the growing environment as well. Tall buildings can create strong air movement, especially around corners and between neighbouring structures. Young plants may be damaged before they have established strong stems, while loose containers can become dangerous objects during storms. Gardeners therefore use sheltered areas, wind-resistant structures and careful positioning. Some crops perform poorly on exposed roofs even when temperature and water conditions are suitable. Choosing what not to grow can therefore be as important as selecting productive crops."
+            },
+            {
+                id: "E",
+                text: "The social benefits of rooftop gardens can extend beyond food production. Schools may use them as outdoor classrooms, office buildings can create shared spaces for employees and community projects can provide residents with opportunities to learn practical skills. A rooftop garden can also make people more aware of where food comes from. However, access matters. A garden that is technically communal but difficult to reach may be used by very few people. The best projects consider who can enter the space, how often they can visit and what activities the garden is intended to support."
+            },
+            {
+                id: "F",
+                text: "Rooftop farming is unlikely to replace conventional agriculture, and that is not necessarily its purpose. The greatest value may come from combining modest food production with environmental and social benefits. A small roof cannot supply a city's entire vegetable demand, but it can provide herbs to a nearby kitchen, habitat for insects, a cooler surface and a place for people to learn. Seen this way, the success of rooftop agriculture should not be measured only in kilograms of food. Its wider contribution may be the reason cities continue experimenting with it."
+            }
+        ],
+
+        headings: [
+            { id: "I", text: "The structure must come first" },
+            { id: "II", text: "Water requires constant attention" },
+            { id: "III", text: "Why some crops should be avoided" },
+            { id: "IV", text: "A garden can have several purposes" },
+            { id: "V", text: "Rooftop farming has wider limits" },
+            { id: "VI", text: "Making shared spaces genuinely accessible" }
+        ],
+
+        questions: [
+            {
+                id: 69,
+                type: "mcq",
+                question: "What is the main point of the passage?",
+                options: [
+                    "Rooftop farming can replace most conventional agriculture.",
+                    "Rooftop gardens are simple to create if a roof is flat.",
+                    "Rooftop food production can work when structural, environmental and social limits are considered.",
+                    "Cities should convert every unused roof into a vegetable garden."
+                ],
+                answer: "C",
+                explanation: "The passage presents rooftop farming as useful but dependent on careful planning and realistic expectations."
+            },
+            {
+                id: 70,
+                type: "mcq",
+                question: "Why might rooftop projects use lightweight growing media?",
+                options: [
+                    "It always produces larger vegetables.",
+                    "It reduces the weight placed on the building.",
+                    "It eliminates the need for irrigation.",
+                    "It protects plants from sunlight."
+                ],
+                answer: "B",
+                explanation: "Paragraph B explains that lightweight materials can hold water without adding as much weight as traditional soil."
+            },
+            {
+                id: 71,
+                type: "mcq",
+                question: "Why are irrigation systems not necessarily low-maintenance?",
+                options: [
+                    "They cannot be used on rooftops.",
+                    "They require warm weather throughout the year.",
+                    "A failure may cause serious problems if nobody notices it.",
+                    "They always waste more water than hand watering."
+                ],
+                answer: "C",
+                explanation: "Paragraph C warns that blocked pipes or broken pumps can quickly damage a garden."
+            },
+            {
+                id: 72,
+                type: "mcq",
+                question: "What can strong wind affect besides the plants themselves?",
+                options: [
+                    "The colour of the roof",
+                    "The safety of loose containers",
+                    "The amount of sunlight in nearby offices",
+                    "The number of people living in the building"
+                ],
+                answer: "B",
+                explanation: "Paragraph D says loose containers can become dangerous during storms."
+            },
+            {
+                id: 73,
+                type: "tfng",
+                question: "Every flat roof is automatically suitable for growing vegetables.",
+                options: ["TRUE", "FALSE", "NOT GIVEN"],
+                answer: "FALSE",
+                explanation: "Paragraph A explains that roof structure and weight limits need to be considered."
+            },
+            {
+                id: 74,
+                type: "tfng",
+                question: "Some rooftop gardens collect rainwater for use on plants.",
+                options: ["TRUE", "FALSE", "NOT GIVEN"],
+                answer: "TRUE",
+                explanation: "Paragraph C mentions rainwater collection as one approach."
+            },
+            {
+                id: 75,
+                type: "tfng",
+                question: "The passage says schools are never suitable places for rooftop gardens.",
+                options: ["TRUE", "FALSE", "NOT GIVEN"],
+                answer: "FALSE",
+                explanation: "Paragraph E specifically gives schools as an example of a possible use."
+            },
+            {
+                id: 76,
+                type: "tfng",
+                question: "The main purpose of rooftop farming should be to maximise the amount of food produced.",
+                options: ["TRUE", "FALSE", "NOT GIVEN"],
+                answer: "FALSE",
+                explanation: "Paragraph F argues that social and environmental benefits can be as important as food production."
+            },
+            {
+                id: 77,
+                type: "matching-headings",
+                question: "Which heading best matches paragraph B?",
+                paragraph: "B",
+                options: [
+                    "I",
+                    "II",
+                    "III",
+                    "IV",
+                    "V",
+                    "VI"
+                ],
+                answer: "I",
+                explanation: "Paragraph B focuses on structural safety and the weight of soil and water."
+            },
+            {
+                id: 78,
+                type: "matching-headings",
+                question: "Which heading best matches paragraph E?",
+                paragraph: "E",
+                options: [
+                    "I",
+                    "II",
+                    "III",
+                    "IV",
+                    "V",
+                    "VI"
+                ],
+                answer: "VI",
+                explanation: "Paragraph E discusses whether people can actually access and use shared rooftop gardens."
+            },
+            {
+                id: 79,
+                type: "matching-headings",
+                question: "Which heading best matches paragraph F?",
+                paragraph: "F",
+                options: [
+                    "I",
+                    "II",
+                    "III",
+                    "IV",
+                    "V",
+                    "VI"
+                ],
+                answer: "V",
+                explanation: "Paragraph F explains the wider limits and broader value of rooftop farming."
+            },
+            {
+                id: 80,
+                type: "sentence-completion",
+                instruction: "Complete the sentence using NO MORE THAN TWO WORDS.",
+                question: "Rooftops may become especially hot during clear __________ days.",
+                answer: "summer",
+                acceptedanswers: [
+                    "summer"
+                ],
+                explanation: "Paragraph C states that rooftops can become extremely hot during clear summer days."
+            },
+            {
+                id: 81,
+                type: "sentence-completion",
+                instruction: "Complete the sentence using NO MORE THAN TWO WORDS.",
+                question: "Young plants can be damaged by strong __________ around tall buildings.",
+                answer: "wind",
+                acceptedanswers: [
+                    "wind"
+                ],
+                explanation: "Paragraph D explains that tall buildings can create strong air movement."
+            },
+            {
+                id: 82,
+                type: "sentence-completion",
+                instruction: "Complete the sentence using NO MORE THAN TWO WORDS.",
+                question: "The value of a rooftop garden should not be measured only by the amount of __________ it produces.",
+                answer: "food",
+                acceptedanswers: [
+                    "food"
+                ],
+                explanation: "Paragraph F argues that environmental and social benefits should also be considered."
+            }
+        ]
+    },
+
 ];
