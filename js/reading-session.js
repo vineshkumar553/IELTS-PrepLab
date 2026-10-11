@@ -1,53 +1,22 @@
 const urlparams = new URLSearchParams(window.location.search);
-const requestedmode = urlparams.get("mode");
+let mode = urlparams.get("mode");
 
-const mode = ["quick", "full", "types"].includes(requestedmode)
-    ? requestedmode
-    : "quick";
-
-const timelimit = mode === "full" ? 3600 : null;
-
-const typenames = {
-    mcq: "Multiple Choice",
-    tfng: "True / False / Not Given",
-    "matching-headings": "Matching Headings",
-    "sentence-completion": "Sentence Completion"
-};
-
-let sessionpages = [];
-let sessionquestions = [];
-let currentquestion = 0;
-let currentpassage = 0;
-let useranswers = {};
-let selectedtype = null;
-let timerid = null;
-let sessionstarttime = 0;
-let sessionfinished = false;
-let fullreading = false;
-
-const questioncontent = document.querySelector(".question-content");
-const questionnext = document.querySelector(".question-next");
-const questionprev = document.querySelector(".question-prev");
-const passagenext = document.querySelector(".passage-next");
-const passageprev = document.querySelector(".passage-prev");
-const submitbutton = document.querySelector(".submit-session");
-
-const passages = readingdata.filter(page => {
-    return Array.isArray(page.questions) && page.questions.length > 0;
-});
+if (!["quick", "full", "types"].includes(mode)) {
+    mode = "quick";
+}
 
 function shuffle(items) {
-    const shuffled = [...items];
+    const result = [...items];
 
-    for (let i = shuffled.length - 1; i > 0; i--) {
+    for (let i = result.length - 1; i > 0; i--) {
         const randomindex = Math.floor(Math.random() * (i + 1));
+        const item = result[i];
 
-        const item = shuffled[i];
-        shuffled[i] = shuffled[randomindex];
-        shuffled[randomindex] = item;
+        result[i] = result[randomindex];
+        result[randomindex] = item;
     }
 
-    return shuffled;
+    return result;
 }
 
 function escapetext(value) {
@@ -59,35 +28,28 @@ function escapetext(value) {
         .replaceAll("'", "&#39;");
 }
 
-function normalizeanswer(value) {
-    return String(value ?? "")
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, " ");
-}
-
-function formattime(seconds) {
-    seconds = Math.max(0, Math.floor(seconds));
-
-    const minutes = Math.floor(seconds / 60);
-    const secondsleft = seconds % 60;
-
-    return `${String(minutes).padStart(2, "0")}:${String(secondsleft).padStart(2, "0")}`;
-}
-
 function setdisplay(selector, display) {
     document.querySelector(selector).style.display = display;
 }
 
+const questioncontent = document.querySelector(".question-content");
+
 function showmessage(message) {
     questioncontent.textContent = message;
 
-    questionprev.disabled = true;
-    questionnext.disabled = true;
-    passageprev.disabled = true;
-    passagenext.disabled = true;
-    submitbutton.disabled = true;
+    document.querySelector(".question-prev").disabled = true;
+    document.querySelector(".question-next").disabled = true;
+    document.querySelector(".passage-prev").disabled = true;
+    document.querySelector(".passage-next").disabled = true;
+    document.querySelector(".submit-session").disabled = true;
 }
+
+const passages = readingdata.filter(page => {
+    return Array.isArray(page.questions) && page.questions.length > 0;
+});
+
+let sessionpages = [];
+let sessionquestions = [];
 
 function addquestions(page, questions) {
     questions.forEach(question => {
@@ -108,10 +70,10 @@ function preparequick() {
         return false;
     }
 
-    const randomindex = Math.floor(Math.random() * availablepages.length);
-    const page = availablepages[randomindex];
+    const page = shuffle(availablepages)[0];
 
     sessionpages = [page];
+    sessionquestions = [];
 
     addquestions(page, shuffle(page.questions).slice(0, 10));
 
@@ -129,20 +91,24 @@ function preparefull() {
 
     if (availablepages.length < 3 || longerpages.length === 0) {
         showmessage(
-            "A full test needs three passages: two with at least 13 questions and one with at least 14."
+            "A full test needs two passages with at least 13 questions and another with at least 14."
         );
 
         return false;
     }
 
-    const randomindex = Math.floor(Math.random() * longerpages.length);
-    const longerpage = longerpages[randomindex];
+    const longerpage = shuffle(longerpages)[0];
 
-    const otherpages = shuffle(
-        availablepages.filter(page => page !== longerpage)
-    ).slice(0, 2);
+    const otherpages = availablepages.filter(page => {
+        return page !== longerpage;
+    });
 
-    sessionpages = shuffle([...otherpages, longerpage]);
+    sessionpages = shuffle([
+        longerpage,
+        ...shuffle(otherpages).slice(0, 2)
+    ]);
+
+    sessionquestions = [];
 
     sessionpages.forEach(page => {
         const count = page === longerpage ? 14 : 13;
@@ -154,6 +120,12 @@ function preparefull() {
     return true;
 }
 
+let currentpassage = 0;
+let fullreading = false;
+
+const passageprev = document.querySelector(".passage-prev");
+const passagenext = document.querySelector(".passage-next");
+
 function renderpassage() {
     const page = sessionpages[currentpassage];
 
@@ -164,11 +136,13 @@ function renderpassage() {
     const number = String(currentpassage + 1).padStart(2, "0");
     const total = String(sessionpages.length).padStart(2, "0");
 
-    document.querySelector(".passage-label").textContent =
-        sessionpages.length > 1
-            ? `PASSAGE ${number} OF ${total}`
-            : `PASSAGE ${number}`;
+    let label = `PASSAGE ${number}`;
 
+    if (sessionpages.length > 1) {
+        label += ` OF ${total}`;
+    }
+
+    document.querySelector(".passage-label").textContent = label;
     document.querySelector(".passage-title").textContent = page.title;
     document.querySelector(".passage-topic").textContent = page.topic;
     document.querySelector(".passage-difficulty").textContent = page.difficulty;
@@ -188,6 +162,8 @@ function renderpassage() {
 
     passageprev.disabled = currentpassage === 0;
 
+    let buttontext = "Next Passage";
+
     if (fullreading) {
         document.querySelector(".session-progress").textContent =
             `${number} / ${total}`;
@@ -197,23 +173,25 @@ function renderpassage() {
 
         passagenext.disabled = false;
 
-        const buttontext = currentpassage === sessionpages.length - 1
-            ? "Start Questions"
-            : "Next Passage";
-
-        passagenext.innerHTML = `
-            ${buttontext}
-            <i class="fa-solid fa-arrow-right"></i>
-        `;
+        if (currentpassage === sessionpages.length - 1) {
+            buttontext = "Start Questions";
+        }
     } else {
         passagenext.disabled = currentpassage === sessionpages.length - 1;
-
-        passagenext.innerHTML = `
-            Next Passage
-            <i class="fa-solid fa-arrow-right"></i>
-        `;
     }
+
+    passagenext.innerHTML = `
+        ${buttontext}
+        <i class="fa-solid fa-arrow-right"></i>
+    `;
 }
+
+const typenames = {
+    mcq: "Multiple Choice",
+    tfng: "True / False / Not Given",
+    "matching-headings": "Matching Headings",
+    "sentence-completion": "Sentence Completion"
+};
 
 function getoptionlabel(question, value) {
     if (question.type === "mcq") {
@@ -221,7 +199,9 @@ function getoptionlabel(question, value) {
         const index = letter.charCodeAt(0) - 65;
         const option = question.options[index];
 
-        return option !== undefined ? `${letter}. ${option}` : value;
+        if (option !== undefined) {
+            return `${letter}. ${option}`;
+        }
     }
 
     if (question.type === "matching-headings") {
@@ -231,11 +211,20 @@ function getoptionlabel(question, value) {
             return String(item.id) === String(value);
         });
 
-        return heading ? `${value}. ${heading.text}` : value;
+        if (heading) {
+            return `${value}. ${heading.text}`;
+        }
     }
 
     return value;
 }
+
+let currentquestion = 0;
+let useranswers = {};
+let sessionfinished = false;
+
+const questionprev = document.querySelector(".question-prev");
+const questionnext = document.querySelector(".question-next");
 
 function renderquestion() {
     const question = sessionquestions[currentquestion];
@@ -250,9 +239,15 @@ function renderquestion() {
 
     const typename = typenames[question.type] || question.type;
 
-    const instruction = question.instruction
-        ? `<p class="question-instruction">${escapetext(question.instruction)}</p>`
-        : "";
+    let instruction = "";
+
+    if (question.instruction) {
+        instruction = `
+            <p class="question-instruction">
+                ${escapetext(question.instruction)}
+            </p>
+        `;
+    }
 
     let answerhtml = "";
 
@@ -267,30 +262,34 @@ function renderquestion() {
             >
         `;
     } else {
+        const optionshtml = question.options.map((option, index) => {
+            let value = String(option);
+
+            if (question.type === "mcq") {
+                value = String.fromCharCode(65 + index);
+            }
+
+            const label = getoptionlabel(question, value);
+            const id = `option-${questionindex}-${index}`;
+
+            return `
+                <div class="question-option">
+                    <input
+                        type="radio"
+                        name="question"
+                        id="${id}"
+                        value="${escapetext(value)}"
+                    >
+                    <label for="${id}">
+                        ${escapetext(label)}
+                    </label>
+                </div>
+            `;
+        }).join("");
+
         answerhtml = `
             <div class="question-options">
-                ${question.options.map((option, index) => {
-                    const value = question.type === "mcq"
-                        ? String.fromCharCode(65 + index)
-                        : String(option);
-
-                    const label = getoptionlabel(question, value);
-                    const id = `option-${questionindex}-${index}`;
-
-                    return `
-                        <div class="question-option">
-                            <input
-                                type="radio"
-                                name="question"
-                                id="${id}"
-                                value="${escapetext(value)}"
-                            >
-                            <label for="${id}">
-                                ${escapetext(label)}
-                            </label>
-                        </div>
-                    `;
-                }).join("")}
+                ${optionshtml}
             </div>
         `;
     }
@@ -329,7 +328,9 @@ function renderquestion() {
             updatenavigator();
         });
     } else {
-        questioncontent.querySelectorAll('input[type="radio"]').forEach(input => {
+        const inputs = questioncontent.querySelectorAll('input[type="radio"]');
+
+        inputs.forEach(input => {
             input.checked = input.value === savedanswer;
 
             input.addEventListener("change", () => {
@@ -397,8 +398,24 @@ function updatenavigator() {
         button.classList.toggle("answered", useranswers[index] !== undefined);
     });
 
+    const answered = Object.keys(useranswers).length;
+
     document.querySelector(".navigator-status").textContent =
-        `${Object.keys(useranswers).length} / ${sessionquestions.length} answered`;
+        `${answered} / ${sessionquestions.length} answered`;
+}
+
+const timelimit = mode === "full" ? 3600 : null;
+
+let timerid = null;
+let sessionstarttime = 0;
+
+function formattime(seconds) {
+    seconds = Math.max(0, Math.floor(seconds));
+
+    const minutes = Math.floor(seconds / 60);
+    const secondsleft = seconds % 60;
+
+    return `${String(minutes).padStart(2, "0")}:${String(secondsleft).padStart(2, "0")}`;
 }
 
 function gettimeused() {
@@ -406,11 +423,16 @@ function gettimeused() {
         return 0;
     }
 
-    const seconds = Math.floor((Date.now() - sessionstarttime) / 1000);
+    const elapsed = Math.max(
+        0,
+        Math.floor((Date.now() - sessionstarttime) / 1000)
+    );
 
-    return timelimit === null
-        ? Math.max(0, seconds)
-        : Math.min(timelimit, Math.max(0, seconds));
+    if (timelimit !== null) {
+        return Math.min(elapsed, timelimit);
+    }
+
+    return elapsed;
 }
 
 function starttimer() {
@@ -428,14 +450,16 @@ function starttimer() {
 
         timer.textContent = formattime(remaining);
 
-        if (remaining <= 0) {
+        if (remaining === 0) {
             submitsession();
         }
     }
 
-    updatetimer();
     timerid = setInterval(updatetimer, 1000);
+    updatetimer();
 }
+
+const submitbutton = document.querySelector(".submit-session");
 
 function showquestions() {
     fullreading = false;
@@ -447,10 +471,10 @@ function showquestions() {
     questionprev.style.display = "";
     questionnext.style.display = "";
 
-    const passagebuttons = sessionpages.length > 1 ? "" : "none";
+    const display = sessionpages.length > 1 ? "" : "none";
 
-    passageprev.style.display = passagebuttons;
-    passagenext.style.display = passagebuttons;
+    passageprev.style.display = display;
+    passagenext.style.display = display;
 
     document.querySelector(".question-heading h2").textContent =
         "Test your understanding";
@@ -462,6 +486,10 @@ function showquestions() {
 }
 
 function startsession() {
+    currentquestion = 0;
+    currentpassage = 0;
+    useranswers = {};
+    sessionfinished = false;
     sessionstarttime = Date.now();
 
     showquestions();
@@ -486,22 +514,26 @@ function startfullreading() {
     starttimer();
 }
 
+let selectedtype = null;
+
 function preparetypesession(type) {
     const matchingpages = passages.filter(page => {
-        return page.questions.some(question => question.type === type);
+        return page.questions.some(question => {
+            return question.type === type;
+        });
     });
 
-    if (matchingpages.length === 0) {
-        window.alert("There are no questions available for this type yet.");
+    if (matchingpages.length < 2) {
+        window.alert(
+            "This question type needs questions in at least two passages."
+        );
+
         return;
     }
 
     selectedtype = type;
-    sessionpages = shuffle(matchingpages);
+    sessionpages = shuffle(matchingpages).slice(0, 2);
     sessionquestions = [];
-    useranswers = {};
-    currentquestion = 0;
-    currentpassage = 0;
 
     sessionpages.forEach(page => {
         const questions = page.questions.filter(question => {
@@ -549,15 +581,23 @@ function showtypechoices() {
                         id="type-${type}"
                         value="${type}"
                     >
-                    <label for="type-${type}">${label}</label>
+                    <label for="type-${type}">
+                        ${label}
+                    </label>
                 </div>
             `).join("")}
         </div>
     `;
 
-    questioncontent.querySelectorAll('input[name="questiontype"]').forEach(input => {
+    const inputs = questioncontent.querySelectorAll('input[name="questiontype"]');
+
+    inputs.forEach(input => {
         input.addEventListener("change", () => {
             preparetypesession(input.value);
+
+            if (selectedtype === null) {
+                input.checked = false;
+            }
         });
     });
 }
@@ -567,9 +607,9 @@ function changepassage(direction) {
         return;
     }
 
-    if (fullreading) {
-        const nextindex = currentpassage + direction;
+    const nextindex = currentpassage + direction;
 
+    if (fullreading) {
         if (nextindex === sessionpages.length) {
             currentquestion = 0;
             showquestions();
@@ -581,20 +621,27 @@ function changepassage(direction) {
         return;
     }
 
-    const page = sessionpages[currentpassage + direction];
+    const page = sessionpages[nextindex];
 
     if (!page) {
         return;
     }
 
-    const index = sessionquestions.findIndex(question => {
+    const questionindex = sessionquestions.findIndex(question => {
         return question.passage === page;
     });
 
-    if (index !== -1) {
-        currentquestion = index;
+    if (questionindex !== -1) {
+        currentquestion = questionindex;
         renderquestion();
     }
+}
+
+function normalizeanswer(value) {
+    return String(value ?? "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
 }
 
 function checkanswer(question, answer) {
@@ -606,12 +653,14 @@ function checkanswer(question, answer) {
 
     let correctanswers = [question.answer];
 
-    if (question.type === "sentence-completion") {
-        const accepted = question.acceptedanswers;
-
-        if (Array.isArray(accepted)) {
-            correctanswers = [...correctanswers, ...accepted];
-        }
+    if (
+        question.type === "sentence-completion" &&
+        Array.isArray(question.acceptedanswers)
+    ) {
+        correctanswers = [
+            ...correctanswers,
+            ...question.acceptedanswers
+        ];
     }
 
     return correctanswers.some(correctanswer => {
@@ -621,9 +670,9 @@ function checkanswer(question, answer) {
 
 function readstorage(key, fallback) {
     try {
-        const value = localStorage.getItem(key);
+        const saved = localStorage.getItem(key);
 
-        return value ? JSON.parse(value) : fallback;
+        return saved ? JSON.parse(saved) : fallback;
     } catch {
         return fallback;
     }
@@ -661,11 +710,13 @@ function saveprogress(correct, accuracy) {
     progress.totalcorrect =
         (Number(progress.totalcorrect) || 0) + correct;
 
-    progress.accuracy = progress.questionsattempted
-        ? Math.round(
+    progress.accuracy = 0;
+
+    if (progress.questionsattempted > 0) {
+        progress.accuracy = Math.round(
             (progress.totalcorrect / progress.questionsattempted) * 100
-        )
-        : 0;
+        );
+    }
 
     progress.bestscore = Number(progress.bestscore) || 0;
     progress.besttotal = Number(progress.besttotal) || 0;
@@ -726,14 +777,12 @@ function submitsession() {
             const iscorrect = checkanswer(question, answer);
 
             let status = "Not answered";
+            let youranswer = "Not answered";
 
             if (answer !== undefined) {
                 status = iscorrect ? "Correct" : "Incorrect";
+                youranswer = getoptionlabel(question, answer);
             }
-
-            const youranswer = answer !== undefined
-                ? getoptionlabel(question, answer)
-                : "Not answered";
 
             const correctanswer = getoptionlabel(question, question.answer);
 
@@ -791,20 +840,24 @@ passageprev.addEventListener("click", () => {
 
 questionnext.addEventListener("click", () => {
     if (
-        !sessionfinished &&
-        !fullreading &&
-        currentquestion < sessionquestions.length - 1
+        sessionfinished ||
+        fullreading ||
+        currentquestion >= sessionquestions.length - 1
     ) {
-        currentquestion++;
-        renderquestion();
+        return;
     }
+
+    currentquestion++;
+    renderquestion();
 });
 
 questionprev.addEventListener("click", () => {
-    if (!sessionfinished && !fullreading && currentquestion > 0) {
-        currentquestion--;
-        renderquestion();
+    if (sessionfinished || fullreading || currentquestion === 0) {
+        return;
     }
+
+    currentquestion--;
+    renderquestion();
 });
 
 submitbutton.addEventListener("click", submitsession);
@@ -823,6 +876,8 @@ if (mode === "types") {
     if (preparequick()) {
         startsession();
     }
-} else if (preparefull()) {
-    startfullreading();
+} else {
+    if (preparefull()) {
+        startfullreading();
+    }
 }

@@ -137,6 +137,12 @@ img {
     background: var(--accent);
     transition: var(--transition);
 }
+.sidebar-nav a.active:not(.sidebar-button) {
+    color: black;
+    font-weight: 700;
+    border-left: 3px solid var(--accent);
+    padding-left: 12px;
+}
 
 .nav-links a.active {
     color: var(--heading);
