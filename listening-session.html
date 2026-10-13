@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Practise IELTS Listening with audio recordings, question sets, and detailed answer reviews.">
+    <title>Listening Practice | IELTS PrepLab</title>
+
+    <link rel="icon" href="images/icon/book-open.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/listening-session.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <header class="session-header">
+        <div class="container session-header-inner">
+            <a href="index.html" class="session-logo">
+                <img src="images/icon/book-open.svg" alt="">
+                <span>IELTS <strong>PrepLab</strong></span>
+            </a>
+
+            <a href="listening.html" class="session-home">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Listening</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="listening-session">
+        <div class="container">
+
+            <section class="practice-screen" id="practice-screen">
+
+                <div class="session-heading">
+                    <div class="session-heading-info">
+                        <span class="section-label">LISTENING PRACTICE</span>
+                        <h1 id="session-title">Full Listening Test</h1>
+                        <p id="session-description">Listen carefully to each recording and answer all 40 questions.</p>
+                    </div>
+
+                    <div class="session-badge" id="session-badge">
+                        <i class="fa-solid fa-headphones-simple"></i>
+                        <span>FULL TEST</span>
+                    </div>
+                </div>
+
+                <div class="test-overview" id="test-overview" hidden>
+
+                    <div class="overview-item">
+                        <span class="overview-label">CURRENT AUDIO</span>
+                        <strong id="current-section">Audio 1 of 4</strong>
+                    </div>
+
+                    <div class="overview-item">
+                        <span class="overview-label">TOTAL QUESTIONS</span>
+                        <strong id="question-summary">1–40 of 40</strong>
+                    </div>
+
+                    <div class="overview-item timer-item" id="timer-item">
+                        <span class="overview-label">TIME REMAINING</span>
+                        <strong id="session-timer">60:00</strong>
+                    </div>
+
+                </div>
+
+                <div class="session-progress">
+                    <div class="progress-information">
+                        <span id="progress-label">Your progress</span>
+                        <span id="progress-count">0 of 40 questions</span>
+                    </div>
+
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+
+                <section class="audio-card">
+
+                    <div class="audio-card-heading">
+                        <div class="audio-heading-icon">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </div>
+
+                        <div>
+                            <h2 id="audio-title">Listening Audio 1</h2>
+                            <p id="audio-description">Listen to the recording and answer the related questions below.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="audio-session-information">
+                        <span class="audio-session-count" id="audio-session-count">AUDIO 1 OF 4</span>
+                        <span id="audio-question-range">Questions 1–10</span>
+                    </div>
+
+                    <div class="audio-player-area">
+
+                        <audio id="listening-audio" preload="metadata"></audio>
+
+                        <div class="audio-placeholder" id="audio-placeholder">
+                            <i class="fa-solid fa-headphones"></i>
+                            <span>Your recording will appear here.</span>
+                        </div>
+
+                        <div class="audio-controls" id="audio-controls" hidden>
+
+                            <button type="button" class="audio-play-button" id="audio-play" aria-label="Play audio">
+                                <i class="fa-solid fa-play"></i>
+                            </button>
+
+                            <div class="audio-track-information">
+                                <div class="audio-track">
+                                    <div class="audio-track-fill" id="audio-track-fill"></div>
+                                </div>
+
+                                <div class="audio-time">
+                                    <span id="audio-current-time">0:00</span>
+                                    <span id="audio-duration">0:00</span>
+                                </div>
+                            </div>
+
+                            <button type="button" class="audio-replay-button" id="audio-replay"
+                                aria-label="Replay audio">
+                                <i class="fa-solid fa-rotate-right"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="audio-note">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <p id="audio-note-text">Choose your answers while listening to the recording.</p>
+                    </div>
+
+                    <div class="audio-navigation">
+                        <span class="audio-navigation-status" id="audio-navigation-status">Audio 1 of 4</span>
+
+                        <button type="button" class="next-audio-button" id="next-audio">
+                            <span id="next-audio-text">Next Audio</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                </section>
+
+                <section class="questions-section">
+
+                    <div class="questions-heading">
+                        <div>
+                            <span class="section-label">YOUR QUESTIONS</span>
+                            <h2>Listen & Answer</h2>
+                            <p>All questions are available below. Your answers will be saved as you move between audios.
+                            </p>
+                        </div>
+
+                        <span class="question-counter" id="question-counter">40 Questions</span>
+                    </div>
+
+                    <div class="question-layout">
+
+                        <div class="question-main" id="question-main">
+
+                            <section class="listening-question-group" data-audio-section="1">
+                                <div class="question-group-heading">
+                                    <div>
+                                        <span class="section-label">AUDIO 1</span>
+                                        <h3>Questions 1–10</h3>
+                                    </div>
+                                    <span class="question-group-status" id="section-status-1">0 of 10 answered</span>
+                                </div>
+
+                                <p class="question-group-instruction">Answer the following questions based on Audio 1.
+                                </p>
+
+                                <div class="question-list" id="question-list-1"></div>
+                            </section>
+
+                            <section class="listening-question-group" data-audio-section="2">
+                                <div class="question-group-heading">
+                                    <div>
+                                        <span class="section-label">AUDIO 2</span>
+                                        <h3>Questions 11–20</h3>
+                                    </div>
+                                    <span class="question-group-status" id="section-status-2">0 of 10 answered</span>
+                                </div>
+
+                                <p class="question-group-instruction">Answer the following questions based on Audio 2.
+                                </p>
+
+                                <div class="question-list" id="question-list-2"></div>
+                            </section>
+
+                            <section class="listening-question-group" data-audio-section="3">
+                                <div class="question-group-heading">
+                                    <div>
+                                        <span class="section-label">AUDIO 3</span>
+                                        <h3>Questions 21–30</h3>
+                                    </div>
+                                    <span class="question-group-status" id="section-status-3">0 of 10 answered</span>
+                                </div>
+
+                                <p class="question-group-instruction">Answer the following questions based on Audio 3.
+                                </p>
+
+                                <div class="question-list" id="question-list-3"></div>
+                            </section>
+
+                            <section class="listening-question-group" data-audio-section="4">
+                                <div class="question-group-heading">
+                                    <div>
+                                        <span class="section-label">AUDIO 4</span>
+                                        <h3>Questions 31–40</h3>
+                                    </div>
+                                    <span class="question-group-status" id="section-status-4">0 of 10 answered</span>
+                                </div>
+
+                                <p class="question-group-instruction">Answer the following questions based on Audio 4.
+                                </p>
+
+                                <div class="question-list" id="question-list-4"></div>
+                            </section>
+
+                        </div>
+
+                        <aside class="question-sidebar">
+
+                            <div class="question-sidebar-heading">
+                                <h3>Question Map</h3>
+                                <span id="answered-count">0 answered</span>
+                            </div>
+
+                            <p class="question-sidebar-description">Select a question number to jump to it.</p>
+
+                            <div class="question-map" id="question-map">
+
+                                <button type="button" class="question-map-item" data-question="0">1</button>
+                                <button type="button" class="question-map-item" data-question="1">2</button>
+                                <button type="button" class="question-map-item" data-question="2">3</button>
+                                <button type="button" class="question-map-item" data-question="3">4</button>
+                                <button type="button" class="question-map-item" data-question="4">5</button>
+                                <button type="button" class="question-map-item" data-question="5">6</button>
+                                <button type="button" class="question-map-item" data-question="6">7</button>
+                                <button type="button" class="question-map-item" data-question="7">8</button>
+                                <button type="button" class="question-map-item" data-question="8">9</button>
+                                <button type="button" class="question-map-item" data-question="9">10</button>
+
+                                <button type="button" class="question-map-item" data-question="10">11</button>
+                                <button type="button" class="question-map-item" data-question="11">12</button>
+                                <button type="button" class="question-map-item" data-question="12">13</button>
+                                <button type="button" class="question-map-item" data-question="13">14</button>
+                                <button type="button" class="question-map-item" data-question="14">15</button>
+                                <button type="button" class="question-map-item" data-question="15">16</button>
+                                <button type="button" class="question-map-item" data-question="16">17</button>
+                                <button type="button" class="question-map-item" data-question="17">18</button>
+                                <button type="button" class="question-map-item" data-question="18">19</button>
+                                <button type="button" class="question-map-item" data-question="19">20</button>
+
+                                <button type="button" class="question-map-item" data-question="20">21</button>
+                                <button type="button" class="question-map-item" data-question="21">22</button>
+                                <button type="button" class="question-map-item" data-question="22">23</button>
+                                <button type="button" class="question-map-item" data-question="23">24</button>
+                                <button type="button" class="question-map-item" data-question="24">25</button>
+                                <button type="button" class="question-map-item" data-question="25">26</button>
+                                <button type="button" class="question-map-item" data-question="26">27</button>
+                                <button type="button" class="question-map-item" data-question="27">28</button>
+                                <button type="button" class="question-map-item" data-question="28">29</button>
+                                <button type="button" class="question-map-item" data-question="29">30</button>
+
+                                <button type="button" class="question-map-item" data-question="30">31</button>
+                                <button type="button" class="question-map-item" data-question="31">32</button>
+                                <button type="button" class="question-map-item" data-question="32">33</button>
+                                <button type="button" class="question-map-item" data-question="33">34</button>
+                                <button type="button" class="question-map-item" data-question="34">35</button>
+                                <button type="button" class="question-map-item" data-question="35">36</button>
+                                <button type="button" class="question-map-item" data-question="36">37</button>
+                                <button type="button" class="question-map-item" data-question="37">38</button>
+                                <button type="button" class="question-map-item" data-question="38">39</button>
+                                <button type="button" class="question-map-item" data-question="39">40</button>
+
+                            </div>
+
+                            <div class="sidebar-tip">
+                                <i class="fa-regular fa-lightbulb"></i>
+                                <div>
+                                    <h4>Listening Tip</h4>
+                                    <p>Pay attention to keywords, numbers, names, and changes in the speaker's answer.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </aside>
+
+                    </div>
+
+                </section>
+
+                <div class="session-bottom">
+
+                    <div class="session-bottom-note">
+                        <span>Review your answers before finishing the test.</span>
+                    </div>
+
+                    <button type="button" class="finish-session-button" id="finish-session">
+                        Finish Test
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                </div>
+
+            </section>
+
+            <section class="results-screen" id="results-screen" hidden>
+
+                <div class="results-heading">
+                    <div class="results-success-icon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                    <span class="section-label">SESSION COMPLETED</span>
+                    <h1 id="results-title">Well Done!</h1>
+                    <p id="results-description">You have completed your listening practice. Review your answers below.
+                    </p>
+                </div>
+
+                <div class="results-score-card">
+
+                    <div class="results-score-main">
+                        <span class="results-score-label">YOUR FINAL SCORE</span>
+
+                        <div class="results-score-value">
+                            <strong id="final-score">0</strong>
+                            <span id="total-score">/ 40</span>
+                        </div>
+
+                        <p id="score-message">Every practice session is a chance to improve.</p>
+                    </div>
+
+                    <div class="results-score-divider"></div>
+
+                    <div class="results-statistics">
+
+                        <div class="result-stat">
+                            <span class="result-stat-icon correct-icon">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <div>
+                                <strong id="correct-count">0</strong>
+                                <span>Correct answers</span>
+                            </div>
+                        </div>
+
+                        <div class="result-stat">
+                            <span class="result-stat-icon incorrect-icon">
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                            <div>
+                                <strong id="incorrect-count">0</strong>
+                                <span>Incorrect answers</span>
+                            </div>
+                        </div>
+
+                        <div class="result-stat">
+                            <span class="result-stat-icon accuracy-icon">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </span>
+                            <div>
+                                <strong id="accuracy-score">0%</strong>
+                                <span>Accuracy</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+        </div>
+    </main>
+
+    <footer class="session-footer">
+        <div class="container session-footer-inner">
+            <p>© 2026 IELTS PrepLab. Keep learning, one session at a time.</p>
+            <a href="listening.html">Listening Practice</a>
+        </div>
+    </footer>
+
+    <script src="js/listening-data.js"></script>
+    <script src="js/listening-session.js"></script>
+
+</body>
+
+</html>
