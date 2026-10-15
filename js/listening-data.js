@@ -1,5 +1,259 @@
 window.listeningdata = {
-    quick: [],
+    quick: [
+        {
+            id: "quick-01",
+            title: "Doctor's Appointment",
+            audio: "audio/listening/quick/quick-01.mp3",
+            questions: [
+                {
+                    id: 1,
+                    type: "mcq",
+                    question: "Why does Daniel want to visit the doctor?",
+                    options: [
+                        "He has had a cough for four days",
+                        "He has a headache",
+                        "He needs a routine health check"
+                    ],
+                    answer: 0
+                },
+                {
+                    id: 2,
+                    type: "mcq",
+                    question: "What time is Daniel's appointment?",
+                    options: [
+                        "9:30 am",
+                        "11:15 am",
+                        "2:15 pm"
+                    ],
+                    answer: 1
+                },
+                {
+                    id: 3,
+                    type: "mcq",
+                    question: "Where is the appointment?",
+                    options: [
+                        "The branch on Park Road",
+                        "The university health centre",
+                        "The main clinic on King Street"
+                    ],
+                    answer: 2
+                },
+                {
+                    id: 4,
+                    type: "mcq",
+                    question: "How much does a standard consultation cost?",
+                    options: [
+                        "£25",
+                        "£35",
+                        "£45"
+                    ],
+                    answer: 1
+                },
+                {
+                    id: 5,
+                    type: "mcq",
+                    question: "How early should Daniel arrive?",
+                    options: [
+                        "5 minutes early",
+                        "10 minutes early",
+                        "20 minutes early"
+                    ],
+                    answer: 1
+                }
+            ]
+        },
+        {
+            id: "quick-02",
+            title: "University Library",
+            audio: "audio/listening/quick/quick-02.mp3",
+            questions: [
+                {
+                    id: 6,
+                    type: "mcq",
+                    question: "What time does the library close on Saturdays?",
+                    options: [
+                        "3:00 pm",
+                        "5:00 pm",
+                        "8:00 pm"
+                    ],
+                    answer: 1
+                },
+                {
+                    id: 7,
+                    type: "mcq",
+                    question: "How many books can students borrow at one time?",
+                    options: [
+                        "Four",
+                        "Six",
+                        "Eight"
+                    ],
+                    answer: 1
+                },
+                {
+                    id: 8,
+                    type: "mcq",
+                    question: "Where is the silent study room?",
+                    options: [
+                        "On the ground floor",
+                        "On the first floor",
+                        "On the second floor"
+                    ],
+                    answer: 2
+                },
+                {
+                    id: 9,
+                    type: "form",
+                    question: "Complete the library information.",
+                    prompt: "Library Information",
+                    fields: [
+                        {
+                            id: "q9",
+                            label: "Normal book loan period:",
+                            answer: "14 days"
+                        }
+                    ]
+                },
+                {
+                    id: 10,
+                    type: "form",
+                    question: "Complete the library information.",
+                    prompt: "Printing Costs",
+                    fields: [
+                        {
+                            id: "q10",
+                            label: "Cost of colour printing per page:",
+                            answer: "15 pence"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "quick-03",
+            title: "Weekend Trip",
+            audio: "audio/listening/quick/quick-03.mp3",
+            questions: [
+                {
+                    id: 11,
+                    type: "mcq",
+                    question: "How long does the train journey to Lakewood take?",
+                    options: [
+                        "About 45 minutes",
+                        "About 90 minutes",
+                        "About 2 hours"
+                    ],
+                    answer: 1
+                },
+                {
+                    id: 12,
+                    type: "mcq",
+                    question: "What is the price of a return ticket before the student discount?",
+                    options: [
+                        "$30",
+                        "$40",
+                        "$50"
+                    ],
+                    answer: 1
+                },
+                {
+                    id: 13,
+                    type: "mcq",
+                    question: "How long does the walking trail usually take?",
+                    options: [
+                        "One hour",
+                        "Two hours",
+                        "Three hours"
+                    ],
+                    answer: 1
+                },
+                {
+                    id: 14,
+                    type: "mcq",
+                    question: "When is rain expected?",
+                    options: [
+                        "Early Saturday morning",
+                        "Around midday",
+                        "After 3 pm"
+                    ],
+                    answer: 2
+                },
+                {
+                    id: 15,
+                    type: "mcq",
+                    question: "What time will they meet outside Central Station?",
+                    options: [
+                        "7:40 am",
+                        "7:55 am",
+                        "8:20 am"
+                    ],
+                    answer: 1
+                }
+            ]
+        },
+        {
+            id: "quick-04",
+            title: "Part-Time Job",
+            audio: "audio/listening/quick/quick-04.mp3",
+            questions: [
+                {
+                    id: 16,
+                    type: "mcq",
+                    question: "What did Aisha do in her previous summer job?",
+                    options: [
+                        "Worked in a bookshop",
+                        "Worked in a clothing store",
+                        "Worked in a restaurant"
+                    ],
+                    answer: 1
+                },
+                {
+                    id: 17,
+                    type: "mcq",
+                    question: "How long is a typical part-time shift?",
+                    options: [
+                        "Three hours",
+                        "Four hours",
+                        "Six hours"
+                    ],
+                    answer: 1
+                },
+                {
+                    id: 18,
+                    type: "mcq",
+                    question: "What is the starting hourly pay?",
+                    options: [
+                        "£10.50",
+                        "£12.50",
+                        "£15.00"
+                    ],
+                    answer: 1
+                },
+                {
+                    id: 19,
+                    type: "mcq",
+                    question: "What must Aisha upload with her application?",
+                    options: [
+                        "Her university transcript",
+                        "A photograph",
+                        "Her CV"
+                    ],
+                    answer: 2
+                },
+                {
+                    id: 20,
+                    type: "mcq",
+                    question: "When is the application deadline?",
+                    options: [
+                        "Friday the 11th",
+                        "Friday the 18th",
+                        "Friday the 25th"
+                    ],
+                    answer: 1
+                }
+            ]
+        },
+    ],
+    
     full: {
         section1: [
             {
@@ -781,11 +1035,582 @@ window.listeningdata = {
                 ]
             }
 
-
-
         ],
-        section3: [],
-        section4: []
+        section3: [
+            {
+                id: "full-s3-01",
+                title: "University Group Project Discussion",
+                audio: "audio/listening/full/section-3/full-s3-01.mp3",
+                questions: [
+                    {
+                        id: 31,
+                        type: "mcq",
+                        question: "What topic does the group finally choose for its research?",
+                        options: [
+                            "Recycling habits among university students",
+                            "Factors influencing students' transport choices",
+                            "Energy consumption in university buildings",
+                            "The cost of university accommodation"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        id: 32,
+                        type: "mcq",
+                        question: "Why does the group move away from studying energy consumption?",
+                        options: [
+                            "The topic has already been completed",
+                            "The university refuses to participate",
+                            "Access to the necessary records is uncertain",
+                            "The research period is too short"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        id: 33,
+                        type: "multiple",
+                        question: "Which TWO methods will the group use to distribute its questionnaire?",
+                        options: [
+                            "The student portal",
+                            "Telephone interviews",
+                            "QR posters in the library and cafeteria",
+                            "Letters sent to students' homes",
+                            "Printed questionnaires in classrooms"
+                        ],
+                        answers: [0, 2]
+                    },
+                    {
+                        id: 34,
+                        type: "mcq",
+                        question: "What is the group's target number of responses?",
+                        options: [
+                            "100",
+                            "150",
+                            "200",
+                            "250"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        id: 35,
+                        type: "mcq",
+                        question: "What is the minimum acceptable number of responses?",
+                        options: [
+                            "100",
+                            "125",
+                            "150",
+                            "200"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        id: 36,
+                        type: "matching",
+                        question: "Which chart will show the proportions of students using different transport modes?",
+                        options: [
+                            "Pie chart",
+                            "Bar chart",
+                            "Line graph",
+                            "Scatter graph"
+                        ],
+                        items: [
+                            {
+                                id: 36,
+                                text: "Proportions of students by transport mode",
+                                answer: 0
+                            }
+                        ]
+                    },
+                    {
+                        id: 37,
+                        type: "matching",
+                        question: "Which chart will compare transport choices across academic years?",
+                        options: [
+                            "Pie chart",
+                            "Bar chart",
+                            "Line graph",
+                            "Scatter graph"
+                        ],
+                        items: [
+                            {
+                                id: 37,
+                                text: "Transport choices across academic years",
+                                answer: 1
+                            }
+                        ]
+                    },
+                    {
+                        id: 38,
+                        type: "mcq",
+                        question: "How long will the group collect questionnaire responses?",
+                        options: [
+                            "Five days",
+                            "One week",
+                            "Ten days",
+                            "Two weeks"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        id: 39,
+                        type: "mcq",
+                        question: "How many students will take part in the pilot test?",
+                        options: [
+                            "Two or three",
+                            "Five or six",
+                            "Ten or twelve",
+                            "Fifteen or twenty"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        id: 40,
+                        type: "mcq",
+                        question: "When must the group send the final questionnaire to the Administrator?",
+                        options: [
+                            "By Wednesday morning",
+                            "By Thursday evening",
+                            "By Friday afternoon",
+                            "By the end of the weekend"
+                        ],
+                        answer: 2
+                    }
+                ]
+            },
+            {
+                id: "full-s3-02",
+                title: "University Research Presentation",
+                audio: "audio/listening/full/section-3/full-s3-02.mp3",
+                questions: [
+                    {
+                        id: 41,
+                        type: "mcq",
+                        question: "What is the group's main research question?",
+                        options: [
+                            "Why students visit museums less frequently than older adults",
+                            "How museums preserve historical objects",
+                            "Why museum admission prices have increased",
+                            "How museums attract international tourists"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        id: 42,
+                        type: "mcq",
+                        question: "What percentage of weekday visitors at the City Museum are students?",
+                        options: [
+                            "12%",
+                            "18%",
+                            "22%",
+                            "30%"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        id: 43,
+                        type: "multiple",
+                        question: "Which TWO factors does the National Museum Association report suggest can influence attendance?",
+                        options: [
+                            "Admission prices",
+                            "Museum building age",
+                            "Transport costs",
+                            "Weather forecasts",
+                            "The number of museum employees"
+                        ],
+                        answers: [0, 2]
+                    },
+                    {
+                        id: 44,
+                        type: "mcq",
+                        question: "How many questionnaire responses has the group received so far?",
+                        options: [
+                            "68",
+                            "80",
+                            "86",
+                            "150"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        id: 45,
+                        type: "mcq",
+                        question: "By when does the group hope to reach its target of 150 responses?",
+                        options: [
+                            "This Monday",
+                            "Next Thursday",
+                            "The following Wednesday",
+                            "Three weeks from now"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        id: 46,
+                        type: "matching",
+                        question: "Which chart is suggested for showing the main reasons students do not visit museums?",
+                        options: [
+                            "Pie chart",
+                            "Bar chart",
+                            "Line graph",
+                            "Scatter graph"
+                        ],
+                        items: [
+                            {
+                                id: 46,
+                                text: "Main reasons students avoid museum visits",
+                                answer: 0
+                            }
+                        ]
+                    },
+                    {
+                        id: 47,
+                        type: "matching",
+                        question: "Which chart will compare undergraduate and postgraduate responses?",
+                        options: [
+                            "Pie chart",
+                            "Bar chart",
+                            "Line graph",
+                            "Scatter graph"
+                        ],
+                        items: [
+                            {
+                                id: 47,
+                                text: "Comparison of undergraduate and postgraduate responses",
+                                answer: 1
+                            }
+                        ]
+                    },
+                    {
+                        id: 48,
+                        type: "mcq",
+                        question: "What is the planned length of the presentation?",
+                        options: [
+                            "Nine minutes",
+                            "Twelve minutes",
+                            "Fifteen minutes",
+                            "Eighteen minutes"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        id: 49,
+                        type: "mcq",
+                        question: "When must the group email its revised research question and presentation outline?",
+                        options: [
+                            "Thursday morning",
+                            "Friday at noon",
+                            "Monday afternoon",
+                            "The following Wednesday"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        id: 50,
+                        type: "mcq",
+                        question: "When will the Administrator return comments on the outline?",
+                        options: [
+                            "Friday evening",
+                            "Saturday morning",
+                            "Monday afternoon",
+                            "Wednesday afternoon"
+                        ],
+                        answer: 2
+                    }
+                ]
+            },
+            {
+                id: "full-s3-03",
+                title: "Urban Wildlife Research Project",
+                audio: "audio/listening/full/section-3/full-s3-03.mp3",
+                questions: [
+                    {
+                        id: 51,
+                        type: "mcq",
+                        question: "Which three parks has the group selected for its research?",
+                        options: [
+                            "Central Park, Riverside Park and Hilltop Park",
+                            "Central Park, Greenfield Park and East Park",
+                            "Riverside Park, Hilltop Park and Forest Park",
+                            "Hilltop Park, City Park and Greenfield Park"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        id: 52,
+                        type: "mcq",
+                        question: "Why did the group decide not to study five parks?",
+                        options: [
+                            "Some parks were closed",
+                            "The project would be too difficult to manage",
+                            "The university did not approve the idea",
+                            "There were too few birds"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        id: 53,
+                        type: "multiple",
+                        question: "Which TWO things will the group record during its observations?",
+                        options: [
+                            "Bird species",
+                            "Visitors' names",
+                            "Weather conditions",
+                            "The cost of park maintenance",
+                            "The age of every bird"
+                        ],
+                        answers: [0, 2]
+                    },
+                    {
+                        id: 54,
+                        type: "mcq",
+                        question: "When will the group conduct its observations?",
+                        options: [
+                            "Monday and Friday afternoons",
+                            "Tuesday and Saturday mornings",
+                            "Wednesday and Sunday evenings",
+                            "Thursday and Saturday afternoons"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        id: 55,
+                        type: "mcq",
+                        question: "What time will the students meet at the university library?",
+                        options: [
+                            "6:00 am",
+                            "6:30 am",
+                            "7:00 am",
+                            "7:30 am"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        id: 56,
+                        type: "matching",
+                        question: "Which park feature might attract water birds?",
+                        options: [
+                            "Feeding stations",
+                            "Residential streets",
+                            "A wetland area",
+                            "Open lawns"
+                        ],
+                        items: [
+                            {
+                                id: 56,
+                                text: "Feature that might attract water birds",
+                                answer: 2
+                            }
+                        ]
+                    },
+                    {
+                        id: 57,
+                        type: "matching",
+                        question: "Which chart will compare the total number of birds observed at each park?",
+                        options: [
+                            "Pie chart",
+                            "Bar chart",
+                            "Line graph",
+                            "Scatter graph"
+                        ],
+                        items: [
+                            {
+                                id: 57,
+                                text: "Comparing total bird counts",
+                                answer: 1
+                            }
+                        ]
+                    },
+                    {
+                        id: 58,
+                        type: "mcq",
+                        question: "By when must the group collect the binoculars?",
+                        options: [
+                            "Wednesday morning",
+                            "Thursday afternoon",
+                            "Friday afternoon",
+                            "The following Monday"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        id: 59,
+                        type: "mcq",
+                        question: "When does the group aim to finish its first report draft?",
+                        options: [
+                            "By the end of week two",
+                            "By the end of week three",
+                            "By the end of week four",
+                            "By the end of week five"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        id: 60,
+                        type: "mcq",
+                        question: "When must the group submit its observation plan and equipment list?",
+                        options: [
+                            "Wednesday at 3 pm",
+                            "Thursday at 9 am",
+                            "Friday at noon",
+                            "Saturday at 7 am"
+                        ],
+                        answer: 0
+                    }
+                ]
+            }
+        ],
+        section4: [
+            {
+                id: 61,
+                type: "form",
+                question: "Complete the notes about traditional urban water supplies.",
+                prompt: "Traditional Water Systems",
+                fields: [
+                    { id: "61a", label: "1. Water is traditionally collected in large ______.", answer: "reservoirs" },
+                    { id: "61b", label: "2. Ageing pipes can cause significant water ______.", answer: "losses" }
+                ]
+            },
+            {
+                id: 62,
+                type: "form",
+                question: "Complete the notes about rainwater harvesting.",
+                prompt: "Rainwater Harvesting",
+                fields: [
+                    { id: "62a", label: "3. Rainwater can be collected from ______.", answer: "rooftops" },
+                    { id: "62b", label: "4. Storage tanks must be maintained to prevent ______.", answer: "contamination" }
+                ]
+            },
+            {
+                id: 63,
+                type: "form",
+                question: "Complete the notes about wastewater recycling.",
+                prompt: "Wastewater Recycling",
+                fields: [
+                    { id: "63a", label: "5. Advanced treatment removes substances that ______ treatment may leave behind.", answer: "standard" },
+                    { id: "63b", label: "6. Additional treatment processes increase ______.", answer: "costs" }
+                ]
+            },
+            {
+                id: 64,
+                type: "form",
+                question: "Complete the notes about permeable surfaces.",
+                prompt: "Permeable Surfaces",
+                fields: [
+                    { id: "64a", label: "7. Rainwater passes through openings into layers of ______.", answer: "gravel" },
+                    { id: "64b", label: "8. These surfaces can help replenish ______.", answer: "groundwater" }
+                ]
+            },
+            {
+                id: 65,
+                type: "form",
+                question: "Complete the notes about smart water technology.",
+                prompt: "Smart Water Management",
+                fields: [
+                    { id: "65a", label: "9. Smart meters can help identify a possible ______.", answer: "leak" },
+                    { id: "65b", label: "10. Engineers can investigate unexpected changes in water ______.", answer: "pressure" }
+                ]
+            },
+            {
+                id: 66,
+                type: "form",
+                question: "Complete the notes about memory.",
+                prompt: "Types of Memory",
+                fields: [
+                    { id: "66a", label: "1. ______ memory holds information for a brief period.", answer: "Short-term" },
+                    { id: "66b", label: "2. Sleep helps ______ certain memories.", answer: "stabilise" }
+                ]
+            },
+            {
+                id: 67,
+                type: "form",
+                question: "Complete the notes about sleep stages.",
+                prompt: "Sleep Stages",
+                fields: [
+                    { id: "67a", label: "3. NREM sleep produces patterns of electrical ______.", answer: "activity" },
+                    { id: "67b", label: "4. REM sleep has been linked to emotional memory and ______ thinking.", answer: "creative" }
+                ]
+            },
+            {
+                id: 68,
+                type: "form",
+                question: "Complete the notes about the word-learning experiment.",
+                prompt: "Word-Learning Experiment",
+                fields: [
+                    { id: "68a", label: "5. Participants who slept generally remembered more ______.", answer: "words" },
+                    { id: "68b", label: "6. The timing of learning can influence how effectively information is ______.", answer: "retained" }
+                ]
+            },
+            {
+                id: 69,
+                type: "form",
+                question: "Complete the notes about effective studying.",
+                prompt: "Revision and Sleep",
+                fields: [
+                    { id: "69a", label: "7. Procedural memory involves skills developed through ______.", answer: "practice" },
+                    { id: "69b", label: "8. Active recall requires students to ______ information.", answer: "retrieve" }
+                ]
+            },
+            {
+                id: 70,
+                type: "form",
+                question: "Complete the lecturer's conclusions.",
+                prompt: "Conclusions",
+                fields: [
+                    { id: "70a", label: "9. Frequent sleep interruptions can reduce its ______.", answer: "benefits" },
+                    { id: "70b", label: "10. Regular sleep patterns and effective revision can support ______.", answer: "memory" }
+                ]
+            },
+            {
+                id: 71,
+                type: "form",
+                question: "Complete the notes about renewable energy.",
+                prompt: "Energy Generation",
+                fields: [
+                    { id: "71a", label: "1. Solar and wind electricity production depends on ______ conditions.", answer: "weather" },
+                    { id: "71b", label: "2. Electricity providers must constantly balance supply and ______.", answer: "demand" }
+                ]
+            },
+            {
+                id: 72,
+                type: "form",
+                question: "Complete the notes about energy storage.",
+                prompt: "Battery Storage",
+                fields: [
+                    { id: "72a", label: "3. Batteries store electricity when generation exceeds ______.", answer: "demand" },
+                    { id: "72b", label: "4. Battery performance declines with repeated ______ and discharging.", answer: "charging" }
+                ]
+            },
+            {
+                id: 73,
+                type: "form",
+                question: "Complete the notes about hydrogen.",
+                prompt: "Hydrogen Production",
+                fields: [
+                    { id: "73a", label: "5. Hydrogen can be produced through a process known as ______.", answer: "electrolysis" },
+                    { id: "73b", label: "6. Energy is lost during production, storage, and ______.", answer: "conversion" }
+                ]
+            },
+            {
+                id: 74,
+                type: "form",
+                question: "Complete the notes about electricity transmission.",
+                prompt: "Transmission Networks",
+                fields: [
+                    { id: "74a", label: "7. Wind farms are often located far from major ______.", answer: "cities" },
+                    { id: "74b", label: "8. New power lines may face opposition because of their visual impact and effects on ______.", answer: "wildlife" }
+                ]
+            },
+            {
+                id: 75,
+                type: "form",
+                question: "Complete the notes about modern electricity systems.",
+                prompt: "Smart Grids and Sustainability",
+                fields: [
+                    { id: "75a", label: "9. Smart grids use digital monitoring and ______ systems.", answer: "communication" },
+                    { id: "75b", label: "10. Renewable energy requires coordinated investment in storage, transmission, and demand ______.", answer: "management" }
+                ]
+            }
+
+        ]
     }
 
 };
