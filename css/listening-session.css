@@ -1610,3 +1610,299 @@
         padding: 18px 0;
     }
 }
+
+.question-card-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.question-card-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.question-prompt {
+    margin: 2px 0 0;
+    color: var(--heading, #211F1B);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.8;
+}
+
+.question-context {
+    margin: 0 0 8px;
+    color: var(--text, #575249);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.question-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.question-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 15px;
+    border: 1px solid var(--border, #D8CFC0);
+    border-radius: 10px;
+    background: var(--surface, #FFFCF5);
+    color: var(--text, #575249);
+    font-size: 14px;
+    line-height: 1.7;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.question-option input {
+    flex-shrink: 0;
+    width: 17px;
+    height: 17px;
+    margin: 4px 0 0;
+    accent-color: var(--primary, #234238);
+    cursor: pointer;
+}
+
+.question-option:has(input:checked) {
+    border-color: var(--primary, #234238);
+    background: #E7EDE5;
+    color: var(--heading, #211F1B);
+}
+
+.question-option:focus-within {
+    border-color: var(--primary, #234238);
+    box-shadow: 0 0 0 3px rgba(35, 66, 56, 0.1);
+}
+
+.question-hint {
+    margin: 4px 0 0;
+    color: var(--text, #575249);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .question-option:hover {
+        border-color: var(--primary, #234238);
+    }
+}
+
+@media (max-width: 520px) {
+    .question-card-heading {
+        gap: 10px;
+    }
+
+    .question-prompt {
+        font-size: 14px;
+    }
+
+    .question-option {
+        gap: 10px;
+        padding: 11px 12px;
+        font-size: 13px;
+    }
+}
+.audio-card {
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 8px 28px rgba(39, 34, 25, 0.06);
+}
+
+.audio-heading-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    background: #E7EDE5;
+}
+
+#audio-title {
+    font-size: 22px;
+    line-height: 1.4;
+}
+
+.audio-session-information {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border, #D8CFC0);
+}
+
+.audio-session-count {
+    padding: 7px 11px;
+    border-radius: 6px;
+    background: #E7EDE5;
+    font-size: 11px;
+    letter-spacing: 0.6px;
+}
+
+.audio-session-count::before {
+    width: 7px;
+    height: 7px;
+}
+
+#audio-question-range {
+    font-size: 12px;
+}
+
+.audio-player-area {
+    padding: 28px 22px;
+    border: 1px solid #E2D9C9;
+    border-radius: 14px;
+    background: #F8F4EB;
+}
+
+#audio-placeholder {
+    min-height: 125px;
+}
+
+.audio-placeholder span {
+    width: 54px;
+    height: 54px;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    background: #E7EDE5;
+}
+
+.audio-placeholder span::before {
+    content: "♫";
+    color: var(--primary, #234238);
+    font-size: 30px;
+    font-weight: 700;
+}
+
+#audio-placeholder::after {
+    content: "Preparing your recording...";
+    color: var(--text, #575249);
+    font-size: 13px;
+}
+
+.audio-controls {
+    gap: 18px;
+}
+
+.audio-play-button {
+    width: 50px;
+    height: 50px;
+    background: var(--primary, #234238);
+    box-shadow: 0 3px 8px rgba(35, 66, 56, 0.15);
+}
+
+.audio-track {
+    position: relative;
+    height: 8px;
+    border-radius: 10px;
+    transform: translateY(11px);
+    background: #DED5C7;
+}
+
+.audio-track-fill {
+    background: var(--primary, #234238);
+    transition: width 0.12s linear;
+}
+
+.audio-time {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 10px;
+    color: var(--text, #575249);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+     transform: translateY(7px);
+}
+
+.audio-replay-button {
+    width: 42px;
+    height: 42px;
+    border: 1px solid #D8E1D5;
+    border-radius: 50%;
+    background: #E7EDE5;
+    color: var(--primary, #234238);
+}
+
+.audio-play-button:disabled,
+.audio-replay-button:disabled,
+.next-audio-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.audio-note {
+    padding: 13px 15px;
+    border-radius: 9px;
+    background: #F5F0E6;
+    font-size: 12px;
+}
+
+.audio-note i {
+    color: var(--accent, #8A3F3F);
+}
+
+.audio-navigation {
+    margin-top: 22px;
+    padding-top: 20px;
+}
+
+.audio-navigation-status {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.next-audio-button {
+    min-height: 46px;
+    padding: 0 21px;
+    border-radius: 9px;
+    box-shadow: 0 3px 8px rgba(35, 66, 56, 0.1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .audio-play-button:hover,
+    .next-audio-button:hover:not(:disabled) {
+        background: var(--primary-dark, #172E27);
+        transform: translateY(-1px);
+    }
+
+    .audio-replay-button:hover:not(:disabled) {
+        border-color: var(--primary, #234238);
+        background: #DCE6DA;
+    }
+}
+
+.audio-play-button:focus-visible,
+.audio-replay-button:focus-visible,
+.next-audio-button:focus-visible {
+    outline: 3px solid #9BAF9A;
+    outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+    .audio-card {
+        padding: 17px;
+    }
+
+    .audio-player-area {
+        padding: 20px 14px;
+    }
+
+    .audio-controls {
+        gap: 12px;
+    }
+
+    .audio-play-button {
+        width: 43px;
+        height: 43px;
+    }
+
+    .audio-replay-button {
+        width: 36px;
+        height: 36px;
+    }
+
+    #audio-title {
+        font-size: 19px;
+    }
+}
