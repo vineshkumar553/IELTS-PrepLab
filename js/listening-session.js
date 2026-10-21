@@ -1,79 +1,124 @@
 const urlparams = new URLSearchParams(window.location.search);
-const selectedmode = urlparams.get("mode") === "quick" ? "quick" : "full";
-const fulltest = selectedmode === "full";
-const listeningdata = window.listeningdata;
+let mode = urlparams.get("mode");
 
-const useranswers = {};
-const allquestions = [];
+if (mode !== "quick") {
+    mode = "full";
+}
+
+const fulltest = mode === "full";
 const sessionstarttime = Date.now();
 
-let recordings = [];
-let currentaudioindex = 0;
-let sessionfinished = false;
-let audiofinished = false;
-let timerinterval;
-
-function randomrecording(items) {
-    return items[Math.floor(Math.random() * items.length)];
-}
+const listeningdata = window.listeningdata;
+const recordings = [];
 
 if (fulltest) {
     for (let section = 1; section <= 4; section++) {
-        recordings.push(randomrecording(listeningdata.full[`section${section}`]));
+        const choices = listeningdata.full[`section${section}`];
+        const random = Math.floor(Math.random() * choices.length);
+        recordings.push(choices[random]);
     }
 } else {
-    recordings.push(randomrecording(listeningdata.quick));
+    const choices = listeningdata.quick;
+    const random = Math.floor(Math.random() * choices.length);
+    recordings.push(choices[random]);
 }
 
-document.querySelector("#session-title").textContent = fulltest
+const title = document.querySelector("#session-title");
+title.textContent = fulltest
     ? "Full Listening Test"
     : "Quick Listening Practice";
 
-document.querySelector("#session-description").textContent = fulltest
+const description = document.querySelector("#session-description");
+description.textContent = fulltest
     ? "Complete all four sections and 40 questions in a full listening test."
     : "Practise with one recording and answer the questions at your own pace.";
 
-document.querySelector("#session-badge span").textContent = fulltest
+const badge = document.querySelector("#session-badge span");
+badge.textContent = fulltest
     ? "FULL TEST"
     : "QUICK TEST";
 
-document.querySelector("#test-overview").hidden = !fulltest;
-document.querySelector(".session-progress").hidden = !fulltest;
-document.querySelector("#progress-label").textContent = "Your progress";
+const overview = document.querySelector("#test-overview");
+overview.hidden = !fulltest;
 
-function questiontext(question) {
-    return question.question || question.prompt || question.text || question.title || question.label || "";
-}
+const progress = document.querySelector(".session-progress");
+progress.hidden = !fulltest;
 
-function questiontype(question) {
-    if (question.type) return question.type.toLowerCase();
-    if (Array.isArray(question.fields)) return "form";
-    if (Array.isArray(question.items)) return "matching";
-    if (Array.isArray(question.answers)) return "multiple";
+const progresslabel = document.querySelector("#progress-label");
+progresslabel.textContent = "Your progress";
 
-    return "mcq";
-}
+const allquestions = [];
 
 recordings.forEach((recording, section) => {
-    recording.questions.forEach((question) => {
-        const type = questiontype(question);
+    recording.questions.forEach(question => {
+        let type = "mcq";
+
+        if (question.type) {
+            type = question.type.toLowerCase();
+        } else if (Array.isArray(question.fields)) {
+            type = "form";
+        } else if (Array.isArray(question.items)) {
+            type = "matching";
+        } else if (Array.isArray(question.answers)) {
+            type = "multiple";
+        }
+
         let parts = [question];
 
-        if (type === "form") parts = question.fields || [];
-        if (type === "matching") parts = question.items || [];
+        if (type === "form") {
+            parts = question.fields || [];
+        } else if (type === "matching") {
+            parts = question.items || [];
+        }
 
-        parts.forEach((part) => {
+        const questiontext = question.question || question.prompt || question.text ||
+            question.title || question.label || "";
+
+        parts.forEach(part => {
+            let prompt = part.question || part.prompt || part.text || part.title ||
+                part.label || questiontext;
+
+            if (type === "form" && part.label) {
+                prompt = part.label;
+            }
+
+            let context = question.instruction || question.instructions || "";
+
+            if (part !== question) {
+                context = questiontext;
+            }
+
+            let options = part.options || question.options || part.choices || question.choices || [];
+
+            if (!Array.isArray(options)) {
+                options = Object.values(options);
+            }
+
+            const labels = options.map((option, index) => {
+                if (typeof option !== "object" || option === null) {
+                    return String(option);
+                }
+
+                return String(option.text ?? option.label ?? option.name ?? option.title ??
+                    option.value ?? option.letter ?? `Option ${index + 1}`);
+            });
+
+            let answer = part.answer ?? question.answer ?? "";
+
+            if (type === "multiple") {
+                answer = question.answers ?? question.answer ?? [];
+            }
+
             allquestions.push({
                 index: allquestions.length,
                 number: allquestions.length + 1,
-                section,
-                type,
-                parent: question,
-                part,
-                prompt: (type === "form" ? part.label : "") || questiontext(part) || questiontext(question),
-                context: part === question
-                    ? question.instruction || question.instructions || ""
-                    : questiontext(question)
+                section: section,
+                type: type,
+                prompt: prompt,
+                context: context,
+                options: options,
+                labels: labels,
+                answer: answer
             });
         });
     });
@@ -81,242 +126,200 @@ recordings.forEach((recording, section) => {
 
 function escapehtml(value) {
     return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
 
-function getoptions(slot) {
-    const options = slot.part.options ||
-        slot.parent.options ||
-        slot.part.choices ||
-        slot.parent.choices ||
-        [];
-
-    return Array.isArray(options) ? options : Object.values(options);
-}
-
-function optiontext(option, index) {
-    if (typeof option !== "object" || option === null) {
-        return String(option);
-    }
-
-    return String(
-        option.text ??
-        option.label ??
-        option.name ??
-        option.title ??
-        option.value ??
-        option.letter ??
-        `Option ${index + 1}`
-    );
-}
-
-function expectedanswer(slot) {
-    if (slot.type === "multiple") {
-        return slot.parent.answers ?? slot.parent.answer ?? [];
-    }
-
-    return slot.part.answer ?? slot.parent.answer ?? "";
-}
-
-function renderoptions(slot) {
-    const index = slot.index;
-    const options = getoptions(slot);
-
-    if (slot.type === "form") {
-        return `
-            <label class="question-answer-label" for="answer-${index}">Your answer</label>
-            <input class="question-input" id="answer-${index}" type="text" data-answer-index="${index}" autocomplete="off">
-        `;
-    }
-
-    if (slot.type === "matching") {
-        return `
-            <label class="question-answer-label" for="answer-${index}">Your answer</label>
-            <select class="question-select" id="answer-${index}" data-answer-index="${index}">
-                <option value="">Choose an answer</option>
-                ${options.map((option, number) => `
-                    <option value="${number}">${escapehtml(optiontext(option, number))}</option>
-                `).join("")}
-            </select>
-        `;
-    }
-
-    const multiple = slot.type === "multiple";
-    const answer = expectedanswer(slot);
-    const amount = Array.isArray(answer) ? answer.length : 1;
-
-    return `
-        <div class="question-options${multiple ? " question-checkboxes" : ""}">
-            ${options.map((option, number) => `
-                <label class="question-option" for="answer-${index}-${number}">
-                    <input type="${multiple ? "checkbox" : "radio"}" id="answer-${index}-${number}" name="answer-${index}" value="${number}" data-answer-index="${index}">
-                    <span>${escapehtml(optiontext(option, number))}</span>
-                </label>
-            `).join("")}
-        </div>
-        ${multiple ? `<p class="question-hint">Choose ${amount} ${amount === 1 ? "answer" : "answers"}.</p>` : ""}
-    `;
-}
-
-function renderquestion(slot) {
-    let context = "";
-
-    if (slot.context && slot.context !== slot.prompt) {
-        context = `<p class="question-context">${escapehtml(slot.context)}</p>`;
-    }
-
-    return `
-        <article class="listening-question-card question-card" id="question-${slot.index}">
-            <div class="question-card-heading">
-                <span class="question-number">${slot.number}</span>
-                <div class="question-card-content">
-                    ${context}
-                    <p class="question-prompt">${escapehtml(slot.prompt || `Question ${slot.number}`)}</p>
-                </div>
-            </div>
-            <div class="question-answer-area">
-                ${renderoptions(slot)}
-            </div>
-        </article>
-    `;
-}
-
-const questiongroups = [...document.querySelectorAll(".listening-question-group")];
+const questiongroups = document.querySelectorAll(".listening-question-group");
 
 questiongroups.forEach((group, section) => {
-    const questions = allquestions.filter((slot) => slot.section === section);
-    const list = document.querySelector(`#question-list-${section + 1}`);
-
+    const questions = allquestions.filter(item => item.section === section);
     group.hidden = questions.length === 0;
-    list.innerHTML = questions.map(renderquestion).join("");
 
-    if (!questions.length) return;
+    const list = document.querySelector(`#question-list-${section + 1}`);
+    list.innerHTML = questions.map(item => {
+        const index = item.index;
+        let context = "";
 
-    group.querySelector(".section-label").textContent = fulltest
-        ? `AUDIO ${section + 1}`
-        : "QUICK PRACTICE";
+        if (item.context && item.context !== item.prompt) {
+            context = `<p class="question-context">${escapehtml(item.context)}</p>`;
+        }
 
-    group.querySelector("h3").textContent =
-        `Questions ${questions[0].number}–${questions[questions.length - 1].number}`;
+        let answers = "";
 
-    group.querySelector(".question-group-instruction").textContent = fulltest
+        if (item.type === "form") {
+            answers = `
+                <label class="question-answer-label" for="answer-${index}">Your answer</label>
+                <input class="question-input" id="answer-${index}" type="text" data-answer-index="${index}" autocomplete="off">
+            `;
+        } else if (item.type === "matching") {
+            answers = `
+                <label class="question-answer-label" for="answer-${index}">Your answer</label>
+                <select class="question-select" id="answer-${index}" data-answer-index="${index}">
+                    <option value="">Choose an answer</option>
+                    ${item.labels.map((label, number) => `
+                        <option value="${number}">${escapehtml(label)}</option>
+                    `).join("")}
+                </select>
+            `;
+        } else {
+            const multiple = item.type === "multiple";
+            const amount = Array.isArray(item.answer) ? item.answer.length : 1;
+
+            answers = `
+                <div class="question-options${multiple ? " question-checkboxes" : ""}">
+                    ${item.labels.map((label, number) => `
+                        <label class="question-option" for="answer-${index}-${number}">
+                            <input type="${multiple ? "checkbox" : "radio"}" id="answer-${index}-${number}" name="answer-${index}" value="${number}" data-answer-index="${index}">
+                            <span>${escapehtml(label)}</span>
+                        </label>
+                    `).join("")}
+                </div>
+                ${multiple ? `<p class="question-hint">Choose ${amount} ${amount === 1 ? "answer" : "answers"}.</p>` : ""}
+            `;
+        }
+
+        return `
+            <article class="listening-question-card question-card" id="question-${index}">
+                <div class="question-card-heading">
+                    <span class="question-number">${item.number}</span>
+                    <div class="question-card-content">
+                        ${context}
+                        <p class="question-prompt">${escapehtml(item.prompt || `Question ${item.number}`)}</p>
+                    </div>
+                </div>
+                <div class="question-answer-area">${answers}</div>
+            </article>
+        `;
+    }).join("");
+
+    if (questions.length === 0) {
+        return;
+    }
+
+    const label = group.querySelector(".section-label");
+    label.textContent = fulltest ? `AUDIO ${section + 1}` : "QUICK PRACTICE";
+
+    const heading = group.querySelector("h3");
+    heading.textContent = `Questions ${questions[0].number}–${questions[questions.length - 1].number}`;
+
+    const instruction = group.querySelector(".question-group-instruction");
+    instruction.textContent = fulltest
         ? `Answer the questions based on Audio ${section + 1}.`
         : "Answer the questions based on this recording.";
 });
 
-document.querySelector("#question-counter").textContent = `${allquestions.length} Questions`;
-document.querySelector("#question-summary").textContent = `1–${allquestions.length} of ${allquestions.length}`;
+const counter = document.querySelector("#question-counter");
+counter.textContent = `${allquestions.length} Questions`;
 
-const mapbuttons = [...document.querySelectorAll(".question-map-item")];
+const summary = document.querySelector("#question-summary");
+summary.textContent = `1–${allquestions.length} of ${allquestions.length}`;
+
+const mapbuttons = document.querySelectorAll(".question-map-item");
 
 mapbuttons.forEach((button, index) => {
-    const slot = allquestions[index];
+    const item = allquestions[index];
 
-    button.hidden = !slot;
+    button.hidden = !item;
     button.classList.remove("answered", "current");
 
-    if (!slot) return;
+    if (!item) {
+        return;
+    }
 
-    button.textContent = slot.number;
-    button.setAttribute("aria-label", `Go to question ${slot.number}`);
+    button.textContent = item.number;
+    button.setAttribute("aria-label", `Go to question ${item.number}`);
 
     button.addEventListener("click", () => {
-        document.querySelector(`#question-${slot.index}`).scrollIntoView({
+        document.querySelector(`#question-${item.index}`).scrollIntoView({
             behavior: "smooth",
             block: "center"
         });
 
-        mapbuttons.forEach((item) => item.classList.remove("current"));
+        mapbuttons.forEach(item => item.classList.remove("current"));
         button.classList.add("current");
     });
 });
 
-function hasanswer(index) {
-    const answer = useranswers[index];
-
-    if (Array.isArray(answer)) {
-        return answer.length > 0;
-    }
-
-    return String(answer ?? "").trim() !== "";
-}
-
-const progresscount = document.querySelector("#progress-count");
-const progressfill = document.querySelector("#progress-fill");
-const answeredcount = document.querySelector("#answered-count");
-const questionmain = document.querySelector("#question-main");
+const useranswers = {};
+let sessionfinished = false;
 
 function updateprogress() {
-    const answered = allquestions.filter((slot) => hasanswer(slot.index)).length;
-    const total = allquestions.length;
+    let answered = 0;
 
-    progresscount.textContent = `${answered} of ${total} questions`;
-    answeredcount.textContent = `${answered} answered`;
-    progressfill.style.width = `${total ? answered / total * 100 : 0}%`;
+    allquestions.forEach(item => {
+        const answer = useranswers[item.index];
+        item.answered = Array.isArray(answer)
+            ? answer.length > 0
+            : String(answer ?? "").trim() !== "";
 
-    allquestions.forEach((slot) => {
-        mapbuttons[slot.index].classList.toggle("answered", hasanswer(slot.index));
+        if (item.answered) {
+            answered++;
+        }
+
+        mapbuttons[item.index].classList.toggle("answered", item.answered);
     });
 
-    questiongroups.forEach((group, section) => {
-        const questions = allquestions.filter((slot) => slot.section === section);
-        const answeredsection = questions.filter((slot) => hasanswer(slot.index)).length;
-        const status = document.querySelector(`#section-status-${section + 1}`);
+    const total = allquestions.length;
+    const count = document.querySelector("#progress-count");
+    count.textContent = `${answered} of ${total} questions`;
 
+    const answeredlabel = document.querySelector("#answered-count");
+    answeredlabel.textContent = `${answered} answered`;
+
+    const fill = document.querySelector("#progress-fill");
+    fill.style.width = `${total ? answered / total * 100 : 0}%`;
+
+    questiongroups.forEach((group, section) => {
+        const questions = allquestions.filter(item => item.section === section);
+        const answeredsection = questions.filter(item => item.answered).length;
+
+        const status = document.querySelector(`#section-status-${section + 1}`);
         status.textContent = `${answeredsection} of ${questions.length} answered`;
     });
 }
 
-function updateanswer(input) {
-    if (sessionfinished) return;
+const questionmain = document.querySelector("#question-main");
+const answerinputs = questionmain.querySelectorAll("[data-answer-index]");
 
-    const index = Number(input.dataset.answerIndex);
-    const slot = allquestions[index];
+answerinputs.forEach(input => {
+    const event = input.type === "text" ? "input" : "change";
 
-    if (!slot) return;
-
-    if (slot.type === "multiple") {
-        const boxes = [
-            ...questionmain.querySelectorAll(`input[data-answer-index="${index}"]:checked`)
-        ];
-
-        const expected = expectedanswer(slot);
-        const limit = Array.isArray(expected) ? expected.length : 1;
-
-        if (boxes.length > limit) {
-            input.checked = false;
+    input.addEventListener(event, () => {
+        if (sessionfinished) {
+            return;
         }
 
-        useranswers[index] = [
-            ...questionmain.querySelectorAll(`input[data-answer-index="${index}"]:checked`)
-        ].map((box) => box.value);
-    } else {
-        useranswers[index] = input.value;
-    }
+        const index = Number(input.dataset.answerIndex);
+        const item = allquestions[index];
 
-    updateprogress();
-}
+        if (item.type === "multiple") {
+            let checked = questionmain.querySelectorAll(`input[data-answer-index="${index}"]:checked`);
+            const limit = Array.isArray(item.answer) ? item.answer.length : 1;
 
-questionmain.addEventListener("input", (event) => {
-    if (event.target.matches('input[type="text"][data-answer-index]')) {
-        updateanswer(event.target);
-    }
-});
+            if (checked.length > limit) {
+                input.checked = false;
+                checked = questionmain.querySelectorAll(`input[data-answer-index="${index}"]:checked`);
+            }
 
-questionmain.addEventListener("change", (event) => {
-    if (event.target.matches('select[data-answer-index], input[type="radio"], input[type="checkbox"]')) {
-        updateanswer(event.target);
-    }
+            useranswers[index] = Array.from(checked, box => box.value);
+        } else {
+            useranswers[index] = input.value;
+        }
+
+        updateprogress();
+    });
 });
 
 updateprogress();
 
 function formattime(seconds) {
-    if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
+    if (!Number.isFinite(seconds) || seconds < 0) {
+        return "0:00";
+    }
 
     const minutes = Math.floor(seconds / 60);
     const remainingseconds = Math.floor(seconds % 60);
@@ -325,40 +328,35 @@ function formattime(seconds) {
 }
 
 const listeningaudio = document.querySelector("#listening-audio");
-const audioplay = document.querySelector("#audio-play");
-const audioplaceholder = document.querySelector("#audio-placeholder");
-const audiocontrols = document.querySelector("#audio-controls");
-const audionote = document.querySelector("#audio-note-text");
-const audiotrack = document.querySelector(".audio-track");
-const audiotrackfill = document.querySelector("#audio-track-fill");
-const audiocurrenttime = document.querySelector("#audio-current-time");
-const audioduration = document.querySelector("#audio-duration");
-const audioreplay = document.querySelector("#audio-replay");
-const nextaudio = document.querySelector("#next-audio");
+let currentaudioindex = 0;
+let audiofinished = false;
 
+const audionote = document.querySelector("#audio-note-text");
 audionote.textContent = fulltest
     ? "Finish listening to the current recording to unlock the next audio."
     : "You can seek or replay this recording as you practise your answers.";
 
-audiotrack.style.cursor = fulltest ? "default" : "pointer";
-audiotrack.setAttribute("aria-disabled", String(fulltest));
-
 function updateplaybutton() {
     const paused = listeningaudio.paused;
+    const button = document.querySelector("#audio-play");
 
-    audioplay.innerHTML = `<i class="fa-solid fa-${paused ? "play" : "pause"}"></i>`;
-    audioplay.setAttribute("aria-label", paused ? "Play audio" : "Pause audio");
+    button.innerHTML = `<i class="fa-solid fa-${paused ? "play" : "pause"}"></i>`;
+    button.setAttribute("aria-label", paused ? "Play audio" : "Pause audio");
 }
 
 function playaudio() {
-    if (sessionfinished || (fulltest && audiofinished)) return;
+    if (sessionfinished || (fulltest && audiofinished)) {
+        return;
+    }
 
     listeningaudio.play().catch(() => {
-        audionote.textContent = "The audio could not be played. Please check the recording file and path.";
+        const note = document.querySelector("#audio-note-text");
+        note.textContent = "The audio could not be played. Please check the recording file and path.";
     });
 }
 
-audioplay.addEventListener("click", () => {
+const playbutton = document.querySelector("#audio-play");
+playbutton.addEventListener("click", () => {
     if (listeningaudio.paused) {
         playaudio();
     } else {
@@ -373,14 +371,20 @@ function updateaudioplayer() {
     const duration = listeningaudio.duration;
     const position = listeningaudio.currentTime;
 
-    audiocurrenttime.textContent = formattime(position);
-    audioduration.textContent = formattime(duration);
+    const currenttime = document.querySelector("#audio-current-time");
+    currenttime.textContent = formattime(position);
 
-    const percentage = Number.isFinite(duration) && duration > 0
-        ? position / duration * 100
-        : 0;
+    const totaltime = document.querySelector("#audio-duration");
+    totaltime.textContent = formattime(duration);
 
-    audiotrackfill.style.width = `${percentage}%`;
+    let percentage = 0;
+
+    if (Number.isFinite(duration) && duration > 0) {
+        percentage = position / duration * 100;
+    }
+
+    const fill = document.querySelector("#audio-track-fill");
+    fill.style.width = `${percentage}%`;
 }
 
 listeningaudio.addEventListener("timeupdate", updateaudioplayer);
@@ -388,76 +392,115 @@ listeningaudio.addEventListener("loadedmetadata", updateaudioplayer);
 listeningaudio.addEventListener("durationchange", updateaudioplayer);
 
 listeningaudio.addEventListener("canplay", () => {
-    audioplaceholder.hidden = true;
-    audiocontrols.hidden = false;
+    const placeholder = document.querySelector("#audio-placeholder");
+    placeholder.hidden = true;
+
+    const controls = document.querySelector("#audio-controls");
+    controls.hidden = false;
+
     updateaudioplayer();
 });
 
 listeningaudio.addEventListener("error", () => {
-    audioplaceholder.hidden = false;
-    audiocontrols.hidden = true;
-    audionote.textContent = "The recording could not be loaded. Check the audio file name and path.";
+    const placeholder = document.querySelector("#audio-placeholder");
+    placeholder.hidden = false;
+
+    const controls = document.querySelector("#audio-controls");
+    controls.hidden = true;
+
+    const note = document.querySelector("#audio-note-text");
+    note.textContent = "The recording could not be loaded. Check the audio file name and path.";
 });
 
-audiotrack.addEventListener("click", (event) => {
-    if (fulltest || sessionfinished || !Number.isFinite(listeningaudio.duration)) return;
+const audiotrack = document.querySelector(".audio-track");
+audiotrack.style.cursor = fulltest ? "default" : "pointer";
+audiotrack.setAttribute("aria-disabled", String(fulltest));
+
+audiotrack.addEventListener("click", event => {
+    if (fulltest || sessionfinished || !Number.isFinite(listeningaudio.duration)) {
+        return;
+    }
 
     const track = audiotrack.getBoundingClientRect();
-    if (!track.width) return;
+
+    if (!track.width) {
+        return;
+    }
 
     const position = Math.max(0, Math.min(1, (event.clientX - track.left) / track.width));
-
     listeningaudio.currentTime = position * listeningaudio.duration;
 });
 
-audioreplay.hidden = fulltest;
-audioreplay.disabled = fulltest;
+const replay = document.querySelector("#audio-replay");
+replay.hidden = fulltest;
+replay.disabled = fulltest;
 
-audioreplay.addEventListener("click", () => {
-    if (fulltest || sessionfinished) return;
+replay.addEventListener("click", () => {
+    if (fulltest || sessionfinished) {
+        return;
+    }
 
     listeningaudio.currentTime = 0;
     audiofinished = false;
     playaudio();
 });
 
-document.querySelector("#audio-session-count").hidden = !fulltest;
-document.querySelector("#audio-navigation-status").hidden = !fulltest;
+const audiocount = document.querySelector("#audio-session-count");
+audiocount.hidden = !fulltest;
+
+const audiostatus = document.querySelector("#audio-navigation-status");
+audiostatus.hidden = !fulltest;
+
+const nextaudio = document.querySelector("#next-audio");
 nextaudio.hidden = !fulltest;
 
 function setaudio(index) {
     listeningaudio.pause();
-
     currentaudioindex = index;
     audiofinished = false;
 
     const recording = recordings[index];
-    const questions = allquestions.filter((slot) => slot.section === index);
-
     listeningaudio.src = recording.audio;
     listeningaudio.load();
 
-    document.querySelector("#audio-title").textContent = recording.title;
+    const title = document.querySelector("#audio-title");
+    title.textContent = recording.title;
 
-    document.querySelector("#audio-question-range").textContent =
-        `Questions ${questions[0].number}–${questions[questions.length - 1].number}`;
+    const questions = allquestions.filter(item => item.section === index);
+    const range = document.querySelector("#audio-question-range");
+    range.textContent = `Questions ${questions[0].number}–${questions[questions.length - 1].number}`;
 
-    audioplaceholder.hidden = false;
-    audiocontrols.hidden = true;
-    audioplay.disabled = false;
+    const placeholder = document.querySelector("#audio-placeholder");
+    placeholder.hidden = false;
 
-    audiotrackfill.style.width = "0%";
-    audiocurrenttime.textContent = "0:00";
-    audioduration.textContent = "0:00";
+    const controls = document.querySelector("#audio-controls");
+    controls.hidden = true;
+
+    const playbutton = document.querySelector("#audio-play");
+    playbutton.disabled = false;
+
+    const fill = document.querySelector("#audio-track-fill");
+    fill.style.width = "0%";
+
+    const currenttime = document.querySelector("#audio-current-time");
+    currenttime.textContent = "0:00";
+
+    const duration = document.querySelector("#audio-duration");
+    duration.textContent = "0:00";
 
     nextaudio.disabled = true;
 
     if (fulltest) {
         const label = `Audio ${index + 1} of ${recordings.length}`;
 
-        document.querySelector("#current-section").textContent = label;
-        document.querySelector("#audio-session-count").textContent = label.toUpperCase();
-        document.querySelector("#audio-navigation-status").textContent = label;
+        const section = document.querySelector("#current-section");
+        section.textContent = label;
+
+        const count = document.querySelector("#audio-session-count");
+        count.textContent = label.toUpperCase();
+
+        const status = document.querySelector("#audio-navigation-status");
+        status.textContent = label;
 
         nextaudio.hidden = index === recordings.length - 1;
     }
@@ -468,17 +511,22 @@ listeningaudio.addEventListener("ended", () => {
     updateplaybutton();
 
     if (fulltest) {
-        audioplay.disabled = true;
+        const playbutton = document.querySelector("#audio-play");
+        playbutton.disabled = true;
         nextaudio.disabled = currentaudioindex === recordings.length - 1;
     }
 });
 
 nextaudio.addEventListener("click", () => {
-    if (!fulltest || !audiofinished || sessionfinished) return;
-    if (currentaudioindex === recordings.length - 1) return;
+    if (!fulltest || !audiofinished || sessionfinished) {
+        return;
+    }
+
+    if (currentaudioindex === recordings.length - 1) {
+        return;
+    }
 
     setaudio(currentaudioindex + 1);
-
     questiongroups[currentaudioindex].scrollIntoView({
         behavior: "smooth",
         block: "start"
@@ -487,6 +535,7 @@ nextaudio.addEventListener("click", () => {
 
 setaudio(0);
 
+let timerinterval;
 const sessiontimer = document.querySelector("#session-timer");
 
 if (fulltest) {
@@ -513,30 +562,28 @@ function normalizetext(value) {
         .replace(/\s+/g, " ");
 }
 
-function choicecorrect(index, expected, options) {
+function choicecorrect(index, expected, item) {
     if (expected === null || expected === undefined || expected === "") {
         return false;
     }
 
     if (typeof expected === "object") {
-        expected = expected.value ??
-            expected.id ??
-            expected.letter ??
-            expected.answer ??
-            expected.text ??
-            expected.label;
+        expected = expected.value ?? expected.id ?? expected.letter ??
+            expected.answer ?? expected.text ?? expected.label;
     }
 
     if (typeof expected === "number") {
         return index === expected;
     }
 
-    const option = options[index];
+    const option = item.options[index];
 
-    if (option === undefined) return false;
+    if (option === undefined) {
+        return false;
+    }
 
     const answer = normalizetext(expected);
-    const text = normalizetext(optiontext(option, index));
+    const text = normalizetext(item.labels[index]);
 
     if (answer === String(index) || answer === text) {
         return true;
@@ -545,7 +592,7 @@ function choicecorrect(index, expected, options) {
     if (option && typeof option === "object") {
         const values = [option.value, option.id, option.letter, option.key, option.code];
 
-        if (values.some((value) => value !== undefined && normalizetext(value) === answer)) {
+        if (values.some(value => value !== undefined && normalizetext(value) === answer)) {
             return true;
         }
     }
@@ -553,161 +600,151 @@ function choicecorrect(index, expected, options) {
     return /^[a-z]$/.test(answer) && index === answer.charCodeAt(0) - 97;
 }
 
-function iscorrect(slot) {
-    if (!hasanswer(slot.index)) return false;
-
-    const answer = useranswers[slot.index];
-    const expected = expectedanswer(slot);
-
-    if (slot.type === "form") {
-        const accepted = Array.isArray(expected) ? expected : [expected];
-
-        return accepted.some((value) => {
-            return normalizetext(value) === normalizetext(answer);
-        });
-    }
-
-    const options = getoptions(slot);
-
-    if (slot.type === "multiple") {
-        const correct = Array.isArray(expected) ? expected : [expected];
-
-        if (answer.length !== correct.length) return false;
-
-        return correct.every((value) => {
-            return answer.some((selected) => choicecorrect(Number(selected), value, options));
-        });
-    }
-
-    return choicecorrect(Number(answer), expected, options);
-}
-
-function answertext(slot, answer) {
-    if (
-        answer === undefined ||
-        answer === null ||
-        answer === "" ||
-        (Array.isArray(answer) && answer.length === 0)
-    ) {
-        return "Not answered";
-    }
-
-    if (slot.type === "form") {
-        return String(answer);
-    }
-
-    const options = getoptions(slot);
-    const answers = Array.isArray(answer) ? answer : [answer];
-
-    return answers.map((value) => {
-        const index = Number(value);
-
-        return options[index] === undefined
-            ? String(value)
-            : optiontext(options[index], index);
-    }).join("; ");
-}
-
-function correctanswertext(slot) {
-    const expected = expectedanswer(slot);
-    const answers = Array.isArray(expected) ? expected : [expected];
-
-    if (!answers.length || expected === "") return "No answer provided";
-    if (slot.type === "form") return answers.join(" / ");
-
-    const options = getoptions(slot);
-
-    return answers.map((answer) => {
-        const index = options.findIndex((option, number) => {
-            return choicecorrect(number, answer, options);
-        });
-
-        return index === -1 ? String(answer) : optiontext(options[index], index);
-    }).join("; ");
-}
-
-function answerstatus(slot) {
-    if (!hasanswer(slot.index)) return "unanswered";
-
-    return iscorrect(slot) ? "correct" : "incorrect";
-}
-
-const answerreviewlist = document.querySelector("#answer-review-list");
-const reviewtotal = document.querySelector("#review-total");
+let reviewanswers = [];
 
 function renderreview(filter = "all") {
-    const questions = allquestions.filter((slot) => {
-        return filter === "all" || answerstatus(slot) === filter;
+    const answers = reviewanswers.filter(item => {
+        return filter === "all" || item.status === filter;
     });
 
-    reviewtotal.textContent =
-        `${questions.length} ${questions.length === 1 ? "answer" : "answers"} shown`;
+    const total = document.querySelector("#review-total");
+    total.textContent = `${answers.length} ${answers.length === 1 ? "answer" : "answers"} shown`;
 
-    if (!questions.length) {
-        answerreviewlist.innerHTML = '<p class="review-empty">There are no answers in this category.</p>';
+    const list = document.querySelector("#answer-review-list");
+
+    if (answers.length === 0) {
+        list.innerHTML = '<p class="review-empty">There are no answers in this category.</p>';
         return;
     }
 
-    answerreviewlist.innerHTML = questions.map((slot) => {
-        const status = answerstatus(slot);
-
-        return `
-            <article class="answer-review-card ${status}">
-                <div class="answer-review-card-heading">
-                    <span class="question-number">${slot.number}</span>
-                    <span class="answer-review-status">${status[0].toUpperCase() + status.slice(1)}</span>
-                </div>
-                <p class="answer-review-question">${escapehtml(slot.prompt || `Question ${slot.number}`)}</p>
+    list.innerHTML = answers.map(item => `
+        <article class="answer-review-card ${item.status}">
+            <div class="answer-review-card-heading">
+                <span class="question-number">${item.number}</span>
+                <span class="answer-review-status">${item.status[0].toUpperCase() + item.status.slice(1)}</span>
+            </div>
+            <p class="answer-review-question">${escapehtml(item.question || `Question ${item.number}`)}</p>
+            <div class="answer-review-detail">
+                <span>Your answer</span>
+                <strong>${escapehtml(item.yourAnswer)}</strong>
+            </div>
+            ${item.status === "correct" ? "" : `
                 <div class="answer-review-detail">
-                    <span>Your answer</span>
-                    <strong>${escapehtml(answertext(slot, useranswers[slot.index]))}</strong>
+                    <span>Correct answer</span>
+                    <strong>${escapehtml(item.correctAnswer)}</strong>
                 </div>
-                ${status === "correct" ? "" : `
-                    <div class="answer-review-detail">
-                        <span>Correct answer</span>
-                        <strong>${escapehtml(correctanswertext(slot))}</strong>
-                    </div>
-                `}
-            </article>
-        `;
-    }).join("");
-}
-
-const historykey = "ielts-preplab-listening-history";
-
-function savehistory(result) {
-    try {
-        let history = JSON.parse(localStorage.getItem(historykey) || "[]");
-
-        if (!Array.isArray(history)) {
-            history = [];
-        }
-
-        history.unshift(result);
-        localStorage.setItem(historykey, JSON.stringify(history.slice(0, 50)));
-    } catch (error) {
-        console.warn("Listening history could not be saved in this browser.");
-    }
+            `}
+        </article>
+    `).join("");
 }
 
 function finishsession() {
-    if (sessionfinished) return;
+    if (sessionfinished) {
+        return;
+    }
 
     sessionfinished = true;
     clearInterval(timerinterval);
     listeningaudio.pause();
 
     const total = allquestions.length;
-    const correct = allquestions.filter((slot) => iscorrect(slot)).length;
-    const answered = allquestions.filter((slot) => hasanswer(slot.index)).length;
+    let correct = 0;
+    let answered = 0;
+    reviewanswers = [];
+
+    allquestions.forEach(item => {
+        const answer = useranswers[item.index];
+        const expected = item.answer;
+        const expectedanswers = Array.isArray(expected) ? expected : [expected];
+        const hasanswer = Array.isArray(answer)
+            ? answer.length > 0
+            : String(answer ?? "").trim() !== "";
+
+        let iscorrect = false;
+
+        if (hasanswer) {
+            answered++;
+
+            if (item.type === "form") {
+                iscorrect = expectedanswers.some(value => {
+                    return normalizetext(value) === normalizetext(answer);
+                });
+            } else if (item.type === "multiple") {
+                iscorrect = answer.length === expectedanswers.length && expectedanswers.every(value => {
+                    return answer.some(selected => choicecorrect(Number(selected), value, item));
+                });
+            } else {
+                iscorrect = choicecorrect(Number(answer), expected, item);
+            }
+        }
+
+        if (iscorrect) {
+            correct++;
+        }
+
+        let status = "unanswered";
+
+        if (hasanswer) {
+            status = iscorrect ? "correct" : "incorrect";
+        }
+
+        let youranswer = "Not answered";
+
+        if (answer !== undefined && answer !== null && answer !== "" &&
+            (!Array.isArray(answer) || answer.length > 0)) {
+            if (item.type === "form") {
+                youranswer = String(answer);
+            } else {
+                const selected = Array.isArray(answer) ? answer : [answer];
+                youranswer = selected.map(value => {
+                    const index = Number(value);
+                    return item.options[index] === undefined ? String(value) : item.labels[index];
+                }).join("; ");
+            }
+        }
+
+        let correctanswer = "No answer provided";
+
+        if (expectedanswers.length > 0 && expected !== "") {
+            if (item.type === "form") {
+                correctanswer = expectedanswers.join(" / ");
+            } else {
+                correctanswer = expectedanswers.map(value => {
+                    const index = item.options.findIndex((option, number) => {
+                        return choicecorrect(number, value, item);
+                    });
+
+                    return index === -1 ? String(value) : item.labels[index];
+                }).join("; ");
+            }
+        }
+
+        reviewanswers.push({
+            number: item.number,
+            question: item.prompt,
+            yourAnswer: youranswer,
+            correctAnswer: correctanswer,
+            status: status
+        });
+    });
+
     const incorrect = answered - correct;
     const accuracy = total ? Math.round(correct / total * 100) : 0;
 
-    document.querySelector("#final-score").textContent = correct;
-    document.querySelector("#total-score").textContent = `/ ${total}`;
-    document.querySelector("#correct-count").textContent = correct;
-    document.querySelector("#incorrect-count").textContent = incorrect;
-    document.querySelector("#accuracy-score").textContent = `${accuracy}%`;
+    const score = document.querySelector("#final-score");
+    score.textContent = correct;
+
+    const totalscore = document.querySelector("#total-score");
+    totalscore.textContent = `/ ${total}`;
+
+    const correctcount = document.querySelector("#correct-count");
+    correctcount.textContent = correct;
+
+    const incorrectcount = document.querySelector("#incorrect-count");
+    incorrectcount.textContent = incorrect;
+
+    const accuracyscore = document.querySelector("#accuracy-score");
+    accuracyscore.textContent = `${accuracy}%`;
 
     const scoremessage = document.querySelector("#score-message");
 
@@ -719,38 +756,50 @@ function finishsession() {
         scoremessage.textContent = "Every session helps. Review the answers and try another practice set.";
     }
 
-    document.querySelector("#results-title").textContent = fulltest
+    const title = document.querySelector("#results-title");
+    title.textContent = fulltest
         ? "Listening Test Complete"
         : "Quick Practice Complete";
 
-    document.querySelector("#results-description").textContent =
-        `You answered ${correct} of ${total} questions correctly. Review your answers below.`;
+    const description = document.querySelector("#results-description");
+    description.textContent = `You answered ${correct} of ${total} questions correctly. Review your answers below.`;
 
-    savehistory({
+    const result = {
         id: Date.now(),
-        mode: selectedmode,
+        mode: mode,
         title: fulltest ? "Full Listening Test" : "Quick Listening Practice",
         completedAt: new Date().toISOString(),
         durationSeconds: Math.round((Date.now() - sessionstarttime) / 1000),
         score: correct,
-        total,
-        correct,
-        incorrect,
+        total: total,
+        correct: correct,
+        incorrect: incorrect,
         unanswered: total - answered,
-        accuracy,
-        answers: allquestions.map((slot) => ({
-            number: slot.number,
-            question: slot.prompt,
-            yourAnswer: answertext(slot, useranswers[slot.index]),
-            correctAnswer: correctanswertext(slot),
-            status: answerstatus(slot)
-        }))
-    });
+        accuracy: accuracy,
+        answers: reviewanswers
+    };
 
-    document.querySelector("#practice-screen").hidden = true;
-    document.querySelector("#results-screen").hidden = false;
+    try {
+        const key = "ielts-preplab-listening-history";
+        let history = JSON.parse(localStorage.getItem(key) || "[]");
 
-    document.querySelectorAll(".review-filter-button").forEach((button) => {
+        if (!Array.isArray(history)) {
+            history = [];
+        }
+
+        history.unshift(result);
+        localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
+    } catch {
+        console.warn("Listening history could not be saved in this browser.");
+    }
+
+    const practice = document.querySelector("#practice-screen");
+    practice.hidden = true;
+
+    const results = document.querySelector("#results-screen");
+    results.hidden = false;
+
+    document.querySelectorAll(".review-filter-button").forEach(button => {
         button.classList.toggle("active", button.dataset.filter === "all");
     });
 
@@ -759,19 +808,21 @@ function finishsession() {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-document.querySelector("#finish-session").addEventListener("click", finishsession);
+const finish = document.querySelector("#finish-session");
+finish.addEventListener("click", finishsession);
 
 const reviewbuttons = document.querySelectorAll(".review-filter-button");
 
-reviewbuttons.forEach((button) => {
+reviewbuttons.forEach(button => {
     button.addEventListener("click", () => {
-        reviewbuttons.forEach((item) => item.classList.remove("active"));
+        reviewbuttons.forEach(item => item.classList.remove("active"));
         button.classList.add("active");
 
         renderreview(button.dataset.filter);
     });
 });
 
-document.querySelector("#try-again").addEventListener("click", () => {
+const again = document.querySelector("#try-again");
+again.addEventListener("click", () => {
     window.location.reload();
 });

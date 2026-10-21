@@ -1,566 +1,372 @@
 const urlparams = new URLSearchParams(window.location.search);
 const selectedpart = urlparams.get("part") || "part1";
 
-const practicesession = document.querySelector(".practice-session");
+let practicehistory = JSON.parse(localStorage.getItem("practicehistory")) || [];
 
-const questiontext = document.querySelector(".question-text");
-const progress = document.querySelector(".session-progress");
-const questionnumber = document.querySelector(".question-number");
-const progressbar = document.querySelector(".session-progress-bar span");
+function savepractice(part, questions) {
+    practicehistory.push({
+        part: part,
+        questions: questions,
+        completed: true,
+        date: new Date().toISOString()
+    });
 
-const questioncard = document.querySelector(".question-card");
-const practicecomplete = document.querySelector(".practice-complete");
-
-const nextquestion = document.querySelector(".next-question");
-const practiceback = document.querySelector(".practice-back");
-const practiceagain = document.querySelector(".practice-again");
-const backtopreview = document.querySelector(".back-to-preview");
+    localStorage.setItem("practicehistory", JSON.stringify(practicehistory));
+}
 
 let sessionquestions = [];
 let currentquestion = 0;
 
-let practicehistory =
-    JSON.parse(localStorage.getItem("practicehistory")) || [];
+function showquestion() {
+    const text = document.querySelector(".question-text");
+    text.textContent = sessionquestions[currentquestion];
 
-function createsession() {
+    const number = document.querySelector(".question-number");
+    number.textContent = String(currentquestion + 1).padStart(2, "0");
+
+    const progress = document.querySelector(".session-progress");
+    progress.textContent = `Question ${currentquestion + 1} of ${sessionquestions.length}`;
+
+    const bar = document.querySelector(".session-progress-bar span");
+    bar.style.width = `${currentquestion / sessionquestions.length * 100}%`;
+}
+
+function startpart1() {
     const topics = Object.keys(part1questions);
-
-    const randomindex = Math.floor(Math.random() * topics.length);
-    const randomtopic = topics[randomindex];
-
-    const remainingtopics = topics.filter(topic => topic !== randomtopic);
-
-    const secondrandomindex =
-        Math.floor(Math.random() * remainingtopics.length);
-
-    const secondrandomtopic =
-        remainingtopics[secondrandomindex];
-
-    const firsttopiccount = 3;
-    const secondtopiccount = 2;
-
-    const firsttopicquestions =
-        part1questions[randomtopic];
-
-    const firstquestion =
-        firsttopicquestions.slice(0, firsttopiccount);
-
-    const secondtopicquestions =
-        part1questions[secondrandomtopic];
-
-    const secondquestion =
-        secondtopicquestions.slice(0, secondtopiccount);
+    const firsttopic = topics[Math.floor(Math.random() * topics.length)];
+    const othertopics = topics.filter(topic => topic !== firsttopic);
+    const secondtopic = othertopics[Math.floor(Math.random() * othertopics.length)];
 
     sessionquestions = [
-        ...firstquestion,
-        ...secondquestion
+        ...part1questions[firsttopic].slice(0, 3),
+        ...part1questions[secondtopic].slice(0, 2)
     ];
 
     currentquestion = 0;
-}
-
-function showquestion() {
-    questiontext.textContent =
-        sessionquestions[currentquestion];
-
-    questionnumber.textContent =
-        String(currentquestion + 1).padStart(2, "0");
-
-    progress.textContent =
-        `Question ${currentquestion + 1} of ${sessionquestions.length}`;
-
-    const progresspercentage =
-        (currentquestion / sessionquestions.length) * 100;
-
-    progressbar.style.width =
-        `${progresspercentage}%`;
-}
-
-function startsession() {
-    createsession();
     showquestion();
 
-    questioncard.style.display = "block";
-    practicecomplete.style.display = "none";
+    const card = document.querySelector(".question-card");
+    card.style.display = "block";
 
-    practicesession.style.display = "block";
+    const complete = document.querySelector(".practice-complete");
+    complete.style.display = "none";
+
+    const session = document.querySelector(".practice-session");
+    session.style.display = "block";
 
     requestAnimationFrame(() => {
-        practicesession.classList.add("active");
+        session.classList.add("active");
     });
 }
 
-function completepractice() {
-    questioncard.style.display = "none";
-    practicecomplete.style.display = "block";
-
-    progressbar.style.width = "100%";
-
-    const completedsession = {
-        part: "part1",
-        questions: sessionquestions.length,
-        completed: true,
-        date: new Date().toISOString()
-    };
-
-    practicehistory.push(completedsession);
-
-    localStorage.setItem(
-        "practicehistory",
-        JSON.stringify(practicehistory)
-    );
-}
-
+const nextquestion = document.querySelector(".next-question");
 nextquestion.addEventListener("click", () => {
-
     if (currentquestion < sessionquestions.length - 1) {
         currentquestion++;
         showquestion();
     } else {
-        completepractice();
+        const card = document.querySelector(".question-card");
+        card.style.display = "none";
+
+        const complete = document.querySelector(".practice-complete");
+        complete.style.display = "block";
+
+        const bar = document.querySelector(".session-progress-bar span");
+        bar.style.width = "100%";
+
+        savepractice("part1", sessionquestions.length);
     }
-
 });
 
+const practiceagain = document.querySelector(".practice-again");
 practiceagain.addEventListener("click", () => {
-
-    practicesession.classList.remove("active");
-
-    createsession();
-
-    questioncard.style.display = "block";
-    practicecomplete.style.display = "none";
-
-    showquestion();
-
-    requestAnimationFrame(() => {
-        practicesession.classList.add("active");
-    });
-
+    const session = document.querySelector(".practice-session");
+    session.classList.remove("active");
+    startpart1();
 });
 
+const practiceback = document.querySelector(".practice-back");
 practiceback.addEventListener("click", () => {
-
     window.location.href = "speaking.html#part-selector";
-
 });
 
+const backtopreview = document.querySelector(".back-to-preview");
 backtopreview.addEventListener("click", () => {
-
     window.location.href = "speaking.html";
-
 });
 
 if (selectedpart === "part1") {
-    startsession();
+    startpart1();
 }
 
-const part2session = document.querySelector(".part2-session");
-
-let currentcuecard = null;
 let part2timer = null;
 let part2timeleft = 60;
 let part2phase = "ready";
 let lastcueindex = -1;
 
-function createpart2session() {
+function updatepart2timer() {
+    const minutes = String(Math.floor(part2timeleft / 60)).padStart(2, "0");
+    const seconds = String(part2timeleft % 60).padStart(2, "0");
 
-    const cueintro = document.querySelector(".cue-intro");
-    const cuenumber = document.querySelector(".cue-number");
-    const cuetitle = document.querySelector(".cue-card-content h3");
-    const cueprompts = document.querySelectorAll(".cue-prompts span");
+    const value = document.querySelector(".timer-value");
+    value.textContent = `${minutes}:${seconds}`;
+
+    const duration = part2phase === "speaking" ? 120 : 60;
+    const bar = document.querySelector(".timer-progress span");
+    bar.style.width = `${part2timeleft / duration * 100}%`;
+}
+
+function startpart2() {
+    clearInterval(part2timer);
+    part2timer = null;
+    part2phase = "ready";
+    part2timeleft = 60;
 
     let randomindex;
 
     do {
         randomindex = Math.floor(Math.random() * part2questions.length);
-    } while (
-        part2questions.length > 1 &&
-        randomindex === lastcueindex
-    );
+    } while (part2questions.length > 1 && randomindex === lastcueindex);
 
     lastcueindex = randomindex;
-    currentcuecard = part2questions[randomindex];
+    const cuecard = part2questions[randomindex];
 
-    cueintro.textContent = currentcuecard.intro;
-    cuenumber.textContent = String(randomindex + 1).padStart(2, "0");
-    cuetitle.textContent = currentcuecard.title;
+    const intro = document.querySelector(".cue-intro");
+    intro.textContent = cuecard.intro;
 
-    cueprompts.forEach((prompt, index) => {
+    const number = document.querySelector(".cue-number");
+    number.textContent = String(randomindex + 1).padStart(2, "0");
+
+    const title = document.querySelector(".cue-card-content h3");
+    title.textContent = cuecard.title;
+
+    const prompts = document.querySelectorAll(".cue-prompts span");
+    prompts.forEach((prompt, index) => {
         prompt.innerHTML = `
             <i class="fa-solid fa-arrow-right"></i>
-            ${currentcuecard.prompts[index]}
+            ${cuecard.prompts[index]}
         `;
     });
 
-    resetpart2state();
-}
+    const status = document.querySelector(".part2-status");
+    status.textContent = "Preparation";
 
-function updatepart2timer() {
+    const label = document.querySelector(".timer-phase-label");
+    label.textContent = "Preparation";
 
-    const timervalue = document.querySelector(".timer-value");
-    const timerprogress = document.querySelector(".timer-progress span");
+    const description = document.querySelector(".timer-description");
+    description.textContent = "You have one minute to prepare your answer.";
 
-    const minutes = Math.floor(part2timeleft / 60);
-    const seconds = part2timeleft % 60;
-
-    timervalue.textContent =
-        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-
-    const totalduration = part2phase === "speaking" ? 120 : 60;
-    const progresspercentage = (part2timeleft / totalduration) * 100;
-
-    timerprogress.style.width = `${progresspercentage}%`;
-}
-
-function resetpart2state() {
-
-    clearInterval(part2timer);
-    part2timer = null;
-
-    const part2status = document.querySelector(".part2-status");
-    const timerphaselabel = document.querySelector(".timer-phase-label");
-    const timerdescription = document.querySelector(".timer-description");
-    const part2start = document.querySelector(".part2-start");
-
-    part2phase = "ready";
-    part2timeleft = 60;
-
-    part2status.textContent = "Preparation";
-    timerphaselabel.textContent = "Preparation";
-    timerdescription.textContent =
-        "You have one minute to prepare your answer.";
-
-    updatepart2timer();
-
-    part2start.disabled = false;
-    part2start.innerHTML = `
+    const start = document.querySelector(".part2-start");
+    start.disabled = false;
+    start.innerHTML = `
         Start Preparation
         <i class="fa-solid fa-arrow-right"></i>
     `;
-}
 
-function startpart2session() {
+    updatepart2timer();
 
-    const part2layout = document.querySelector(".part2-layout");
-    const part2actions = document.querySelector(".part2-actions");
-    const part2complete = document.querySelector(".part2-complete");
+    const layout = document.querySelector(".part2-layout");
+    layout.style.display = "grid";
 
-    part2layout.style.display = "grid";
-    part2actions.style.display = "block";
-    part2complete.style.display = "none";
+    const actions = document.querySelector(".part2-actions");
+    actions.style.display = "block";
 
-    createpart2session();
+    const complete = document.querySelector(".part2-complete");
+    complete.style.display = "none";
 
-    part2session.style.display = "block";
+    const session = document.querySelector(".part2-session");
+    session.style.display = "block";
 
     requestAnimationFrame(() => {
-        part2session.classList.add("active");
+        session.classList.add("active");
     });
 }
 
-function startpreparation() {
-
-    const part2status = document.querySelector(".part2-status");
-    const timerphaselabel = document.querySelector(".timer-phase-label");
-    const timerdescription = document.querySelector(".timer-description");
-    const part2start = document.querySelector(".part2-start");
-
+function changepart2phase(phase) {
     clearInterval(part2timer);
+    part2timer = null;
+    part2phase = phase;
 
-    part2phase = "preparation";
-    part2timeleft = 60;
+    if (phase === "complete") {
+        part2timeleft = 0;
+        updatepart2timer();
 
-    part2status.textContent = "Preparation";
-    timerphaselabel.textContent = "Preparation";
-    timerdescription.textContent =
-        "Use this time to organise your ideas before speaking.";
+        const layout = document.querySelector(".part2-layout");
+        layout.style.display = "none";
 
-    part2start.innerHTML = `
-        Skip Preparation
-        <i class="fa-solid fa-forward"></i>
-    `;
+        const actions = document.querySelector(".part2-actions");
+        actions.style.display = "none";
+
+        const complete = document.querySelector(".part2-complete");
+        complete.style.display = "block";
+
+        savepractice("part2", 1);
+        return;
+    }
+
+    const speaking = phase === "speaking";
+    part2timeleft = speaking ? 120 : 60;
+
+    const status = document.querySelector(".part2-status");
+    status.textContent = speaking ? "Speaking" : "Preparation";
+
+    const label = document.querySelector(".timer-phase-label");
+    label.textContent = speaking ? "Speaking" : "Preparation";
+
+    const description = document.querySelector(".timer-description");
+    description.textContent = speaking
+        ? "Speak naturally and develop your answer for up to two minutes."
+        : "Use this time to organise your ideas before speaking.";
+
+    const start = document.querySelector(".part2-start");
+    start.disabled = false;
+
+    if (speaking) {
+        start.innerHTML = `
+            Next
+            <i class="fa-solid fa-arrow-right"></i>
+        `;
+    } else {
+        start.innerHTML = `
+            Skip Preparation
+            <i class="fa-solid fa-forward"></i>
+        `;
+    }
 
     updatepart2timer();
 
     part2timer = setInterval(() => {
-
         part2timeleft--;
         updatepart2timer();
 
         if (part2timeleft <= 0) {
-            clearInterval(part2timer);
-            part2timer = null;
-
-            startspeaking();
+            if (part2phase === "preparation") {
+                changepart2phase("speaking");
+            } else {
+                changepart2phase("complete");
+            }
         }
-
     }, 1000);
-}
-
-function skippreparation() {
-
-    clearInterval(part2timer);
-    part2timer = null;
-
-    startspeaking();
-}
-
-function startspeaking() {
-
-    const part2status = document.querySelector(".part2-status");
-    const timerphaselabel = document.querySelector(".timer-phase-label");
-    const timerdescription = document.querySelector(".timer-description");
-    const part2start = document.querySelector(".part2-start");
-
-    clearInterval(part2timer);
-
-    part2phase = "speaking";
-    part2timeleft = 120;
-
-    part2status.textContent = "Speaking";
-    timerphaselabel.textContent = "Speaking";
-    timerdescription.textContent =
-        "Speak naturally and develop your answer for up to two minutes.";
-
-    part2start.disabled = false;
-    part2start.innerHTML = `
-        Next
-        <i class="fa-solid fa-arrow-right"></i>
-    `;
-
-    updatepart2timer();
-
-    part2timer = setInterval(() => {
-
-        part2timeleft--;
-        updatepart2timer();
-
-        if (part2timeleft <= 0) {
-            clearInterval(part2timer);
-            part2timer = null;
-
-            completepart2();
-        }
-
-    }, 1000);
-}
-
-function completepart2() {
-
-    const part2layout = document.querySelector(".part2-layout");
-    const part2actions = document.querySelector(".part2-actions");
-    const part2complete = document.querySelector(".part2-complete");
-
-    clearInterval(part2timer);
-    part2timer = null;
-
-    part2phase = "complete";
-    part2timeleft = 0;
-
-    updatepart2timer();
-
-    part2layout.style.display = "none";
-    part2actions.style.display = "none";
-    part2complete.style.display = "block";
-
-    const completedsession = {
-        part: "part2",
-        questions: 1,
-        completed: true,
-        date: new Date().toISOString()
-    };
-
-    practicehistory.push(completedsession);
-
-    localStorage.setItem(
-        "practicehistory",
-        JSON.stringify(practicehistory)
-    );
-}
-
-function resetpart2session() {
-
-    const part2layout = document.querySelector(".part2-layout");
-    const part2actions = document.querySelector(".part2-actions");
-    const part2complete = document.querySelector(".part2-complete");
-
-    clearInterval(part2timer);
-    part2timer = null;
-
-    part2layout.style.display = "grid";
-    part2actions.style.display = "block";
-    part2complete.style.display = "none";
-
-    part2session.classList.remove("active");
-
-    createpart2session();
-
-    requestAnimationFrame(() => {
-        part2session.classList.add("active");
-    });
 }
 
 const part2start = document.querySelector(".part2-start");
-
 part2start.addEventListener("click", () => {
-
     if (part2phase === "ready") {
-        startpreparation();
+        changepart2phase("preparation");
+    } else if (part2phase === "preparation") {
+        changepart2phase("speaking");
+    } else if (part2phase === "speaking") {
+        changepart2phase("complete");
     }
-
-    else if (part2phase === "preparation") {
-        skippreparation();
-    }
-
-    else if (part2phase === "speaking") {
-        completepart2();
-    }
-
 });
 
-document.querySelector(".part2-back").addEventListener("click", () => {
+const part2again = document.querySelector(".part2-again");
+part2again.addEventListener("click", () => {
+    const session = document.querySelector(".part2-session");
+    session.classList.remove("active");
+    startpart2();
+});
 
+const part2back = document.querySelector(".part2-back");
+part2back.addEventListener("click", () => {
     clearInterval(part2timer);
     part2timer = null;
-
     window.location.href = "speaking.html#part-selector";
-
 });
 
-document.querySelector(".part2-again").addEventListener("click", () => {
-
-    resetpart2session();
-
-});
-
-document.querySelector(".part2-back-parts").addEventListener("click", () => {
-
+const part2backparts = document.querySelector(".part2-back-parts");
+part2backparts.addEventListener("click", () => {
     clearInterval(part2timer);
     part2timer = null;
-
     window.location.href = "speaking.html#part-selector";
-
 });
 
 if (selectedpart === "part2") {
-    startpart2session();
+    startpart2();
 }
-
-
-const part3session = document.querySelector(".part3-session");
 
 let currentpart3topic = null;
 let currentpart3question = 0;
 let lastpart3index = -1;
 
-function createpart3session() {
+function showpart3question() {
+    const category = document.querySelector(".topic-category");
+    category.textContent = currentpart3topic.category;
 
+    const title = document.querySelector(".topic-title");
+    title.textContent = currentpart3topic.topic;
+
+    const number = String(currentpart3question + 1).padStart(2, "0");
+    const progress = document.querySelector(".part3-progress");
+    progress.textContent = `Question ${number} of 05`;
+
+    const papernumber = document.querySelector(".paper-number");
+    papernumber.textContent = number;
+
+    const text = document.querySelector(".part3-question-text");
+    text.textContent = currentpart3topic.questions[currentpart3question];
+}
+
+function startpart3() {
     let randomindex;
 
     do {
-        randomindex = Math.floor(
-            Math.random() * part3questions.length
-        );
-    } while (
-        part3questions.length > 1 &&
-        randomindex === lastpart3index
-    );
+        randomindex = Math.floor(Math.random() * part3questions.length);
+    } while (part3questions.length > 1 && randomindex === lastpart3index);
 
     lastpart3index = randomindex;
     currentpart3topic = part3questions[randomindex];
     currentpart3question = 0;
-
     showpart3question();
-}
 
-function showpart3question() {
-
-    const topiccategory = document.querySelector(".topic-category");
-    const topictitle = document.querySelector(".topic-title");
-    const part3progress = document.querySelector(".part3-progress");
-    const papernumber = document.querySelector(".paper-number");
-    const questiontext = document.querySelector(".part3-question-text");
-
-    topiccategory.textContent = currentpart3topic.category;
-
-    topictitle.textContent = currentpart3topic.topic;
-
-    part3progress.textContent =
-        `Question ${String(currentpart3question + 1).padStart(2, "0")} of 05`;
-
-    papernumber.textContent =
-        String(currentpart3question + 1).padStart(2, "0");
-
-    questiontext.textContent =
-        currentpart3topic.questions[currentpart3question];
-}
-
-function completepart3() {
-
-    document.querySelector(".part3-paper").style.display = "none";
-    document.querySelector(".part3-complete").style.display = "block";
-
-    const completedsession = {
-        part: "part3",
-        questions: 5,
-        completed: true,
-        date: new Date().toISOString()
-    };
-
-    practicehistory.push(completedsession);
-
-    localStorage.setItem(
-        "practicehistory",
-        JSON.stringify(practicehistory)
-    );
-}
-
-function resetpart3session() {
-
-    document.querySelector(".part3-paper").style.display = "block";
-    document.querySelector(".part3-complete").style.display = "none";
-
-    part3session.classList.remove("active");
-
-    createpart3session();
+    const session = document.querySelector(".part3-session");
+    session.style.display = "block";
 
     requestAnimationFrame(() => {
-        part3session.classList.add("active");
+        session.classList.add("active");
     });
 }
 
-document.querySelector(".part3-next").addEventListener("click", () => {
-
+const part3next = document.querySelector(".part3-next");
+part3next.addEventListener("click", () => {
     if (currentpart3question < 4) {
         currentpart3question++;
         showpart3question();
     } else {
-        completepart3();
-    }
+        const paper = document.querySelector(".part3-paper");
+        paper.style.display = "none";
 
+        const complete = document.querySelector(".part3-complete");
+        complete.style.display = "block";
+
+        savepractice("part3", 5);
+    }
 });
 
-document.querySelector(".part3-back").addEventListener("click", () => {
+const part3again = document.querySelector(".part3-again");
+part3again.addEventListener("click", () => {
+    const paper = document.querySelector(".part3-paper");
+    paper.style.display = "block";
+
+    const complete = document.querySelector(".part3-complete");
+    complete.style.display = "none";
+
+    const session = document.querySelector(".part3-session");
+    session.classList.remove("active");
+    startpart3();
+});
+
+const part3back = document.querySelector(".part3-back");
+part3back.addEventListener("click", () => {
     window.location.href = "speaking.html#part-selector";
 });
 
-document.querySelector(".part3-again").addEventListener("click", () => {
-    resetpart3session();
-});
-
-document.querySelector(".part3-back-parts").addEventListener("click", () => {
+const part3backparts = document.querySelector(".part3-back-parts");
+part3backparts.addEventListener("click", () => {
     window.location.href = "speaking.html#part-selector";
 });
 
 if (selectedpart === "part3") {
-
-    part3session.style.display = "block";
-
-    createpart3session();
-
-    requestAnimationFrame(() => {
-        part3session.classList.add("active");
-    });
+    startpart3();
 }
-
