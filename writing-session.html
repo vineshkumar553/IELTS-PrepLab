@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Writing Session | IELTS PrepLab</title>
-    <meta name="description" content="Practice IELTS Writing tasks with IELTS PrepLab.">
+    <meta name="description" content="Practice IELTS Academic Writing tasks with IELTS PrepLab">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,8 +23,309 @@
 
 <body>
 
+    <header class="session-header" id="session-header">
 
+        <div class="container session-header-container">
 
-    <script src="js/writing-session-data.js"></script>
+            <a href="writing.html" class="session-back">
+                <i class="fa-solid fa-arrow-left"></i>
+                Writing
+            </a>
+
+            <div class="session-heading">
+                <span id="session-task">Academic Writing</span>
+                <h1 id="session-title">Writing Practice</h1>
+            </div>
+
+            <div class="session-timer" aria-label="Time remaining">
+                <i class="fa-regular fa-clock"></i>
+                <span id="timer">--:--</span>
+            </div>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="writing-session" id="session-workspace">
+
+            <div class="container writing-session-container">
+
+                <section class="question-panel" aria-labelledby="question-title">
+
+                    <div class="question-panel-top">
+                        <span id="question-type" class="question-type">Loading Task</span>
+                        <span id="question-number" class="question-number">Question</span>
+                    </div>
+
+                    <h2 id="question-title">Preparing Your Question</h2>
+
+                    <p id="question-description" class="question-description">
+                        Your writing question will appear here
+                    </p>
+
+                    <div id="question-visual" class="question-visual" hidden></div>
+
+                    <div id="question-prompt" class="question-prompt"></div>
+
+                </section>
+
+                <section class="writing-panel" aria-labelledby="writing-area-title">
+
+                    <div class="writing-panel-top">
+
+                        <div>
+                            <span class="writing-panel-label">YOUR RESPONSE</span>
+                            <h2 id="writing-area-title">Start Writing</h2>
+                        </div>
+
+                        <span id="draft-status" class="draft-status" aria-live="polite">
+                            Not saved
+                        </span>
+
+                    </div>
+
+                    <label for="writing-response" class="visually-hidden">
+                        Write your response
+                    </label>
+
+                    <textarea
+                        id="writing-response"
+                        placeholder="Write your answer here"
+                        spellcheck="true"
+                    ></textarea>
+
+                    <div class="writing-panel-footer">
+
+                        <div class="word-count">
+                            <strong id="word-count">0</strong>
+                            <span>words</span>
+                        </div>
+
+                        <div class="writing-actions">
+
+                            <button type="button" id="save-draft" class="save-draft-button">
+                                <i class="fa-regular fa-floppy-disk"></i>
+                                Save Draft
+                            </button>
+
+                            <button type="button" id="finish-session" class="finish-session-button">
+                                Finish
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <p id="session-message" class="session-message" aria-live="polite"></p>
+
+                </section>
+
+            </div>
+
+        </section>
+
+        <section class="review-section" id="review-section" hidden>
+
+            <div class="container review-container">
+
+                <div class="review-heading">
+
+                    <div class="review-complete-icon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                    <span class="review-label">PRACTICE COMPLETED</span>
+
+                    <h2>Review Your <em>Response</em></h2>
+
+                    <p>
+                        Look back at your writing and complete a short self-review
+                    </p>
+
+                </div>
+
+                <div class="review-summary">
+
+                    <div class="review-summary-item">
+
+                        <i class="fa-solid fa-pen-nib"></i>
+
+                        <div>
+                            <span>Completed Task</span>
+                            <strong id="review-task">Academic Writing</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="review-summary-item">
+
+                        <i class="fa-solid fa-align-left"></i>
+
+                        <div>
+                            <span>Final Word Count</span>
+                            <strong id="review-word-count">0 words</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="review-summary-item">
+
+                        <i class="fa-regular fa-clock"></i>
+
+                        <div>
+                            <span>Time Used</span>
+                            <strong id="review-time">00:00</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="review-summary-item">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        <div>
+                            <span>Completed On</span>
+                            <strong id="review-date">Today</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="review-content">
+
+                    <article class="review-response">
+
+                        <span class="review-section-label">YOUR SUBMISSION</span>
+
+                        <h3 id="review-question">Writing Question</h3>
+
+                        <div class="review-word-target">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span id="review-word-status">Recommended word count</span>
+                        </div>
+
+                        <div id="review-answer" class="review-answer">
+                            Your response will appear here
+                        </div>
+
+                    </article>
+
+                    <form class="self-review" id="self-review-form">
+
+                        <span class="review-section-label">SELF-REVIEW</span>
+
+                        <h3>Check Your Writing</h3>
+
+                        <p>
+                            Select the statements that apply to your response
+                        </p>
+
+                        <div class="review-checklist">
+
+                            <label class="review-check">
+
+                                <input type="checkbox" name="answered-prompt">
+
+                                <span class="review-check-box">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+
+                                <span>I answered every part of the question</span>
+
+                            </label>
+
+                            <label class="review-check">
+
+                                <input type="checkbox" name="organisation">
+
+                                <span class="review-check-box">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+
+                                <span>I organised my response into clear paragraphs</span>
+
+                            </label>
+
+                            <label class="review-check">
+
+                                <input type="checkbox" name="vocabulary">
+
+                                <span class="review-check-box">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+
+                                <span>I used suitable and varied vocabulary</span>
+
+                            </label>
+
+                            <label class="review-check">
+
+                                <input type="checkbox" name="grammar">
+
+                                <span class="review-check-box">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+
+                                <span>I checked my grammar and sentence structure</span>
+
+                            </label>
+
+                            <label class="review-check">
+
+                                <input type="checkbox" name="task-requirement">
+
+                                <span class="review-check-box">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+
+                                <span id="task-review-text">
+                                    I completed the main requirement of this task
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                        <button type="submit" class="save-review-button">
+                            Save Self-Review
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+
+                        <p id="review-saved-message" class="review-saved-message" aria-live="polite"></p>
+
+                        <div class="review-actions">
+
+                            <button type="button" id="practice-another" class="practice-another-button">
+                                Practice Another
+                            </button>
+
+                            <a href="writing.html" class="back-writing-button">
+                                Back to Writing
+                            </a>
+
+                        </div>
+
+                        <p class="review-note">
+                            This self-review is for personal reflection and is not an official IELTS assessment
+                        </p>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/writing-data.js"></script>
     <script src="js/writing-session.js"></script>
+
 </body>
+
+</html>
