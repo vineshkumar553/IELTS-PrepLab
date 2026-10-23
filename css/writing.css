@@ -123,3 +123,220 @@ html {
         margin-top: 38px;
     }
 }
+#writing-tasks {
+    scroll-margin-top: 90px;
+}
+
+.writing-tasks {
+    padding: 100px 20px;
+    background: var(--background-secondary);
+}
+
+.writing-tasks-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.writing-tasks-heading {
+    max-width: 620px;
+    margin: 0 auto 50px;
+    text-align: center;
+}
+
+.writing-tasks-label {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.writing-tasks-heading h2 {
+    margin: 0 0 16px;
+    color: var(--heading);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 5vw, 54px);
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.writing-tasks-heading h2 em {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.writing-tasks-heading p {
+    margin: 0;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.writing-task-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 390px));
+    justify-content: center;
+    gap: 20px;
+}
+
+.writing-task-card {
+    display: flex;
+    flex-direction: column;
+    padding: 26px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+    box-shadow: 0 8px 24px rgba(33, 31, 27, 0.05);
+}
+
+.writing-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.writing-task-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--primary);
+    color: var(--surface);
+    font-size: 15px;
+}
+
+.writing-task-card-accent .writing-task-icon {
+    background: var(--accent);
+}
+
+.writing-task-count {
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.writing-task-label {
+    margin-bottom: 10px;
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+}
+
+.writing-task-card h3 {
+    margin: 0 0 12px;
+    color: var(--heading);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.writing-task-card p {
+    min-height: 46px;
+    margin: 0;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.writing-task-meta {
+    display: flex;
+    gap: 18px;
+    margin: 24px 0;
+    padding: 16px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.writing-task-meta span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.writing-task-meta i {
+    color: var(--primary);
+    font-size: 11px;
+}
+
+.writing-task-card-accent .writing-task-meta i {
+    color: var(--accent);
+}
+
+.writing-task-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.writing-task-card-accent .writing-task-link {
+    color: var(--accent);
+}
+
+.writing-task-link i {
+    font-size: 11px;
+    transition: var(--transition);
+}
+
+.writing-task-link:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 5px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .writing-task-card {
+        transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .writing-task-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 32px rgba(33, 31, 27, 0.09);
+    }
+
+    .writing-task-link:hover i {
+        transform: translateX(4px);
+    }
+}
+
+@media (max-width: 750px) {
+    .writing-task-grid {
+        grid-template-columns: minmax(0, 390px);
+    }
+}
+
+@media (max-width: 480px) {
+    .writing-task-card {
+        padding: 22px;
+    }
+
+    .writing-card-top {
+        margin-bottom: 25px;
+    }
+
+    .writing-task-card h3 {
+        font-size: 28px;
+    }
+
+    .writing-task-meta {
+        gap: 14px;
+    }
+}
