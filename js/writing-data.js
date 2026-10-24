@@ -21,7 +21,7 @@ const writingtasks = [
                 duration: 20,
                 visual: {
                     type: "bar-chart",
-                    asset: null,
+                    asset: "images/writing/academic-bar-01.svg",
                     description: "A grouped bar chart with four library activities on the horizontal axis and average monthly attendances on the vertical axis. Each activity has one bar for 2015 and one for 2025. Figures count attendances, so a person attending twice is counted twice.",
                     data: {
                         layout: "grouped",
@@ -53,7 +53,7 @@ const writingtasks = [
                 duration: 20,
                 visual: {
                     type: "bar-chart",
-                    asset: null,
+                    asset: "images/writing/academic-bar-02.svg",
                     description: "A grouped bar chart comparing litres of water used per household per day. The sample contains 500 four-person households in each town. The four activities account for all water use measured in the study.",
                     data: {
                         layout: "grouped",
@@ -85,7 +85,7 @@ const writingtasks = [
                 duration: 20,
                 visual: {
                     type: "line-graph",
-                    asset: null,
+                    asset: "images/writing/academic-line-01.svg",
                     description: "Two lines show year-end totals of buildings with rooftop solar panels. Values are the total number of equipped buildings at each date, not the number of new installations during that year. Series values follow the order of the years array.",
                     data: {
                         unit: "buildings",
@@ -115,7 +115,7 @@ const writingtasks = [
                 duration: 20,
                 visual: {
                     type: "line-graph",
-                    asset: null,
+                    asset: "images/writing/academic-line-02.svg",
                     description: "Three lines plot average weekly minutes of exercise at five-year intervals. Figures refer to all surveyed adults in each age group, including those reporting no exercise. Series values follow the order of the years array.",
                     data: {
                         unit: "minutes per person per week",
@@ -146,7 +146,7 @@ const writingtasks = [
                 duration: 20,
                 visual: {
                     type: "pie-chart",
-                    asset: null,
+                    asset: "images/writing/academic-pie-01.svg",
                     description: "Two equal-sized pie charts show percentage shares of annual council spending. Each chart has six mutually exclusive slices that total 100 percent. The total annual budget appears beneath each pie, and identical categories use identical colours across both pies.",
                     data: {
                         unit: "percent of annual spending",
@@ -172,7 +172,7 @@ const writingtasks = [
                 duration: 20,
                 visual: {
                     type: "pie-chart",
-                    asset: null,
+                    asset: "images/writing/academic-pie-02.svg",
                     description: "Two equal-sized pie charts divide collected household waste into five categories by weight. Glass and metal form one combined category. Each waste item belongs to one category, and each pie totals 100 percent. Total collected weight is displayed beneath each pie.",
                     data: {
                         period: "2025",
@@ -199,7 +199,7 @@ const writingtasks = [
                 duration: 20,
                 visual: {
                     type: "table",
-                    asset: null,
+                    asset: "images/writing/academic-table-01.svg",
                     description: "A table has four route rows and three numerical columns. Passenger numbers are average total boardings in both directions on a weekday. Journey time and ticket price refer to one one-way journey. Each row's values follow the order of the columns array.",
                     data: {
                         period: "2025",
@@ -230,7 +230,7 @@ const writingtasks = [
                 duration: 20,
                 visual: {
                     type: "table",
-                    asset: null,
+                    asset: "images/writing/academic-table-02.svg",
                     description: "Four business-size rows are compared across four percentage columns. Each percentage uses all businesses in the relevant size group and year as its denominator. Website ownership and online selling can overlap, so columns should not be added together. Values follow the order of the columns array.",
                     data: {
                         period: "2015 and 2025",
@@ -262,7 +262,7 @@ const writingtasks = [
                 duration: 20,
                 visual: {
                     type: "map",
-                    asset: null,
+                    asset: "images/writing/academic-map-01.svg",
                     description: "Two maps use the same rectangular boundary, scale, and north-up orientation. Coordinates are measured east and north from the south-west corner. All listed areas have rectangular footprints, and unmarked land is grass. The entrance and the two intersecting paths are shared by both layouts.",
                     data: {
                         unit: "metres",
@@ -320,7 +320,7 @@ const writingtasks = [
                 duration: 20,
                 visual: {
                     type: "process",
-                    asset: null,
+                    asset: "images/writing/academic-process-01.svg",
                     description: "A production diagram has eight main stages from cardboard collection to packing finished pots. A separate recovery tank receives water from pressing and returns it to soaking. Fresh water enters soaking when needed, and non-paper waste leaves at sorting.",
                     data: {
                         layout: "Arrange the main sequence from left to right. Place the recovery tank below the main sequence, with labelled water arrows linking pressing to the tank and the tank to soaking.",
