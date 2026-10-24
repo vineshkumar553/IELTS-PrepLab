@@ -123,6 +123,7 @@ html {
         margin-top: 38px;
     }
 }
+
 #writing-tasks {
     scroll-margin-top: 90px;
 }
@@ -338,5 +339,204 @@ html {
 
     .writing-task-meta {
         gap: 14px;
+    }
+}
+
+.writing-tips {
+    padding: 100px 20px;
+    background: var(--background);
+}
+
+.writing-tips-heading {
+    margin: 0 auto 48px;
+    text-align: center;
+    max-width: 650px;
+
+}
+
+.writing-tips-heading span {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.writing-tips-heading h2 {
+    margin: 0 0 14px;
+    color: var(--heading);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.writing-tips-heading p {
+    margin: 0;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.writing-tips-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+}
+
+.writing-tip-card {
+    min-height: 260px;
+    padding: 30px;
+    border-right: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+.writing-tip-card:last-child {
+    border-right: none;
+}
+
+.writing-tip-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 55px;
+}
+
+.writing-tip-number {
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.writing-tip-top i {
+    color: var(--accent);
+    font-size: 18px;
+}
+
+.writing-tip-card h3 {
+    margin: 0 0 12px;
+    color: var(--heading);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.writing-tip-card p {
+    margin: 0;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.75;
+}
+
+.writing-tips-note {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 22px;
+    padding: 20px 24px;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    background: var(--surface);
+}
+
+.writing-tips-note-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--background);
+    color: var(--primary);
+    font-size: 16px;
+}
+
+.writing-tips-note span {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--heading);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.writing-tips-note p {
+    margin: 0;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .writing-tip-card:hover {
+        background: var(--background);
+    }
+}
+
+@media (max-width: 900px) {
+    .writing-tips-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .writing-tip-card:nth-child(2) {
+        border-right: none;
+    }
+
+    .writing-tip-card:nth-child(-n + 2) {
+        border-bottom: 1px solid var(--border);
+    }
+}
+
+@media (max-width: 600px) {
+    .writing-tips {
+        padding: 75px 20px;
+    }
+
+    .writing-tips-heading {
+        margin: 0 auto 34px;
+    }
+
+    .writing-tips-heading h2 {
+        font-size: 38px;
+    }
+
+    .writing-tips-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .writing-tip-card {
+        min-height: auto;
+        padding: 25px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .writing-tip-card:nth-child(3) {
+        border-bottom: 1px solid var(--border);
+    }
+
+    .writing-tip-card:last-child {
+        border-bottom: none;
+    }
+
+    .writing-tip-top {
+        margin-bottom: 35px;
+    }
+
+    .writing-tips-note {
+        align-items: flex-start;
+        padding: 18px;
     }
 }
