@@ -3,21 +3,15 @@ const selectedtask = urlparams.get("task");
 
 const currenttask = writingtasks.find(task => task.id === selectedtask) || writingtasks.find(task => task.id === "task1-academic");
 
-const draftkey = `writing-draft-${currenttask.id}`;
-const saveddraft = JSON.parse(localStorage.getItem(draftkey));
-
 const allquestions = currenttask.questions;
 
 let selectedquestion;
 
-if (saveddraft && saveddraft.questionid) {
-    selectedquestion = allquestions.find(question => question.id === saveddraft.questionid);
-}
+const randomindex = Math.floor(Math.random() * allquestions.length);
+selectedquestion = allquestions[randomindex];
 
-if (!selectedquestion) {
-    const randomindex = Math.floor(Math.random() * allquestions.length);
-    selectedquestion = allquestions[randomindex];
-}
+let draftkey = `writing-draft-${selectedquestion.id}`;
+let saveddraft = JSON.parse(localStorage.getItem(draftkey));
 
 const questiontitle = document.querySelector("#question-title");
 const questiondescription = document.querySelector("#question-description");
@@ -44,6 +38,7 @@ function showquestion() {
         questionvisual.innerHTML = "";
     }
 }
+
 showquestion();
 
 const timerdisplay = document.querySelector("#timer");
@@ -131,6 +126,7 @@ savedraftbutton.addEventListener("click", () => {
 
 let timetaken = 0;
 const finishsessionbutton = document.querySelector("#finish-session");
+
 finishsessionbutton.addEventListener("click", () => {
     if (writingresponse.value.trim() === "") {
         const sessionmessage = document.querySelector("#session-message");
@@ -177,9 +173,10 @@ finishsessionbutton.addEventListener("click", () => {
 });
 
 const selfreviewform = document.querySelector("#self-review-form");
-selfreviewform.addEventListener("submit", (event) => {
 
+selfreviewform.addEventListener("submit", (event) => {
     event.preventDefault();
+
     const reviewdata = new FormData(selfreviewform);
 
     const answeredprompt = reviewdata.has("answered-prompt");
@@ -206,6 +203,7 @@ selfreviewform.addEventListener("submit", (event) => {
         timetaken: timetaken,
         review: review
     });
+
     localStorage.setItem("writingreviewhistory", JSON.stringify(reviewhistory));
 
     const reviewsavedmessage = document.querySelector("#review-saved-message");
@@ -232,9 +230,16 @@ practiceanother.addEventListener("click", () => {
     const randomindex = Math.floor(Math.random() * availablequestions.length);
     selectedquestion = availablequestions[randomindex];
 
+    draftkey = `writing-draft-${selectedquestion.id}`;
+    saveddraft = JSON.parse(localStorage.getItem(draftkey));
+
     showquestion();
 
-    writingresponse.value = "";
+    if (saveddraft && saveddraft.questionid === selectedquestion.id) {
+        writingresponse.value = saveddraft.answer;
+    } else {
+        writingresponse.value = "";
+    }
 
     selfreviewform.reset();
 
