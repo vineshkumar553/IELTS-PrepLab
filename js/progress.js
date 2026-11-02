@@ -102,6 +102,90 @@ while (uniquedates.includes(checkdate)) {
     });
 }
 
-const currentstreakelement = document.querySelector("#current-streak");
-currentstreakelement.textContent = currentstreak;
+const allactivities = [
+    ...speakinghistory.map(session => ({
+        ...session,
+        skill: "Speaking",
+        activitydate: session.date
+    })),
 
+    ...readinghistory.map(session => ({
+        ...session,
+        skill: "Reading",
+        activitydate: session.date
+    })),
+
+    ...listeninghistory.map(session => ({
+        ...session,
+        skill: "Listening",
+        activitydate: session.completedAt
+    })),
+
+    ...writinghistory.map(session => ({
+        ...session,
+        skill: "Writing",
+        activitydate: session.date
+    }))
+];
+
+const sortedactivities = allactivities.sort((a, b) => {
+    return new Date(b.activitydate) - new Date(a.activitydate);
+});
+
+const recentactivities = sortedactivities.slice(0, 5);
+
+const activitylist = document.querySelector("#activity-list");
+
+if (recentactivities.length === 0) {
+
+    activitylist.innerHTML = `
+        <div class="activity-empty">
+            <div class="activity-empty-icon">
+                <i class="fa-regular fa-folder-open"></i>
+            </div>
+            <h3>No activity yet</h3>
+            <p>
+                Your completed practice sessions will appear here.
+                Start practising to build your learning history.
+            </p>
+        </div>
+    `;
+
+} else {
+
+    const activityicons = {
+        Speaking: "fa-microphone",
+        Reading: "fa-book-open",
+        Listening: "fa-headphones",
+        Writing: "fa-pen-nib"
+    };
+
+    activitylist.innerHTML = recentactivities.map(session => {
+
+        const date = new Date(session.activitydate).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+            timeZone: "Asia/Karachi"
+        });
+
+        return `
+            <article class="activity-card">
+
+                <div class="activity-icon">
+                    <i class="fa-solid ${activityicons[session.skill]}"></i>
+                </div>
+
+                <div class="activity-details">
+                    <h3>${session.skill} Practice</h3>
+                    <p>${date}</p>
+                </div>
+
+                <span class="activity-status">Completed</span>
+
+            </article>
+        `;
+
+    }).join("");
+
+}
