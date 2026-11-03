@@ -102,6 +102,9 @@ while (uniquedates.includes(checkdate)) {
     });
 }
 
+const streakelement = document.querySelector("#current-streak");
+streakelement.textContent = currentstreak;
+
 const allactivities = [
     ...speakinghistory.map(session => ({
         ...session,
@@ -189,3 +192,109 @@ if (recentactivities.length === 0) {
     }).join("");
 
 }
+
+const attemptedreadings = readinghistory.filter(session => {
+    return session.mode === "full" && session.questionsattempted > 0;
+});
+
+const readinglabels = attemptedreadings.map((session, index) => {
+    return `Test ${index + 1}`;
+});
+
+const readingscores = attemptedreadings.map(session => {
+    return session.score;
+});
+
+const readingchart = document.querySelector("#reading-chart");
+
+new Chart(readingchart, {
+    type: "line",
+
+    data: {
+        labels: readinglabels,
+
+        datasets: [{
+            label: "Correct Answers (out of 40)",
+            data: readingscores,
+            borderWidth: 2,
+            tension: 0.3
+        }]
+    },
+
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                labels: {
+                    boxWidth: 12,
+                    boxHeight: 12
+                }
+            }
+        },
+
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 40,
+                ticks: {
+                    stepSize: 5
+                }
+            }
+        }
+    }
+
+});
+
+const attemptedlistenings = listeninghistory.filter(session => {
+    return session.mode === "full" && session.correct + session.incorrect > 0;
+});
+
+const listeninglabels = attemptedlistenings.map((session, index) => {
+    return `Test ${index + 1}`;
+});
+
+const listeningscores = attemptedlistenings.map(session => {
+    return session.score;
+});
+
+const listeningchart = document.querySelector("#listening-chart");
+
+new Chart(listeningchart, {
+    type: "line",
+
+    data: {
+        labels: listeninglabels,
+
+        datasets: [{
+            label: "Correct Answers (out of 40)",
+            data: listeningscores,
+            borderWidth: 2,
+            tension: 0.3
+        }]
+    },
+
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                labels: {
+                    boxWidth: 12,
+                    boxHeight: 12
+                }
+            }
+        },
+
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 40,
+                ticks: {
+                    stepSize: 5
+                }
+            }
+        }
+    }
+
+});

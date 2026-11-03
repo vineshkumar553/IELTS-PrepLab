@@ -19,6 +19,7 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/progress.css">
+
 </head>
 
 <body>
@@ -189,7 +190,7 @@
             </div>
 
         </section>
-        
+
         <section class="recent-activity" id="recent-activity">
 
             <div class="container">
@@ -227,15 +228,104 @@
 
         </section>
 
+        <section class="performance-history" id="performance-history">
 
+            <div class="container">
+
+                <div class="section-heading">
+                    <span class="section-label">YOUR PROGRESS</span>
+                    <h2>Performance <span>History</span></h2>
+                    <p>Track your performance across practice sessions.</p>
+                </div>
+
+                <div class="performance-container">
+
+                    <div class="performance-chart">
+
+                        <h3>Reading Full Test Performance</h3>
+
+                        <div class="chart-wrapper">
+                            <canvas id="reading-chart"></canvas>
+                        </div>
+
+                    </div>
+
+                    <div class="performance-chart">
+
+                        <h3>Listening Full Test Performance</h3>
+
+                        <div class="chart-wrapper">
+                            <canvas id="listening-chart"></canvas>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
 
     </main>
 
-    <footer>
+    <footer class="site-footer">
+        <div class="container">
 
+            <div class="footer-top">
+
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <img src="images/icon/book-open.svg" alt="">
+                        <span>
+                            <span class="footer-logo-ielts">IELTS</span>
+                            <span class="footer-logo-preplab">PrepLab</span>
+                        </span>
+                    </a>
+
+                    <p>
+                        A simple place to practice all four IELTS skills
+                        and keep track of your progress.
+                    </p>
+                </div>
+
+                <div class="footer-column">
+                    <span class="footer-heading">Practice</span>
+
+                    <a href="speaking.html">Speaking</a>
+                    <a href="reading.html" ">Reading</a>
+                    <a href="listening.html">Listening</a>
+                    <a href="writing.html">Writing</a>
+                </div>
+
+                <div class="footer-column">
+                    <span class="footer-heading">Explore</span>
+
+                    <a href="index.html">Home</a>
+                    <a href="progress.html" class="active">Progress</a>
+                </div>
+
+                <div class="footer-statement">
+                    <span>IELTS PrepLab</span>
+                    <strong>Four skills.<br>One place to practice</strong>
+                </div>
+
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+
+                <span>© 2026 IELTS PrepLab</span>
+
+                <span>Built with HTML · CSS · JavaScript</span>
+
+            </div>
+
+        </div>
     </footer>
 
     <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/progress.js"></script>
 
 </body>
