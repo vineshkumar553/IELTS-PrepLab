@@ -1,5 +1,5 @@
-const speakinghistory = JSON.parse(localStorage.getItem("practice-history")) || [];
-const readinghistory = JSON.parse(localStorage.getItem("reading-history")) || [];
+const speakinghistory = JSON.parse(localStorage.getItem("practicehistory")) || [];
+const readinghistory = JSON.parse(localStorage.getItem("readinghistory")) || [];
 const listeninghistory = JSON.parse(localStorage.getItem("ielts-preplab-listening-history")) || [];
 const writinghistory = JSON.parse(localStorage.getItem("writingreviewhistory")) || [];
 

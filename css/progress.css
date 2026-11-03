@@ -289,7 +289,7 @@ html {
 
 .recent-activity {
     padding: 90px 0;
-    background: var(--background-secondary);
+    background: var(--background);
 }
 
 .activity-container {
@@ -302,8 +302,6 @@ html {
     flex-direction: column;
     gap: 14px;
 }
-
-/* Empty State */
 
 .activity-empty {
     padding: 60px 30px;
@@ -345,8 +343,6 @@ html {
     line-height: 1.8;
     color: var(--text-light);
 }
-
-/* Activity Cards */
 
 .activity-card {
     display: flex;
@@ -407,8 +403,6 @@ html {
     background: #e8eee8;
     border-radius: 30px;
 }
-
-/* Responsive */
 
 @media (max-width: 768px) {
 
